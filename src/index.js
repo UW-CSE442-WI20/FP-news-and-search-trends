@@ -1,5 +1,6 @@
 // You can require libraries
 const d3 = require('d3')
+const googleTrends = require('google-trends-api');
 
 // You can include local JS files:
 const MyClass = require('./my-class');
@@ -12,6 +13,13 @@ myClassInstance.sayHi();
 // the data directly to your JavaScript bundle.
 const exampleData = require('./example-data.json');
 
+googleTrends.interestOverTime({ keyword: 'Women\'s march' })
+  .then(function (results) {
+    console.log('These results are awesome', results);
+  })
+  .catch(function (err) {
+    console.error('Oh no there was an error', err);
+  });
 
 // Anything you put in the static folder will be available
 // over the network, e.g.
