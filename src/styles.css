@@ -25,6 +25,7 @@ path.line {
 
 
 /* Simple dashboard grid CSS */
+/* Design resource from Matt Holland of Medium.com */
 
 #googleLogo {
     border-radius: 50%;
@@ -133,16 +134,19 @@ path.line {
   }
 
   /* Force varying heights to simulate dynamic content */
+  /*Graph*/
   .card:first-child {
-    height: 485px;
+    height: 400px;
   }
 
+  /* Slider */
   .card:nth-child(2) {
-    height: 200px;
+    height: 100px;
   }
 
+  /* Map */
   .card:nth-child(3) {
-    height: 265px;
+    height: 500px;
   }
 
   .menu-icon {
