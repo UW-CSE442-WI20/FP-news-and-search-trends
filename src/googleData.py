@@ -38,10 +38,11 @@ pp = pprint.PrettyPrinter(depth=10)
 pytrends = TrendReq(hl='en-US', tz=360)
 
 #List of search terms, but can only do 5 at a time. 
-kw_list = ["California Earthquake","Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "FIFA Women’s World Cup","Hurricane Dorian", "Notre Dame fire",
+kw_list = ["California Earthquake"]
+""","Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "FIFA Women’s World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin college scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
  "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
-
+"""
 start_date = datetime.date(2019,1,1)
 end_date = datetime.date(2019,1,6)
 
