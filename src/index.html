@@ -5,8 +5,60 @@
     <title>CSE 442 Final Project</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <h1>Google Search Trends Data</h1>
-    <script src="./index.js"></script>
-  </body>
+
+  <div class="grid-container">
+    <header class="header">
+      <h1>Google Search Trends Data</h1> 
+      <div class="header__search">
+        <input type="text" placeholder="Search..">
+      </div>
+      <div class="header__avatar">Your face</div>
+    </header>
+    <aside class="sidenav">
+      <img id="googleLogo" src="https://ssl.gstatic.com/trends_tpt/fb29f61e3b0419e1e745c9245d00d094c5357b2246bbdf17cd2b03d7349b2c72.png">
+      <ul class="sidenav__list">
+        <li class="sidenav__list-item">Item One</li>
+        <li class="sidenav__list-item">Item Two</li>
+        <li class="sidenav__list-item">Item Three</li>
+        <li class="sidenav__list-item">Item Four</li>
+        <li class="sidenav__list-item">Item Five</li>
+      </ul>
+    </aside>
+
+    <!-- Treat Main as Body -->
+    <main class="main">
+      <!--
+      <div class="main-overview">
+        <div class="overviewcard">
+          <div class="overviewcard__icon">Overview</div>
+          <div class="overviewcard__info">Card</div>
+        </div>
+        <div class="overviewcard">
+          <div class="overviewcard__icon">Overview</div>
+          <div class="overviewcard__info">Card</div>
+        </div>
+        <div class="overviewcard">
+          <div class="overviewcard__icon">Overview</div>
+          <div class="overviewcard__info">Card</div>
+        </div>
+        <div class="overviewcard">
+          <div class="overviewcard__icon">Overview</div>
+          <div class="overviewcard__info">Card</div>
+        </div>
+      </div>
+    -->
+      <div class="main-cards">
+        <div class="card" id="graph">
+          <script src="./index.js"></script>
+          Graph
+        </div>
+        <div class="card">Slider</div>
+        <div class="card">Map</div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer__copyright">CSE 442 Final Project</div>
+      <div class="footer__signature">University of Washington</div>
+    </footer>
+  </div>
 </html>
