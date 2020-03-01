@@ -1,10 +1,10 @@
 // You can require libraries
-const d3 = require('d3')
+//const d3 = require('d3')
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-const FILE_PATH = "news_topics_2019/";
+const FILE_PATH = "trendsByLocation/";
 
 var newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
   "California earthquake", "California wildfires", "Christchurch shooting",
@@ -44,7 +44,7 @@ var projection = d3.geoAlbersUsa()
 								   .scale([600]);//var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
 var center = projection([-97.0, 39.0]);
 //Define what to do when panning or zooming
-/*
+
 var zooming = function(d) {
 
   //Log out d3.event.transform, so you can see all the goodies inside
@@ -66,19 +66,13 @@ var zooming = function(d) {
 
   svg.selectAll("circle")
     .attr("cx", function(d) {
-      return projection([d.lon, d.lat])[0];
+      return projection([d.long, d.lat])[0];
     })
     .attr("cy", function(d) {
-      return projection([d.lon, d.lat])[1];
+      return projection([d.long, d.lat])[1];
     });
     
-  svg.selectAll(".label")
-    .attr("x", function(d) {
-       return path.centroid(d)[0];
-    })
-    .attr("y", function(d) {
-       return path.centroid(d)[1];
-    });
+  
 
 }
 
@@ -96,8 +90,10 @@ var map = svg.append("g")
         .translate(w/2, h/2)
         .scale(0.25)
         .translate(-center[0], -center[1]));
-*/
+
     var path = d3.geoPath().projection(projection);
+var data1;
+
 
     
       
@@ -122,6 +118,8 @@ var map = svg.append("g")
     }, 5000);;
 
 */
+
+
     Promise.all([d3.json(url), d3.json(data_url)]).then(function(data) {
       var world = data[0];
       var places = data[1];
@@ -131,34 +129,59 @@ var map = svg.append("g")
       	.style("fill", "grey")
         .attr("stroke", "white");
 
+        d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function(data, error) {
+          var filtered;
+          if (error) {
+            console.log(error+"fnaj");
+          } else {
+             filtered = data.filter(function (d) {
+              return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+          });
+         
+            data1 = filtered;
+    addPoints(filtered);
+        }
+        });
         
         
       window.setTimeout(function() {
         svg.selectAll("circle")
         	.transition().duration(5000)
-        	.attr("r", function(d) {
-          	return d.properties.pop_min / 1000000;
-        	});
+        	
       }, 5000);
     });
 
-
-    d3.csv("us-cities.csv", function(data) {
-      
-      svg.append("circle")
-         .attr("cx", function(d) {
-           return projection([d.lon, d.lat])[0];
-         })
-         .attr("cy", function(d) {
-           return projection([d.lon, d.lat])[1];
-         })
-         .attr("r", 5)
-         .style("fill", "yellow")
-         .style("stroke", "gray")
-         .style("stroke-width", 0.25)
-         .style("opacity", 0.75)
-         .append("title");		//Simple tooltip
-         
-      
-    });
     
+
+
+
+function addPoints(filtered, world) {
+    for (var i = 0; i < filtered.length; i++) {
+      var latitude = parseFloat(filtered[i]["lat"]);
+      var longitude = parseFloat(filtered[i]["long"]);
+      var interest = parseInt(filtered[i]["interest"]);
+
+      svg.append("circle")
+      .attr("cx", function(d) {
+        console.log(filtered[i]["lat"]);
+        console.log(filtered[i]["long"]);
+        console.log(filtered[i]["date"]);
+        return projection([longitude, latitude])[0];
+      })
+      .attr("cy", function(d) {
+        return projection([longitude, latitude])[1];
+      })
+      .attr("r", function(d) {
+        return Math.sqrt(interest );
+       })
+      .style("fill", "yellow")
+      .style("stroke", "gray")
+      .style("stroke-width", 0.25)
+      .style("opacity", 0.75);
+    }
+ 
+  }
+    
+
+
+   
