@@ -14,7 +14,6 @@
     "parcel-plugin-static-files-copy": "^2.3.1"
   },
   "dependencies": {
-    "d3": "^5.15.0",
-    "google-trends-api": "^4.9.0"
+    "d3": "^5.15.0"
   }
 }

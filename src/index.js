@@ -1,25 +1,21 @@
 // You can require libraries
 const d3 = require('d3')
-const googleTrends = require('google-trends-api');
 
 // You can include local JS files:
-const MyClass = require('./my-class');
-const myClassInstance = new MyClass();
-myClassInstance.sayHi();
+const NYT = require('./nyt_api_call');
+const nyt = new NYT();
 
+// var ex = [];
+// d3.json(nyt.articleSearch('I.C.E.'))
+//   .then((data) => {
+//     ex = data;
+//     console.log(ex)
+//   });
 
 // You can load JSON files directly via require.
 // Note this does not add a network request, it adds
 // the data directly to your JavaScript bundle.
-const exampleData = require('./example-data.json');
-
-googleTrends.interestOverTime({ keyword: 'Women\'s march' })
-  .then(function (results) {
-    console.log('These results are awesome', results);
-  })
-  .catch(function (err) {
-    console.error('Oh no there was an error', err);
-  });
+const exampleData = require('./obama.json');
 
 // Anything you put in the static folder will be available
 // over the network, e.g.
@@ -96,4 +92,3 @@ d3.csv("news_topics_2019/Area_51_raid.csv")
       .attr("class", "y axis")
       .call(yAxis);
   });
-
