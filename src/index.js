@@ -41,6 +41,12 @@ var y = d3.scaleLinear().range([height, 0]);
 var xAxis = d3.axisBottom(x);
 var yAxis = d3.axisLeft(y);
 
+// Define the area
+var area = d3.area()
+  .x(function (d) { return x(d.Week); })
+  .y0(height)
+  .y1(function (d) { return y(d.interest); });
+
 // Define the line
 var valueline = d3.line()
   .x(function (d) { return x(d.Week); })
@@ -51,52 +57,83 @@ var svg = d3.select("#graph")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
+  .attr('class', 'chart')
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function getRandomColor() {
+/*function getRandomColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
-}
+}*/
 
-function drawLine(fileName) {
-  // Get the data
-  d3.csv(FILE_PATH + fileName)
-    .then((data) => {
-      //console.log(data);
-      data.forEach(function (d) {
-        d.Week = parseDate(d.Week);
-        d.interest = +d.interest;
-        if (isNaN(d.interest)) {
-          d.interest = 0;
-        }
-      });
+// Get the data
+d3.csv("news_topics_2019.csv")
+  .then((data) => {
+    data.forEach(function (d) {
+      d.Week = parseDate(d.Week);
+      d.interest = +d.interest;
+      if (isNaN(d.interest)) {
+        d.interest = 0;
+      }
+    });
 
-      // Scale the range of the data
-      x.domain(d3.extent(data, function (d) { return d.Week; }));
-      y.domain([0, d3.max(data, function (d) { return d.interest; })]);
+    // use this to filter the data, if necessary
+    data = data.filter(function (d) { return d.interest >= 0; });
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function (d) { return d.Week; }));
+    y.domain([0, d3.max(data, function (d) { return d.interest; })]);
+
+    var dataNest = d3.nest()
+      .key(function (d) { return d.topic; })
+      .entries(data);
+
+    // need to change this maybe
+    var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
+
+    dataNest.forEach(function (d) {
+      // Add the area
+      svg.append("path")
+        .attr("class", "area")
+        .style("opacity", 0.2)
+        .style("fill", function () {
+          return d.color = color(d.key);
+        })
+        .attr("d", area(d.values));
 
       // Add the valueline path.
       svg.append("path")
         .attr("class", "line")
-        .style("stroke", getRandomColor() /*d3.scaleSequential(d3["interpolateRainbow"])*/)
-        .attr("d", valueline(data));
+        .style("stroke", function () {
+          return d.color = color(d.key);
+        })
+        .attr("d", valueline(d.values));
 
-      // Add the X Axis
-      svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+      console.log(d);
+      svg.selectAll("path")
+        .append("title")
+        .text(d.key);
+    })
 
-      // Add the Y Axis
-      svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-    });
-}
+    /*data.forEach(function (d) {
+      console.log(d.topic);
+      svg.select("path")
+        .append("title")
+        .text(d.topic);
+    })*/
 
-newsTopicFiles.forEach(function (fileName) { drawLine(fileName) });
+    // Add the X Axis
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    // Add the Y Axis
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+  })

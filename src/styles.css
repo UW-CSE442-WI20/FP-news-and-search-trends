@@ -136,7 +136,8 @@ path.line {
   /* Force varying heights to simulate dynamic content */
   /*Graph*/
   .card:first-child {
-    height: 400px;
+    height: 410px;
+    width: 750px;
   }
 
   /* Slider */
