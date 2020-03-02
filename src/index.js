@@ -4,7 +4,7 @@ const d3 = require('d3')
 ////////////////////////////////////////////////////////////////////////////////
 const FILE_PATH = "news_topics_2019/";
 
-var newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
+const newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
   "California earthquake", "California wildfires", "Christchurch shooting",
   "Coco Gauff", "College Football Playoff", "Dayton shooting",
   "El Paso shooting", "Equifax data breach", "FIFA Women's World Cup",
