@@ -14,6 +14,8 @@ const newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
   "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters",
   "Trump impeachment", "vaping", "World Series"];
 
+const categories = ["Politics", "Sports", "Environment", "Disaster", "Miscellaneous"];
+
 const newsTopicCategories = ["Miscellaneous", "Miscellaneous", "Disaster",
   "Environment", "Environment", "Disaster",
   "Sports", "Sports", "Disaster",
@@ -81,8 +83,15 @@ var svg = d3.select("#graph")
 // need to change this maybe
 var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
 
-/*var elt = document.getElementById("div#graph-text");
-elt.textContent = "Hello";*/
+window.onload = function() {
+  var text = "Categories: ";
+  categories.forEach(function(cat) {
+    text += "<span style=\"color:" + color(cat) + ";\">";
+    text += cat + " ";
+    text += "</span>";
+  })
+  document.getElementById("graph-text").innerHTML = text;
+};
 
 // Get the data
 d3.csv("news_topics_2019.csv")
