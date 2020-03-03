@@ -9,7 +9,6 @@
 
 const d3 = require('d3')
 
-import './nyt_style.css'
 
 const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
     'California earthquake', 'California wildfires', 'Christchurch shooting',
@@ -26,27 +25,48 @@ newsTopicTerms.forEach(function (topic) {
     nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
 })
 
-d3.json(nytTopicFiles[1]).then((data) => {
+d3.json(nytTopicFiles[2]).then((data) => {
+
+    const WIDTH = 300
+    const HEIGHT = 150 
+
     var articles = []
-    console.log('hi')
     for (var article in data.articles) {
         articles.push(data.articles[article])
     }
 
-    var holder = d3.select('#nyt_articles').append('ul')
+    var svg = d3.select('#nyt_articles')
+        .append('svg')
+        .attr('height', HEIGHT)
+        .attr('width', WIDTH)
+
+    var y = d3.scaleLinear()
+        .range([0, 55]);
+    
+    svg.selectAll('rect')
+            .data(articles)
+            .enter()
+            .append('rect')
+            .attr('x', 10)
+            .attr('y', (d) => { return y(d.article_num) + 5 })
+            .attr('height', 50)
+            .attr('width', 600)
+            .style('fill', 'lightgrey')
+            .style("opacity", 1.0)
 
     // draw a rectangle
-    holder.selectAll('a')
+    svg.selectAll('a')
         .data(articles)
         .enter()
-        .append('li')
         .append('a')
         .attr('href', (d) => { return d.web_url })
+        .append('text')
+        .attr('fill', 'black')
         .text((d) => { return d.headline.main })
-
-
-
-
+        .attr('text-anchor', 'left')
+        .attr('x', 15)
+        .attr('y', (d) => { return y(d.article_num) + 35 })
+    
 })
 
 
