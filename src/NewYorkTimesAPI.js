@@ -66,6 +66,20 @@ d3.json(nytTopicFiles[2]).then((data) => {
         .attr('text-anchor', 'left')
         .attr('x', 15)
         .attr('y', (d) => { return y(d.article_num) + 35 })
+
+    // container
+    //     .on("scroll.scroller", function () {
+    //         newScrollTop = container.node().scrollTop
+    //     });      
+
+    // var render = function () {
+    //     // Don't re-render if scroll didn't change
+    //     if (scrollTop !== newScrollTop) {
+    //         // Graphics Code Goes Here
+    //     }
+    //     window.requestAnimationFrame(render)
+    // }
+    // window.requestAnimationFrame(render)
     
 })
 

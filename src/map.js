@@ -164,13 +164,12 @@ function addPoints(filtered, world) {
 
     svg.append("circle")
       .attr("cx", function (d) {
-        // console.log(filtered[i]["lat"]);
-        // console.log(filtered[i]["long"]);
-        // console.log(filtered[i]["date"]);
-        return projection([longitude, latitude])[0];
+        if (projection([longitude, latitude]))
+          return projection([longitude, latitude])[0];
       })
       .attr("cy", function (d) {
-        return projection([longitude, latitude])[1];
+        if (projection([longitude, latitude]))
+          return projection([longitude, latitude])[1];
       })
       .attr("r", function (d) {
         return Math.sqrt(interest);
