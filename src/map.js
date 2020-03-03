@@ -139,6 +139,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
       });
 
       data1 = filtered;
+      //console.log(filtered);
       addPoints(filtered);
     }
   });
@@ -178,6 +179,10 @@ function addPoints(filtered, world) {
       .style("stroke", "gray")
       .style("stroke-width", 0.25)
       .style("opacity", 0.75);
+    
+    svg.selectAll("circle")
+      .append("title")
+      .text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
   }
 
 }
