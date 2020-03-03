@@ -28884,108 +28884,43 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"index.js":[function(require,module,exports) {
-// You can require libraries
-var d3 = require('d3'); ////////////////////////////////////////////////////////////////////////////////
+},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"NewYorkTimesAPI.js":[function(require,module,exports) {
+// nytd_geo for a location
+// nytd_per for a person
+// nytd_org for an organization
+// nytd_des for a descriptor
+// nytd_ttl for a creative work title
+// nytd_topic for a topic
+// nytd_prog for a public company
+var d3 = require('d3');
 
-
-var FILE_PATH = "news_topics_2019/";
-var newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes", "California earthquake", "California wildfires", "Christchurch shooting", "Coco Gauff", "College Football Playoff", "Dayton shooting", "El Paso shooting", "Equifax data breach", "FIFA Women's World Cup", "government shutdown", "Greta Thunberg", "Hurricane Dorian", "Katelyn Ohashi", "Lori Loughlin college scandal", "MLS Cup", "Muller Report", "NCAA Men's Division I Basketball Tournament", "Notre Dame fire", "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters", "Trump impeachment", "vaping", "World Series"];
-var newsTopicFiles = [];
+var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
+var nytTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
-  newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
+  nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
 });
-var WIDTH = 700;
-var HEIGHT = WIDTH / 2; // Set the dimensions of the canvas / graph
+d3.json(nytTopicFiles[2]).then(function (data) {
+  var WIDTH = 300;
+  var HEIGHT = 150;
+  var articles = [];
 
-var margin = {
-  top: 20,
-  right: 20,
-  bottom: 50,
-  left: 50
-},
-    width = WIDTH - margin.left - margin.right,
-    height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
-
-var parseDate = d3.timeParse("%Y-%m-%d"); // Set the ranges
-
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]); // Define the axes
-
-var xAxis = d3.axisBottom(x);
-var yAxis = d3.axisLeft(y); // Define the area
-
-var area = d3.area().x(function (d) {
-  return x(d.Week);
-}).y0(height).y1(function (d) {
-  return y(d.interest);
-}); // Define the line
-
-var valueline = d3.line().x(function (d) {
-  return x(d.Week);
-}).y(function (d) {
-  return y(d.interest);
-}); // Adds the svg canvas
-
-var svg = d3.select("#graph").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).attr('class', 'chart').append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-/*function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+  for (var article in data.articles) {
+    articles.push(data.articles[article]);
   }
-  return color;
-}*/
-// Get the data
 
-d3.csv("news_topics_2019.csv").then(function (data) {
-  data.forEach(function (d) {
-    d.Week = parseDate(d.Week);
-    d.interest = +d.interest;
+  var svg = d3.select('#nyt_articles').append('svg').attr('height', HEIGHT).attr('width', WIDTH);
+  var y = d3.scaleLinear().range([0, 55]);
+  svg.selectAll('rect').data(articles).enter().append('rect').attr('x', 10).attr('y', function (d) {
+    return y(d.article_num) + 5;
+  }).attr('height', 50).attr('width', 600).style('fill', 'lightgrey').style("opacity", 1.0); // draw a rectangle
 
-    if (isNaN(d.interest)) {
-      d.interest = 0;
-    }
-  }); // use this to filter the data, if necessary
-
-  data = data.filter(function (d) {
-    return d.interest >= 0;
-  }); // Scale the range of the data
-
-  x.domain(d3.extent(data, function (d) {
-    return d.Week;
-  }));
-  y.domain([0, d3.max(data, function (d) {
-    return d.interest;
-  })]);
-  var dataNest = d3.nest().key(function (d) {
-    return d.topic;
-  }).entries(data); // need to change this maybe
-
-  var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
-
-  dataNest.forEach(function (d) {
-    // Add the area
-    svg.append("path").attr("class", "area").style("opacity", 0.2).style("fill", function () {
-      return d.color = color(d.key);
-    }).attr("d", area(d.values)); // Add the valueline path.
-
-    svg.append("path").attr("class", "line").style("stroke", function () {
-      return d.color = color(d.key);
-    }).attr("d", valueline(d.values));
-    svg.selectAll("path").append("title").text(d.key);
+  svg.selectAll('a').data(articles).enter().append('a').attr('href', function (d) {
+    return d.web_url;
+  }).append('text').attr('fill', 'black').text(function (d) {
+    return d.headline.main;
+  }).attr('text-anchor', 'left').attr('x', 15).attr('y', function (d) {
+    return y(d.article_num) + 35;
   });
-  /*data.forEach(function (d) {
-    console.log(d.topic);
-    svg.select("path")
-      .append("title")
-      .text(d.topic);
-  })*/
-  // Add the X Axis
-
-  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis); // Add the Y Axis
-
-  svg.append("g").attr("class", "y axis").call(yAxis);
 });
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -29191,5 +29126,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/src.e31bb0bc.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","NewYorkTimesAPI.js"], null)
+//# sourceMappingURL=/NewYorkTimesAPI.f0d9a697.js.map

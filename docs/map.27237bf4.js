@@ -28884,19 +28884,25 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"index.js":[function(require,module,exports) {
+},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"map.js":[function(require,module,exports) {
 // You can require libraries
 var d3 = require('d3'); ////////////////////////////////////////////////////////////////////////////////
 
 
-var FILE_PATH = "news_topics_2019/";
+var FILE_PATH = "trendsByLocation/";
 var newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes", "California earthquake", "California wildfires", "Christchurch shooting", "Coco Gauff", "College Football Playoff", "Dayton shooting", "El Paso shooting", "Equifax data breach", "FIFA Women's World Cup", "government shutdown", "Greta Thunberg", "Hurricane Dorian", "Katelyn Ohashi", "Lori Loughlin college scandal", "MLS Cup", "Muller Report", "NCAA Men's Division I Basketball Tournament", "Notre Dame fire", "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters", "Trump impeachment", "vaping", "World Series"];
 var newsTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
   newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
-});
-var WIDTH = 700;
-var HEIGHT = WIDTH / 2; // Set the dimensions of the canvas / graph
+}); //console.log(newsTopicFiles);
+//Width and height
+//Define quantize scale to sort data values into buckets of color
+
+var color = d3.scaleQuantize().range(["rgb(237,248,233)", "rgb(186,228,179)", "rgb(116,196,118)", "rgb(49,163,84)", "rgb(0,109,44)"]); //Colors taken from colorbrewer.js, included in the D3 download
+
+var w = 700;
+var h = w / 2;
+var path = d3.geoPath().projection(projection); // Set the dimensions of the canvas / graph
 
 var margin = {
   top: 20,
@@ -28904,89 +28910,101 @@ var margin = {
   bottom: 50,
   left: 50
 },
-    width = WIDTH - margin.left - margin.right,
-    height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
+    width = w - margin.left - margin.right,
+    height = h - margin.top - margin.bottom;
+var svg = d3.select("#map1").append("svg").attr("width", w).attr("height", h); //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
 
-var parseDate = d3.timeParse("%Y-%m-%d"); // Set the ranges
+var projection = d3.geoAlbersUsa().translate([w / 2, h / 2]).scale([600]); //var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
 
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]); // Define the axes
+var center = projection([-97.0, 39.0]); //Define what to do when panning or zooming
 
-var xAxis = d3.axisBottom(x);
-var yAxis = d3.axisLeft(y); // Define the area
+var zooming = function zooming(d) {
+  //Log out d3.event.transform, so you can see all the goodies inside
+  // console.log(d3.event.transform);
+  //New offset array
+  var offset = [d3.event.transform.x, d3.event.transform.y]; //Calculate new scale
 
-var area = d3.area().x(function (d) {
-  return x(d.Week);
-}).y0(height).y1(function (d) {
-  return y(d.interest);
-}); // Define the line
+  var newScale = d3.event.transform.k * 2000; //Update projection with new offset and scale
 
-var valueline = d3.line().x(function (d) {
-  return x(d.Week);
-}).y(function (d) {
-  return y(d.interest);
-}); // Adds the svg canvas
+  projection.translate(offset).scale(newScale); //Update all paths and circles
+  //svg.selectAll("path")
+  // .attr("d", path);
 
-var svg = d3.select("#graph").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).attr('class', 'chart').append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-/*function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}*/
-// Get the data
-
-d3.csv("news_topics_2019.csv").then(function (data) {
-  data.forEach(function (d) {
-    d.Week = parseDate(d.Week);
-    d.interest = +d.interest;
-
-    if (isNaN(d.interest)) {
-      d.interest = 0;
-    }
-  }); // use this to filter the data, if necessary
-
-  data = data.filter(function (d) {
-    return d.interest >= 0;
-  }); // Scale the range of the data
-
-  x.domain(d3.extent(data, function (d) {
-    return d.Week;
-  }));
-  y.domain([0, d3.max(data, function (d) {
-    return d.interest;
-  })]);
-  var dataNest = d3.nest().key(function (d) {
-    return d.topic;
-  }).entries(data); // need to change this maybe
-
-  var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
-
-  dataNest.forEach(function (d) {
-    // Add the area
-    svg.append("path").attr("class", "area").style("opacity", 0.2).style("fill", function () {
-      return d.color = color(d.key);
-    }).attr("d", area(d.values)); // Add the valueline path.
-
-    svg.append("path").attr("class", "line").style("stroke", function () {
-      return d.color = color(d.key);
-    }).attr("d", valueline(d.values));
-    svg.selectAll("path").append("title").text(d.key);
+  svg.selectAll("circle").attr("cx", function (d) {
+    return projection([d.long, d.lat])[0];
+  }).attr("cy", function (d) {
+    return projection([d.long, d.lat])[1];
   });
-  /*data.forEach(function (d) {
-    console.log(d.topic);
-    svg.select("path")
-      .append("title")
-      .text(d.topic);
-  })*/
-  // Add the X Axis
+}; //Then define the zoom behavior
 
-  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis); // Add the Y Axis
 
-  svg.append("g").attr("class", "y axis").call(yAxis);
+var zoom = d3.zoom().scaleExtent([0.2, 2.0]).translateExtent([[-1200, -700], [1200, 700]]).on("zoom", zooming); //Create a container in which all zoom-able elements will live
+
+var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
+.call(zoom.transform, d3.zoomIdentity //Then apply the initial transform
+.translate(w / 2, h / 2).scale(0.25).translate(-center[0], -center[1]));
+var path = d3.geoPath().projection(projection);
+var data1;
+var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
+var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+/*var states = d3.json("us-states.json");
+var cities = d3.csv("us-cities.csv");
+ 
+Promise.all([d3.json("us-states.geojson")]).then(function(data) {
+
+  var states = data[0];
+svg.append("path")
+  .attr("d", path(states));
+  
+})
+window.setTimeout(function() {
+  svg.selectAll("circle")
+    .transition().duration(5000)
+    .attr("r", function(d) {
+      return d.properties.pop_min / 1000000;
+    });
+}, 5000);;
+
+*/
+
+Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
+  var world = data[0];
+  var places = data[1];
+  svg.append("path").attr("d", path(world)).style("fill", "grey").attr("stroke", "white");
+  d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
+    var filtered;
+
+    if (error) {// console.log(error + "fnaj");
+    } else {
+      filtered = data.filter(function (d) {
+        return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+      });
+      data1 = filtered;
+      addPoints(filtered);
+    }
+  });
+  window.setTimeout(function () {
+    svg.selectAll("circle").transition().duration(5000);
+  }, 5000);
 });
+
+function addPoints(filtered, world) {
+  for (var i = 0; i < filtered.length; i++) {
+    var latitude = parseFloat(filtered[i]["lat"]);
+    var longitude = parseFloat(filtered[i]["long"]);
+    var interest = parseInt(filtered[i]["interest"]);
+    svg.append("circle").attr("cx", function (d) {
+      // console.log(filtered[i]["lat"]);
+      // console.log(filtered[i]["long"]);
+      // console.log(filtered[i]["date"]);
+      return projection([longitude, latitude])[0];
+    }).attr("cy", function (d) {
+      return projection([longitude, latitude])[1];
+    }).attr("r", function (d) {
+      return Math.sqrt(interest);
+    }).style("fill", "yellow").style("stroke", "gray").style("stroke-width", 0.25).style("opacity", 0.75);
+  }
+}
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29191,5 +29209,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/src.e31bb0bc.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","map.js"], null)
+//# sourceMappingURL=/map.27237bf4.js.map

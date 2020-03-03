@@ -1,0 +1,707 @@
+{
+    "topic": "Baby_Yoda",
+    "articles": [
+        {
+            "abstract": "Deborah Chow, who directed the latest episode of the Disney Plus \u201cStar Wars\u201d series, talks about kitchen-sink shootouts and Werner Herzog\u2019s abiding attachment to Baby Yoda.",
+            "web_url": "https://www.nytimes.com/2019/11/22/arts/television/the-mandalorian-star-wars-baby-yoda.html",
+            "snippet": "Deborah Chow, who directed the latest episode of the Disney Plus \u201cStar Wars\u201d series, talks about kitchen-sink shootouts and Werner Herzog\u2019s abiding attachment to Baby Yoda.",
+            "lead_paragraph": "[This article contains spoilers for the Disney Plus series \u201cThe Mandalorian.\u201d]",
+            "source": "The New York Times",
+            "multimedia": [
+                {
+                    "rank": 0,
+                    "subtype": "xlarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/11/22/arts/22mandalorian/22mandalorian-articleLarge.jpg",
+                    "height": 338,
+                    "width": 600,
+                    "legacy": {
+                        "xlarge": "images/2019/11/22/arts/22mandalorian/22mandalorian-articleLarge.jpg",
+                        "xlargewidth": 600,
+                        "xlargeheight": 338
+                    },
+                    "subType": "xlarge",
+                    "crop_name": "articleLarge"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "jumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/11/22/arts/22mandalorian/22mandalorian-jumbo.jpg",
+                    "height": 576,
+                    "width": 1024,
+                    "legacy": [],
+                    "subType": "jumbo",
+                    "crop_name": "jumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "superJumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/11/22/arts/22mandalorian/22mandalorian-superJumbo.jpg",
+                    "height": 1153,
+                    "width": 2048,
+                    "legacy": [],
+                    "subType": "superJumbo",
+                    "crop_name": "superJumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbnail",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/11/22/arts/22mandalorian/22mandalorian-thumbStandard.jpg",
+                    "height": 75,
+                    "width": 75,
+                    "legacy": {
+                        "thumbnail": "images/2019/11/22/arts/22mandalorian/22mandalorian-thumbStandard.jpg",
+                        "thumbnailwidth": 75,
+                        "thumbnailheight": 75
+                    },
+                    "subType": "thumbnail",
+                    "crop_name": "thumbStandard"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbLarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/11/22/arts/22mandalorian/22mandalorian-thumbLarge.jpg",
+                    "height": 150,
+                    "width": 150,
+                    "legacy": [],
+                    "subType": "thumbLarge",
+                    "crop_name": "thumbLarge"
+                }
+            ],
+            "headline": {
+                "main": "\u2018The Mandalorian\u2019 Director: Baby Yoda \u2018Steals the Show\u2019",
+                "kicker": null,
+                "content_kicker": null,
+                "print_headline": null,
+                "name": null,
+                "seo": null,
+                "sub": null
+            },
+            "keywords": [
+                {
+                    "name": "subject",
+                    "value": "Television",
+                    "rank": 1,
+                    "major": "N"
+                },
+                {
+                    "name": "creative_works",
+                    "value": "The Mandalorian (TV Program)",
+                    "rank": 2,
+                    "major": "N"
+                },
+                {
+                    "name": "persons",
+                    "value": "Chow, Deborah (Film Director)",
+                    "rank": 3,
+                    "major": "N"
+                },
+                {
+                    "name": "organizations",
+                    "value": "Disney Plus",
+                    "rank": 4,
+                    "major": "N"
+                }
+            ],
+            "pub_date": "2019-11-22T22:07:12+0000",
+            "document_type": "article",
+            "news_desk": "Culture",
+            "section_name": "Arts",
+            "subsection_name": "Television",
+            "byline": {
+                "original": "By Dave Itzkoff",
+                "person": [
+                    {
+                        "firstname": "Dave",
+                        "middlename": null,
+                        "lastname": "Itzkoff",
+                        "qualifier": null,
+                        "title": null,
+                        "role": "reported",
+                        "organization": "",
+                        "rank": 1
+                    }
+                ],
+                "organization": null
+            },
+            "type_of_material": "News",
+            "_id": "nyt://article/797bf9b8-3c32-53d2-a9c6-deb37a6d63dd",
+            "word_count": 1204,
+            "uri": "nyt://article/797bf9b8-3c32-53d2-a9c6-deb37a6d63dd",
+            "article_num": 0
+        },
+        {
+            "abstract": "What if the future of TV were delightful, irresistible, meme-able versions of intellectual property you already loved \u2026 forever?",
+            "web_url": "https://www.nytimes.com/2019/12/12/arts/television/baby-yoda-mandalorian.html",
+            "snippet": "What if the future of TV were delightful, irresistible, meme-able versions of intellectual property you already loved \u2026 forever?",
+            "lead_paragraph": "First, a confession. I have not yet written about Disney Plus\u2019s \u201cThe Mandalorian\u201d \u2014 the biggest new TV show from the big new platform of the biggest media conglomerate, set within arguably America\u2019s biggest pop mythology \u2014 because I was not able to figure out what the hell \u201cThe Mandalorian\u201d is.",
+            "print_section": "C",
+            "print_page": "1",
+            "source": "The New York Times",
+            "multimedia": [
+                {
+                    "rank": 0,
+                    "subtype": "xlarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-articleLarge.jpg",
+                    "height": 283,
+                    "width": 600,
+                    "legacy": {
+                        "xlarge": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-articleLarge.jpg",
+                        "xlargewidth": 600,
+                        "xlargeheight": 283
+                    },
+                    "subType": "xlarge",
+                    "crop_name": "articleLarge"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "jumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-jumbo.jpg",
+                    "height": 482,
+                    "width": 1024,
+                    "legacy": [],
+                    "subType": "jumbo",
+                    "crop_name": "jumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "superJumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-superJumbo.jpg",
+                    "height": 964,
+                    "width": 2048,
+                    "legacy": [],
+                    "subType": "superJumbo",
+                    "crop_name": "superJumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbnail",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/12yoda-thumbStandard.jpg",
+                    "height": 75,
+                    "width": 75,
+                    "legacy": {
+                        "thumbnail": "images/2019/12/16/arts/12yoda/12yoda-thumbStandard.jpg",
+                        "thumbnailwidth": 75,
+                        "thumbnailheight": 75
+                    },
+                    "subType": "thumbnail",
+                    "crop_name": "thumbStandard"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbLarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/12yoda-thumbLarge.jpg",
+                    "height": 150,
+                    "width": 150,
+                    "legacy": [],
+                    "subType": "thumbLarge",
+                    "crop_name": "thumbLarge"
+                }
+            ],
+            "headline": {
+                "main": "Baby Yoda Is Your God Now",
+                "kicker": "Critic\u2019s Notebook",
+                "content_kicker": null,
+                "print_headline": "Baby Yoda Taps a Potent Force",
+                "name": null,
+                "seo": null,
+                "sub": null
+            },
+            "keywords": [
+                {
+                    "name": "subject",
+                    "value": "Television",
+                    "rank": 1,
+                    "major": "N"
+                },
+                {
+                    "name": "organizations",
+                    "value": "Disney Plus",
+                    "rank": 2,
+                    "major": "N"
+                },
+                {
+                    "name": "creative_works",
+                    "value": "The Mandalorian (TV Program)",
+                    "rank": 3,
+                    "major": "N"
+                }
+            ],
+            "pub_date": "2019-12-12T19:00:12+0000",
+            "document_type": "article",
+            "news_desk": "Culture",
+            "section_name": "Arts",
+            "subsection_name": "Television",
+            "byline": {
+                "original": "By James Poniewozik",
+                "person": [
+                    {
+                        "firstname": "James",
+                        "middlename": null,
+                        "lastname": "Poniewozik",
+                        "qualifier": null,
+                        "title": null,
+                        "role": "reported",
+                        "organization": "",
+                        "rank": 1
+                    }
+                ],
+                "organization": null
+            },
+            "type_of_material": "News",
+            "_id": "nyt://article/1452297c-e9df-579c-8b76-fd5d3686da9a",
+            "word_count": 1609,
+            "uri": "nyt://article/1452297c-e9df-579c-8b76-fd5d3686da9a",
+            "article_num": 1
+        },
+        {
+            "abstract": "It was a Christmas miracle: \u201cSaturday Night Live\u201d opened the show with a sketch that wasn\u2019t dependent on celebrity cameos.",
+            "web_url": "https://www.nytimes.com/2019/12/15/arts/television/saturday-night-live-scarlett-johansson.html",
+            "snippet": "It was a Christmas miracle: \u201cSaturday Night Live\u201d opened the show with a sketch that wasn\u2019t dependent on celebrity cameos.",
+            "lead_paragraph": "It was a Christmas miracle: a \u201cSaturday Night Live\u201d opening sketch that wasn\u2019t in any way dependent on a series of surprise celebrity cameos or an onslaught of political impersonations.",
+            "print_section": "C",
+            "print_page": "3",
+            "source": "The New York Times",
+            "multimedia": [
+                {
+                    "rank": 0,
+                    "subtype": "xlarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/15snl/15snl-articleLarge-v2.png",
+                    "height": 340,
+                    "width": 600,
+                    "legacy": {
+                        "xlarge": "images/2019/12/16/arts/15snl/15snl-articleLarge-v2.png",
+                        "xlargewidth": 600,
+                        "xlargeheight": 340
+                    },
+                    "subType": "xlarge",
+                    "crop_name": "articleLarge"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "jumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/15snl/15snl-jumbo-v2.png",
+                    "height": 581,
+                    "width": 1024,
+                    "legacy": [],
+                    "subType": "jumbo",
+                    "crop_name": "jumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "superJumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/15snl/15snl-superJumbo-v2.png",
+                    "height": 644,
+                    "width": 1135,
+                    "legacy": [],
+                    "subType": "superJumbo",
+                    "crop_name": "superJumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbnail",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/15snl/15snl-thumbStandard.png",
+                    "height": 75,
+                    "width": 75,
+                    "legacy": {
+                        "thumbnail": "images/2019/12/16/arts/15snl/15snl-thumbStandard.png",
+                        "thumbnailwidth": 75,
+                        "thumbnailheight": 75
+                    },
+                    "subType": "thumbnail",
+                    "crop_name": "thumbStandard"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbLarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/15snl/15snl-thumbLarge.png",
+                    "height": 150,
+                    "width": 150,
+                    "legacy": [],
+                    "subType": "thumbLarge",
+                    "crop_name": "thumbLarge"
+                }
+            ],
+            "headline": {
+                "main": "\u2018S.N.L.\u2019 Presents Kellyanne Conway\u2019s \u2018Marriage Story,\u2019 Plus Baby Yoda",
+                "kicker": null,
+                "content_kicker": null,
+                "print_headline": "Holiday Dinner Debates In Contrast on \u2018S.N.L.\u2019",
+                "name": null,
+                "seo": null,
+                "sub": null
+            },
+            "keywords": [
+                {
+                    "name": "subject",
+                    "value": "Television",
+                    "rank": 1,
+                    "major": "N"
+                },
+                {
+                    "name": "creative_works",
+                    "value": "Saturday Night Live (TV Program)",
+                    "rank": 2,
+                    "major": "N"
+                }
+            ],
+            "pub_date": "2019-12-15T07:27:35+0000",
+            "document_type": "article",
+            "news_desk": "Culture",
+            "section_name": "Arts",
+            "subsection_name": "Television",
+            "byline": {
+                "original": "By Dave Itzkoff",
+                "person": [
+                    {
+                        "firstname": "Dave",
+                        "middlename": null,
+                        "lastname": "Itzkoff",
+                        "qualifier": null,
+                        "title": null,
+                        "role": "reported",
+                        "organization": "",
+                        "rank": 1
+                    }
+                ],
+                "organization": null
+            },
+            "type_of_material": "News",
+            "_id": "nyt://article/602676ad-0299-589a-8648-9d1e5ce1a34c",
+            "word_count": 1173,
+            "uri": "nyt://article/602676ad-0299-589a-8648-9d1e5ce1a34c",
+            "article_num": 2
+        },
+        {
+            "abstract": "What are your favorite memes?",
+            "web_url": "https://www.nytimes.com/2019/12/19/learning/baby-yoda.html",
+            "snippet": "What are your favorite memes?",
+            "lead_paragraph": "What are your favorite memes from television or movies? Why do you like them?",
+            "source": "The New York Times",
+            "multimedia": [
+                {
+                    "rank": 0,
+                    "subtype": "xlarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-articleLarge.jpg",
+                    "height": 283,
+                    "width": 600,
+                    "legacy": {
+                        "xlarge": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-articleLarge.jpg",
+                        "xlargewidth": 600,
+                        "xlargeheight": 283
+                    },
+                    "subType": "xlarge",
+                    "crop_name": "articleLarge"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "jumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-jumbo.jpg",
+                    "height": 482,
+                    "width": 1024,
+                    "legacy": [],
+                    "subType": "jumbo",
+                    "crop_name": "jumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "superJumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/merlin_165673722_6c5257b5-e722-4a5d-b561-8373336cb499-superJumbo.jpg",
+                    "height": 964,
+                    "width": 2048,
+                    "legacy": [],
+                    "subType": "superJumbo",
+                    "crop_name": "superJumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbnail",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/12yoda-thumbStandard.jpg",
+                    "height": 75,
+                    "width": 75,
+                    "legacy": {
+                        "thumbnail": "images/2019/12/16/arts/12yoda/12yoda-thumbStandard.jpg",
+                        "thumbnailwidth": 75,
+                        "thumbnailheight": 75
+                    },
+                    "subType": "thumbnail",
+                    "crop_name": "thumbStandard"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbLarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/16/arts/12yoda/12yoda-thumbLarge.jpg",
+                    "height": 150,
+                    "width": 150,
+                    "legacy": [],
+                    "subType": "thumbLarge",
+                    "crop_name": "thumbLarge"
+                }
+            ],
+            "headline": {
+                "main": "Baby Yoda",
+                "kicker": "PICTURE PROMPTS",
+                "content_kicker": null,
+                "print_headline": null,
+                "name": null,
+                "seo": null,
+                "sub": null
+            },
+            "keywords": [],
+            "pub_date": "2019-12-19T08:00:02+0000",
+            "document_type": "article",
+            "news_desk": "Learning",
+            "section_name": "The Learning Network",
+            "byline": {
+                "original": "By The Learning Network",
+                "person": [],
+                "organization": "The Learning Network"
+            },
+            "type_of_material": "News",
+            "_id": "nyt://article/0894862d-8255-5df6-a8f1-2c75e3707499",
+            "word_count": 73,
+            "uri": "nyt://article/0894862d-8255-5df6-a8f1-2c75e3707499",
+            "article_num": 3
+        },
+        {
+            "abstract": "Baby Yoda is a productivity metaphor, O.K. Boomer can be tied to homeownership and hemp farming is an outgrowth of the trade war.",
+            "web_url": "https://www.nytimes.com/2019/12/23/business/economy/2019-economy.html",
+            "snippet": "Baby Yoda is a productivity metaphor, O.K. Boomer can be tied to homeownership and hemp farming is an outgrowth of the trade war.",
+            "lead_paragraph": "WASHINGTON \u2014 America made some memories in 2019. Taylor Swift told us all to calm down, Aunt Becky was accused of cheating to get her daughters into college and a Facebook meme prompted hordes of people \u2014 and zero aliens \u2014 to trek out to a town near Area 51. ",
+            "print_section": "B",
+            "print_page": "4",
+            "source": "The New York Times",
+            "multimedia": [
+                {
+                    "rank": 0,
+                    "subtype": "xlarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/23/business/23DC-SOCIALECON-01/merlin_165673722_861b0587-1e68-4282-b5e6-7b93a9a4f55a-articleLarge.jpg",
+                    "height": 283,
+                    "width": 600,
+                    "legacy": {
+                        "xlarge": "images/2019/12/23/business/23DC-SOCIALECON-01/merlin_165673722_861b0587-1e68-4282-b5e6-7b93a9a4f55a-articleLarge.jpg",
+                        "xlargewidth": 600,
+                        "xlargeheight": 283
+                    },
+                    "subType": "xlarge",
+                    "crop_name": "articleLarge"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "jumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/23/business/23DC-SOCIALECON-01/merlin_165673722_861b0587-1e68-4282-b5e6-7b93a9a4f55a-jumbo.jpg",
+                    "height": 482,
+                    "width": 1024,
+                    "legacy": [],
+                    "subType": "jumbo",
+                    "crop_name": "jumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "superJumbo",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/23/business/23DC-SOCIALECON-01/merlin_165673722_861b0587-1e68-4282-b5e6-7b93a9a4f55a-superJumbo.jpg",
+                    "height": 964,
+                    "width": 2048,
+                    "legacy": [],
+                    "subType": "superJumbo",
+                    "crop_name": "superJumbo"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbnail",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/23/business/23DC-SOCIALECON-01/23DC-SOCIALECON-01-thumbStandard.jpg",
+                    "height": 75,
+                    "width": 75,
+                    "legacy": {
+                        "thumbnail": "images/2019/12/23/business/23DC-SOCIALECON-01/23DC-SOCIALECON-01-thumbStandard.jpg",
+                        "thumbnailwidth": 75,
+                        "thumbnailheight": 75
+                    },
+                    "subType": "thumbnail",
+                    "crop_name": "thumbStandard"
+                },
+                {
+                    "rank": 0,
+                    "subtype": "thumbLarge",
+                    "caption": null,
+                    "credit": null,
+                    "type": "image",
+                    "url": "images/2019/12/23/business/23DC-SOCIALECON-01/23DC-SOCIALECON-01-thumbLarge.jpg",
+                    "height": 150,
+                    "width": 150,
+                    "legacy": [],
+                    "subType": "thumbLarge",
+                    "crop_name": "thumbLarge"
+                }
+            ],
+            "headline": {
+                "main": "What Baby Yoda, O.K. Boomer and Hemp Farming Told Us About the 2019 Economy",
+                "kicker": null,
+                "content_kicker": null,
+                "print_headline": "What Drove the 2019 Economy? Let\u2019s Go to the Memes",
+                "name": null,
+                "seo": null,
+                "sub": null
+            },
+            "keywords": [
+                {
+                    "name": "subject",
+                    "value": "International Trade and World Market",
+                    "rank": 1,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Labor and Jobs",
+                    "rank": 2,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Millennial Generation",
+                    "rank": 3,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "United States Economy",
+                    "rank": 4,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Social Media",
+                    "rank": 5,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Renting and Leasing (Real Estate)",
+                    "rank": 6,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Productivity",
+                    "rank": 7,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Baby Boomers",
+                    "rank": 8,
+                    "major": "N"
+                },
+                {
+                    "name": "subject",
+                    "value": "Real Estate and Housing (Residential)",
+                    "rank": 9,
+                    "major": "N"
+                },
+                {
+                    "name": "organizations",
+                    "value": "TikTok (ByteDance)",
+                    "rank": 10,
+                    "major": "N"
+                }
+            ],
+            "pub_date": "2019-12-23T20:00:07+0000",
+            "document_type": "article",
+            "news_desk": "Business",
+            "section_name": "Business Day",
+            "subsection_name": "Economy",
+            "byline": {
+                "original": "By Jeanna Smialek",
+                "person": [
+                    {
+                        "firstname": "Jeanna",
+                        "middlename": null,
+                        "lastname": "Smialek",
+                        "qualifier": null,
+                        "title": null,
+                        "role": "reported",
+                        "organization": "",
+                        "rank": 1
+                    }
+                ],
+                "organization": null
+            },
+            "type_of_material": "News",
+            "_id": "nyt://article/aa53f2a9-8fb1-5611-b13d-3888b835e1c8",
+            "word_count": 1292,
+            "uri": "nyt://article/aa53f2a9-8fb1-5611-b13d-3888b835e1c8",
+            "article_num": 4
+        }
+    ]
+}
