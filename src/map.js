@@ -48,7 +48,7 @@ var center = projection([-97.0, 39.0]);
 var zooming = function (d) {
 
   //Log out d3.event.transform, so you can see all the goodies inside
-  console.log(d3.event.transform);
+  // console.log(d3.event.transform);
 
   //New offset array
   var offset = [d3.event.transform.x, d3.event.transform.y];
@@ -132,7 +132,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
   d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
     var filtered;
     if (error) {
-      console.log(error + "fnaj");
+      // console.log(error + "fnaj");
     } else {
       filtered = data.filter(function (d) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
@@ -163,9 +163,9 @@ function addPoints(filtered, world) {
 
     svg.append("circle")
       .attr("cx", function (d) {
-        console.log(filtered[i]["lat"]);
-        console.log(filtered[i]["long"]);
-        console.log(filtered[i]["date"]);
+        // console.log(filtered[i]["lat"]);
+        // console.log(filtered[i]["long"]);
+        // console.log(filtered[i]["date"]);
         return projection([longitude, latitude])[0];
       })
       .attr("cy", function (d) {

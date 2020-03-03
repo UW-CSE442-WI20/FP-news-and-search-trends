@@ -18,9 +18,18 @@ var newsTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
   newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
 });
-//console.log(newsTopicFiles);
 
-// Code to draw simple line graph of one of the csv files //
+
+
+
+
+
+
+
+
+
+
+
 
 const WIDTH = 700;
 const HEIGHT = WIDTH / 2;
@@ -113,7 +122,6 @@ d3.csv("news_topics_2019.csv")
         })
         .attr("d", valueline(d.values));
 
-      console.log(d);
       svg.selectAll("path")
         .append("title")
         .text(d.key);
