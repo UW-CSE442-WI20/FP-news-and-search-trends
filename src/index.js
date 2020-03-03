@@ -14,17 +14,17 @@ const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
   'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
   'Trump impeachment', 'vaping', 'World Series']
 
-const categories = ["Politics", "Sports", "Environment", "Disaster", "Miscellaneous"];
+const categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']
 
-const newsTopicCategories = ["Miscellaneous", "Miscellaneous", "Disaster",
-  "Environment", "Environment", "Disaster",
-  "Sports", "Sports", "Disaster",
-  "Disaster", "Miscellaneous", "Sports",
-  "Politics", "Environment", "Environment", "Sports",
-  "Miscellaneous", "Sports", "Politics",
-  "Sports", "Disaster",
-  "Sports", "Sports", "Sports", "Sports",
-  "Politics", "Miscellaneous", "Sports"];
+const newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster',
+  'Environment', 'Environment', 'Disaster',
+  'Sports', 'Sports', 'Disaster',
+  'Disaster', 'Miscellaneous', 'Sports',
+  'Politics', 'Environment', 'Environment', 'Sports',
+  'Miscellaneous', 'Sports', 'Politics',
+  'Sports', 'Disaster',
+  'Sports', 'Sports', 'Sports', 'Sports',
+  'Politics', 'Miscellaneous', 'Sports']
 
 
 var newsTopicFiles = []
@@ -77,14 +77,14 @@ const color = d3.scaleOrdinal(d3.schemeCategory10) //d3.scale.category20()
 
 
 window.onload = function () {
-  var text = "Categories: ";
+  var text = 'Categories: '
   categories.forEach(function (cat) {
-    text += "<span style=\"color:" + color(cat) + ";\">";
-    text += cat + " ";
-    text += "</span>";
+    text += '<span style=\'color:' + color(cat) + '\'>'
+    text += cat + ' '
+    text += '</span>'
   })
-  document.getElementById("graph-text").innerHTML = text;
-};
+  document.getElementById('graph-text').innerHTML = text
+}
 
 // Get the data
 d3.csv('news_topics_2019.csv')
@@ -95,8 +95,8 @@ d3.csv('news_topics_2019.csv')
       if (isNaN(d.interest)) {
         d.interest = 0
       }
-      var idx = newsTopicTerms.indexOf(d.topic);
-      d.Category = newsTopicCategories[idx];
+      var idx = newsTopicTerms.indexOf(d.topic)
+      d.Category = newsTopicCategories[idx]
     })
 
     // use this to filter the data, if necessary
@@ -153,19 +153,19 @@ function addTooltip(svg, dataNest) {
 
 function drawAreaGraph(d) {
   // Add the area
-  svg.append("path")
-    .attr("class", "area")
-    .style("opacity", 0.2)
-    .style("fill", function () {
-      return d.color = color(d.values[0].Category);
+  svg.append('path')
+    .attr('class', 'area')
+    .style('opacity', 0.2)
+    .style('fill', function () {
+      return d.color = color(d.values[0].Category)
     })
-    .attr("d", area(d.values));
+    .attr('d', area(d.values))
 
   // Add the valueline path.
-  svg.append("path")
-    .attr("class", "line")
-    .style("stroke", function () {
-      return d.color = color(d.values[0].Category);
+  svg.append('path')
+    .attr('class', 'line')
+    .style('stroke', function () {
+      return d.color = color(d.values[0].Category)
     })
-    .attr("d", valueline(d.values));
+    .attr('d', valueline(d.values))
 }

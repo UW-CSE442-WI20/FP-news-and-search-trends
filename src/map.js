@@ -166,10 +166,14 @@ function addPoints(filtered, world) {
       .attr("cx", function (d) {
         if (projection([longitude, latitude]))
           return projection([longitude, latitude])[0];
+        else
+          return 50
       })
       .attr("cy", function (d) {
         if (projection([longitude, latitude]))
           return projection([longitude, latitude])[1];
+        else
+          return 50
       })
       .attr("r", function (d) {
         return Math.sqrt(interest);
