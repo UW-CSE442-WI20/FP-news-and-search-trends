@@ -14,21 +14,20 @@ const newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
   "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters",
   "Trump impeachment", "vaping", "World Series"];
 
+const newsTopicCategories = ["Miscellaneous", "Miscellaneous", "Disaster",
+  "Environment", "Environment", "Disaster",
+  "Sports", "Sports", "Disaster",
+  "Disaster", "Miscellaneous", "Sports",
+  "Politics", "Environment", "Environment", "Sports",
+  "Miscellaneous", "Sports", "Politics",
+  "Sports", "Disaster",
+  "Sports", "Sports", "Sports", "Sports",
+  "Politics", "Miscellaneous", "Sports"];
+
 var newsTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
   newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 const WIDTH = 700;
@@ -79,6 +78,12 @@ var svg = d3.select("#graph")
   return color;
 }*/
 
+// need to change this maybe
+var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
+
+/*var elt = document.getElementById("div#graph-text");
+elt.textContent = "Hello";*/
+
 // Get the data
 d3.csv("news_topics_2019.csv")
   .then((data) => {
@@ -88,6 +93,8 @@ d3.csv("news_topics_2019.csv")
       if (isNaN(d.interest)) {
         d.interest = 0;
       }
+      var idx = newsTopicTerms.indexOf(d.topic);
+      d.Category = newsTopicCategories[idx];
     });
 
     // use this to filter the data, if necessary
@@ -101,16 +108,13 @@ d3.csv("news_topics_2019.csv")
       .key(function (d) { return d.topic; })
       .entries(data);
 
-    // need to change this maybe
-    var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20();
-
     dataNest.forEach(function (d) {
       // Add the area
       svg.append("path")
         .attr("class", "area")
         .style("opacity", 0.2)
         .style("fill", function () {
-          return d.color = color(d.key);
+          return d.color = color(d.values[0].Category);
         })
         .attr("d", area(d.values));
 
@@ -118,7 +122,7 @@ d3.csv("news_topics_2019.csv")
       svg.append("path")
         .attr("class", "line")
         .style("stroke", function () {
-          return d.color = color(d.key);
+          return d.color = color(d.values[0].Category);
         })
         .attr("d", valueline(d.values));
 
