@@ -176,7 +176,7 @@ function addPoints(filtered, world) {
           return 50
       })
       .attr("r", function (d) {
-        return Math.sqrt(interest);
+        return Math.sqrt(interest) ;
       })
       .style("fill", "yellow")
       .style("stroke", "gray")
