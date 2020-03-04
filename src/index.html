@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-
+  <script src="https://unpkg.com/d3-simple-slider"></script>
   <title>CSE 442 Final Project</title>
+  <script src="https://unpkg.com/d3-simple-slider"></script>
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -56,8 +57,16 @@
         <script src="./index.js"></script>
         <div id="graph-text">Graph</div>
       </div>
-      <div class="card">Slider</div>
-
+      <div class="card" id ="slider">
+        <div class="row align-items-center">
+          <div class="col-sm-2"><p id="value-simple"></p></div>
+          <div class="col-sm"><div id="slider-simple"></div></div>
+        </div>
+        <script src="./slider.js"></script>
+        
+        
+      
+      </div>
       <div class="card" id="nyt_articles">
         <span id="ss_elem">
           NYT Articles
@@ -86,6 +95,7 @@
         Map
       </div>
     </div>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
   </main>
   <footer class="footer">
     <div class="footer__copyright">CSE 442 Final Project</div>

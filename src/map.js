@@ -190,6 +190,33 @@ function addPoints(filtered, world) {
 
 }
 
+// Update data from a now selected temperature and hour
+function updateData(time_select) {
+  // Gets data and compares it to temp and hour value
+      console.log(time_select)
+
+      /*
+      d3.csv(csvData).then(function (data) {
+          data.forEach(function (d) {
+                  d.Severity = +d.Severity;
+                  d.Latitude = ((+d.Latitude - 45.6) * 90) + 27;
+                  d.Longitude = ((+d.Longitude + 123.6) * 65) + 280;
+                  d.General_Time = +d.General_Time;
+                  d.Temperature = +d.Temperature;
+              }
+          );
+          if (desired_hour == 24 && desired_temp == 105) {
+              draw_data(data);
+          } else {
+              draw_data(data.filter(function (row) {
+                  return row.Temperature == desired_temp && row.General_Time == desired_hour
+              }));
+          }
+      });
+      */
+  }
+  window.updateData = updateData;
+
 
 
 
