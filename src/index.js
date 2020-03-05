@@ -37,9 +37,9 @@ const WIDTH = 700
 const HEIGHT = WIDTH / 2
 
 // Set the dimensions of the canvas / graph
-var margin = { top: 20, right: 20, bottom: 50, left: 50 },
-  width = WIDTH - margin.left - margin.right,
-  height = HEIGHT - margin.top - margin.bottom
+var margin = { top: 20, right: 20, bottom: 50, left: 50 }
+var width = WIDTH - margin.left - margin.right
+var height = HEIGHT - margin.top - margin.bottom
 
 // Parse the date / time
 var parseDate = d3.timeParse('%Y-%m-%d')
@@ -110,21 +110,10 @@ d3.csv('news_topics_2019.csv')
       .key(function (d) { return d.topic })
       .entries(data)
 
-    
-
     dataNest.forEach((d) => { drawAreaGraph(d) })
     addTooltip(svg, dataNest)
-
-    // Add the X Axis
-    svg.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis)
-
-    // Add the Y Axis
-    svg.append('g')
-      .attr('class', 'y axis')
-      .call(yAxis)
+    addAxes(svg)
+    
   })
 
 
@@ -168,4 +157,17 @@ function drawAreaGraph(d) {
       return d.color = color(d.values[0].Category)
     })
     .attr('d', valueline(d.values))
+}
+
+function addAxes(svg) {
+  // Add the X Axis
+  svg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(xAxis)
+
+  // Add the Y Axis
+  svg.append('g')
+    .attr('class', 'y axis')
+    .call(yAxis)
 }

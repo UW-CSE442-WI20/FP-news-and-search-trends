@@ -25,63 +25,57 @@ newsTopicTerms.forEach(function (topic) {
     nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
 })
 
-d3.json(nytTopicFiles[2]).then((data) => {
-
-    const WIDTH = 300
-    const HEIGHT = 150 
-
+d3.json(nytTopicFiles[18]).then((data) => {
     var articles = []
     for (var article in data.articles) {
         articles.push(data.articles[article])
     }
+    articles.sort((a, b) => {
+        d1 = new Date(a.pub_date).getTime()
+        d2 = new Date(b.pub_date).getTime()
+        return d1 - d2
+    })
 
     var svg = d3.select('#nyt_articles')
         .append('svg')
-        .attr('height', HEIGHT)
-        .attr('width', WIDTH)
+        .attr('id', 'scroll-svg')
+        .attr('height', 55 * articles.length + 5 + 'px')
 
     var y = d3.scaleLinear()
         .range([0, 55]);
-    
-    svg.selectAll('rect')
-            .data(articles)
-            .enter()
-            .append('rect')
-            .attr('x', 10)
-            .attr('y', (d) => { return y(d.article_num) + 5 })
-            .attr('height', 50)
-            .attr('width', 600)
-            .style('fill', 'lightgrey')
-            .style("opacity", 1.0)
 
-    // draw a rectangle
+    var i = 0
+    // draw the rects
+    svg.selectAll('rect')
+        .data(articles)
+        .enter()
+        .append('rect')
+        .attr('y', (d) => {
+            return y(i++) + 5
+        })
+        .attr('height', 50)
+        .attr('width', '100%')
+        .style('fill', 'lightgrey')
+        .style('opacity', 1.0)
+
+    i = 0, j = 1
+    // draw the nyt titles
     svg.selectAll('a')
         .data(articles)
         .enter()
         .append('a')
         .attr('href', (d) => { return d.web_url })
+        .attr('target', '_blank')
         .append('text')
         .attr('fill', 'black')
-        .text((d) => { return d.headline.main })
-        .attr('text-anchor', 'left')
         .attr('x', 15)
-        .attr('y', (d) => { return y(d.article_num) + 35 })
+        .attr('y', () => { return y(i++) + 35 })
+        .text((d) => {
+            var headline = d.headline.main
+            return (j++) + ': ' + headline }
+        )
+        .attr('text-anchor', 'left')
 
-    // container
-    //     .on("scroll.scroller", function () {
-    //         newScrollTop = container.node().scrollTop
-    //     });      
-
-    // var render = function () {
-    //     // Don't re-render if scroll didn't change
-    //     if (scrollTop !== newScrollTop) {
-    //         // Graphics Code Goes Here
-    //     }
-    //     window.requestAnimationFrame(render)
-    // }
-    // window.requestAnimationFrame(render)
-
-    
 })
 
 
