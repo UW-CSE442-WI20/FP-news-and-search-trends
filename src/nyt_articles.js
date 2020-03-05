@@ -25,6 +25,21 @@ newsTopicTerms.forEach(function (topic) {
     nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
 })
 
+var request = new XMLHttpRequest()
+request.open('GET', 'https://news-and-search-trends.zkeyes.now.sh', true)
+request.onload = function () {
+    // Begin accessing JSON data here
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+        console.log(data)
+    } else {
+        console.log('error')
+    }
+}
+
+request.send()
+
 d3.json(nytTopicFiles[18]).then((data) => {
     var articles = []
     for (var article in data.articles) {
