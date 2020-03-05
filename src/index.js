@@ -76,7 +76,9 @@ var svg = d3.select('#graph')
 const color = d3.scaleOrdinal(d3.schemeCategory10) //d3.scale.category20()
 
 
+
 window.onload = function () {
+
   var text = 'Categories: '
   categories.forEach(function (cat) {
     text += '<span style=\'color:' + color(cat) + '\'>'
@@ -84,6 +86,8 @@ window.onload = function () {
     text += '</span>'
   })
   document.getElementById('graph-text').innerHTML = text
+  selected = false;
+  eventSelect = "-1";
 }
 
 // Get the data
@@ -116,8 +120,19 @@ d3.csv('news_topics_2019.csv')
     
   })
 
+  
+var eventSelect;
+var selected;
+
+var svg1 = d3.select("#graph").on("click", function() {
+  eventSelect="-1";
+  //selected = !selected;
+  updateData("-1");
+  return "clicked";
+});
 
 function addTooltip(svg, dataNest) {
+  
   var div = d3.select('#graph').append('div')
     .attr('class', 'tooltip')
     .style('opacity', 0)
@@ -125,7 +140,10 @@ function addTooltip(svg, dataNest) {
   svg.selectAll('path.area')
     .data(dataNest)
     .on('mouseover', (d) => {
-      window.updateData(d.key)
+      if (!selected){
+        window.updateData(d.key)
+      }
+      //eventSelect = d.key;
       div.transition()
         .duration(300)
         .style('opacity', .8)
@@ -134,15 +152,35 @@ function addTooltip(svg, dataNest) {
         .style('left', (d3.event.pageX) + 'px')
         .style('top', (d3.event.pageY - 28) + 'px')
     })
+    .on("click", function(d){
+      // Determine if event is already clicked, if it is, unselect it. 
+      /*var active   = (eventSelect!=-1) ? false : true ,
+      if (!active) {
+        window.updateData("-1");
+      } else {
+        window.updateData(eventSelect);
+      }*/
+      //if (eventSelect=== "")
+      
+      selected = !selected;
+      console.log(selected);
+      window.updateData(d.key);
+
+    })
     .on('mouseout', () => {
-      window.updateData("-1")
+      console.log(selected);
+      if (!selected) {
+        window.updateData("-1")
+      }
       div.transition()
         .duration(500)
         .style('opacity', 0)
     })
+
 }
 
 function drawAreaGraph(d) {
+  
   // Add the area
   svg.append('path')
     .attr('class', 'area')

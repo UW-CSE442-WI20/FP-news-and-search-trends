@@ -192,7 +192,7 @@ function addPoints(filtered, world) {
 
 // Update data from a now selected temperature and hour
 function updateData(event) {
-  
+
       svg.selectAll("circle").remove();
   // Gets data and compares it to temp and hour value
       if (event != "-1") {
@@ -229,27 +229,10 @@ function updateData(event) {
 }
 
 
-     /* console.log(desired_hour)
-      d3.csv(csvData).then(function (data) {
-          data.forEach(function (d) {
-                  d.Severity = +d.Severity;
-                  d.General_Lat = ((+d.General_Lat - 45.6) * 120) + 27;
-                  d.General_Lng = ((+d.General_Lng + 123.6) * 80) + 310;
-                  d.General_Time = +d.General_Time;
-                  d.Temperature = +d.Temperature;
-              }
-          );
-          if (desired_hour == 25 && desired_temp == 105) {
-              draw_data(data);
-          } else {
-              draw_data(data.filter(function (row) {
-                  return row.Temperature == desired_temp && row.General_Time == desired_hour
-              }));
-          }
-      });
-      */
+
   }
   window.updateData = updateData;
+
 
 
 
