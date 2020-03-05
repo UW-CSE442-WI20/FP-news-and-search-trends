@@ -28945,8 +28945,8 @@ var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
 .translate(w / 2, h / 2).scale(0.25).translate(-center[0], -center[1]));
 var path = d3.geoPath().projection(projection);
 var data1;
-var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"; //var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+
 /*var states = d3.json("us-states.json");
 var cities = d3.csv("us-cities.csv");
  
@@ -28967,9 +28967,9 @@ window.setTimeout(function() {
 
 */
 
-Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
-  var world = data[0];
-  var places = data[1];
+Promise.all([d3.json(url)]).then(function (data) {
+  var world = data[0]; //var places = data[1];
+
   svg.append("path").attr("d", path(world)).style("fill", "grey").attr("stroke", "white");
   d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
     var filtered;
@@ -28980,8 +28980,7 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
       });
       data1 = filtered; //console.log(filtered);
-
-      addPoints(filtered);
+      //addPoints(filtered);
     }
   });
   window.setTimeout(function () {
@@ -29006,28 +29005,58 @@ function addPoints(filtered, world) {
 } // Update data from a now selected temperature and hour
 
 
-function updateData(time_select) {
-  // Gets data and compares it to temp and hour value
-  console.log(time_select);
-  /*
-  d3.csv(csvData).then(function (data) {
-      data.forEach(function (d) {
-              d.Severity = +d.Severity;
-              d.Latitude = ((+d.Latitude - 45.6) * 90) + 27;
-              d.Longitude = ((+d.Longitude + 123.6) * 65) + 280;
-              d.General_Time = +d.General_Time;
-              d.Temperature = +d.Temperature;
-          }
-      );
-      if (desired_hour == 24 && desired_temp == 105) {
-          draw_data(data);
+function updateData(event) {
+  svg.selectAll("circle").remove(); // Gets data and compares it to temp and hour value
+
+  if (event != "-1") {
+    console.log(event);
+
+    if (event === "The NBA Finals") {
+      event = "NBA Finals";
+    } else if (event === "FIFA Women's World Cup") {
+      event = "Womens World Cup";
+    } else if (event === "NCAA Men's Division I Basketball Tournament") {
+      event = "march madness";
+    } else if (event === "Boeing 737 crashes") {
+      event = "Boeing 737 crash";
+    }
+
+    eventFile = event.replace(" ", "_");
+    fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv";
+    d3.csv(fileName).then(function (data, error) {
+      var filtered;
+
+      if (error) {// console.log(error + "fnaj");
       } else {
-          draw_data(data.filter(function (row) {
-              return row.Temperature == desired_temp && row.General_Time == desired_hour
-          }));
+        filtered = data.filter(function (d) {
+          return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+        });
+        data1 = filtered; //console.log(filtered);
+
+        addPoints(filtered);
       }
-  });
-  */
+    });
+  }
+  /* console.log(desired_hour)
+   d3.csv(csvData).then(function (data) {
+       data.forEach(function (d) {
+               d.Severity = +d.Severity;
+               d.General_Lat = ((+d.General_Lat - 45.6) * 120) + 27;
+               d.General_Lng = ((+d.General_Lng + 123.6) * 80) + 310;
+               d.General_Time = +d.General_Time;
+               d.Temperature = +d.Temperature;
+           }
+       );
+       if (desired_hour == 25 && desired_temp == 105) {
+           draw_data(data);
+       } else {
+           draw_data(data.filter(function (row) {
+               return row.Temperature == desired_temp && row.General_Time == desired_hour
+           }));
+       }
+   });
+   */
+
 }
 
 window.updateData = updateData;
@@ -29059,7 +29088,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49662" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64239" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
