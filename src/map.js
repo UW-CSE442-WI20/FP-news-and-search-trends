@@ -98,7 +98,7 @@ var data1;
 
 
 var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+//var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
 /*var states = d3.json("us-states.json");
 var cities = d3.csv("us-cities.csv");
  
@@ -120,9 +120,9 @@ window.setTimeout(function() {
 */
 
 
-Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
+Promise.all([d3.json(url)]).then(function (data) {
   var world = data[0];
-  var places = data[1];
+  //var places = data[1];
 
   svg.append("path")
     .attr("d", path(world))
