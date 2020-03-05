@@ -70,7 +70,7 @@ var svg = d3.select('#graph')
   .attr('height', height + margin.top + margin.bottom)
   .attr('class', 'chart')
   .append('g')
-  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 // need to change this maybe
 const color = d3.scaleOrdinal(d3.schemeCategory10) //d3.scale.category20()
