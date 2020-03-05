@@ -28691,8 +28691,8 @@ var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
 .translate(w / 2, h / 2).scale(0.25).translate(-center[0], -center[1]));
 var path = d3.geoPath().projection(projection);
 var data1;
-var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"; //var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
+
 /*var states = d3.json("us-states.json");
 var cities = d3.csv("us-cities.csv");
  
@@ -28713,9 +28713,9 @@ window.setTimeout(function() {
 
 */
 
-Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
-  var world = data[0];
-  var places = data[1];
+Promise.all([d3.json(url)]).then(function (data) {
+  var world = data[0]; //var places = data[1];
+
   svg.append("path").attr("d", path(world)).style("fill", "grey").attr("stroke", "white");
   d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
     var filtered;
@@ -28751,4 +28751,4 @@ function addPoints(filtered, world) {
   }
 }
 },{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.7edf3220.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.fb017d2f.js.map

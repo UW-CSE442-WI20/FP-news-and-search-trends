@@ -117,74 +117,48 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"slider.js":[function(require,module,exports) {
+/*var hour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+var time_select = 16;
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
 
-  return bundleURL;
-}
+var TimeSlider = d3
+    .sliderBottom()
+    .min(d3.min(hour))
+    .max(d3.max(hour))
+    .width(400)
+    .tickFormat(d3.format(''))
+    .ticks(12)
+    .step(1)
+    .default(12)
+    .on('onchange', val => {
+        time_select = val;
+        console.log(time_select);
+        window.updateData(time_select)
+    });
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+var gTimeStep = d3
+    .select('div#slider-simple')
+    .append('svg')
+    .attr('width', 500)
+    .attr('height', 100)
+    .append('g')
+    .attr('transform', 'translate(30,30)')
+    .attr('fill', 'red')
+    .attr('font-size', '40px');
 
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
+gTimeStep.call(TimeSlider);
 
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+*/
+// Simple
+var data = [0, 0.005, 0.01, 0.015, 0.02, 0.025];
+var sliderSimple = d3.sliderBottom().min(d3.min(data)).max(d3.max(data)).width(300).tickFormat(d3.format('.2%')).ticks(5).default(0.015).on('onchange', function (val) {
+  d3.select('p#value-simple').text(d3.format('.2%')(val));
+});
+var gSimple = d3.select('div#slider-simple').append('svg').attr('width', 500).attr('height', 100).append('g').attr('transform', 'translate(30,30)');
+gSimple.call(sliderSimple);
+d3.select('p#value-simple').text(d3.format('.2%')(sliderSimple.value()));
+},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -388,5 +362,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/index.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","slider.js"], null)
+//# sourceMappingURL=/slider.ab09d017.js.map

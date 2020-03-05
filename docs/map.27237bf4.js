@@ -29003,7 +29003,34 @@ function addPoints(filtered, world) {
     }).style("fill", "yellow").style("stroke", "gray").style("stroke-width", 0.25).style("opacity", 0.75);
     svg.selectAll("circle").append("title").text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
   }
+} // Update data from a now selected temperature and hour
+
+
+function updateData(time_select) {
+  // Gets data and compares it to temp and hour value
+  console.log(time_select);
+  /*
+  d3.csv(csvData).then(function (data) {
+      data.forEach(function (d) {
+              d.Severity = +d.Severity;
+              d.Latitude = ((+d.Latitude - 45.6) * 90) + 27;
+              d.Longitude = ((+d.Longitude + 123.6) * 65) + 280;
+              d.General_Time = +d.General_Time;
+              d.Temperature = +d.Temperature;
+          }
+      );
+      if (desired_hour == 24 && desired_temp == 105) {
+          draw_data(data);
+      } else {
+          draw_data(data.filter(function (row) {
+              return row.Temperature == desired_temp && row.General_Time == desired_hour
+          }));
+      }
+  });
+  */
 }
+
+window.updateData = updateData;
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29032,7 +29059,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50251" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49662" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -28905,9 +28905,9 @@ var margin = {
   right: 20,
   bottom: 50,
   left: 50
-};
-var width = WIDTH - margin.left - margin.right;
-var height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
+},
+    width = WIDTH - margin.left - margin.right,
+    height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
 
 var parseDate = d3.timeParse('%Y-%m-%d'); // Set the ranges
 
@@ -28973,8 +28973,11 @@ d3.csv('news_topics_2019.csv').then(function (data) {
   dataNest.forEach(function (d) {
     drawAreaGraph(d);
   });
-  addTooltip(svg, dataNest);
-  addAxes(svg);
+  addTooltip(svg, dataNest); // Add the X Axis
+
+  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis); // Add the Y Axis
+
+  svg.append('g').attr('class', 'y axis').call(yAxis);
 });
 
 function addTooltip(svg, dataNest) {
@@ -28996,13 +28999,6 @@ function drawAreaGraph(d) {
   svg.append('path').attr('class', 'line').style('stroke', function () {
     return d.color = color(d.values[0].Category);
   }).attr('d', valueline(d.values));
-}
-
-function addAxes(svg) {
-  // Add the X Axis
-  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis); // Add the Y Axis
-
-  svg.append('g').attr('class', 'y axis').call(yAxis);
 }
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -29032,7 +29028,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50251" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49662" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
