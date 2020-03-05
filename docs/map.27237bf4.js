@@ -29037,26 +29037,6 @@ function updateData(event) {
       }
     });
   }
-  /* console.log(desired_hour)
-   d3.csv(csvData).then(function (data) {
-       data.forEach(function (d) {
-               d.Severity = +d.Severity;
-               d.General_Lat = ((+d.General_Lat - 45.6) * 120) + 27;
-               d.General_Lng = ((+d.General_Lng + 123.6) * 80) + 310;
-               d.General_Time = +d.General_Time;
-               d.Temperature = +d.Temperature;
-           }
-       );
-       if (desired_hour == 25 && desired_temp == 105) {
-           draw_data(data);
-       } else {
-           draw_data(data.filter(function (row) {
-               return row.Temperature == desired_temp && row.General_Time == desired_hour
-           }));
-       }
-   });
-   */
-
 }
 
 window.updateData = updateData;
@@ -29088,7 +29068,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64239" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57320" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

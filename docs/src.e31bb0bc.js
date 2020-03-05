@@ -28941,6 +28941,8 @@ window.onload = function () {
     text += '</span>';
   });
   document.getElementById('graph-text').innerHTML = text;
+  selected = false;
+  eventSelect = "-1";
 }; // Get the data
 
 
@@ -28976,15 +28978,45 @@ d3.csv('news_topics_2019.csv').then(function (data) {
   addTooltip(svg, dataNest);
   addAxes(svg);
 });
+var eventSelect;
+var selected;
+var svg1 = d3.select("#graph").on("click", function () {
+  eventSelect = "-1"; //selected = !selected;
+
+  updateData("-1");
+  return "clicked";
+});
 
 function addTooltip(svg, dataNest) {
   var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
   svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
-    window.updateData(d.key);
+    if (!selected) {
+      window.updateData(d.key);
+    } //eventSelect = d.key;
+
+
     div.transition().duration(300).style('opacity', .8).style('background', d.color);
     div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
+  }).on("click", function (d) {
+    // Determine if event is already clicked, if it is, unselect it. 
+
+    /*var active   = (eventSelect!=-1) ? false : true ,
+    if (!active) {
+      window.updateData("-1");
+    } else {
+      window.updateData(eventSelect);
+    }*/
+    //if (eventSelect=== "")
+    selected = !selected;
+    console.log(selected);
+    window.updateData(d.key);
   }).on('mouseout', function () {
-    window.updateData("-1");
+    console.log(selected);
+
+    if (!selected) {
+      window.updateData("-1");
+    }
+
     div.transition().duration(500).style('opacity', 0);
   });
 }
@@ -29034,7 +29066,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64239" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57320" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

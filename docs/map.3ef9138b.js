@@ -28783,28 +28783,8 @@ function updateData(event) {
       }
     });
   }
-  /* console.log(desired_hour)
-   d3.csv(csvData).then(function (data) {
-       data.forEach(function (d) {
-               d.Severity = +d.Severity;
-               d.General_Lat = ((+d.General_Lat - 45.6) * 120) + 27;
-               d.General_Lng = ((+d.General_Lng + 123.6) * 80) + 310;
-               d.General_Time = +d.General_Time;
-               d.Temperature = +d.Temperature;
-           }
-       );
-       if (desired_hour == 25 && desired_temp == 105) {
-           draw_data(data);
-       } else {
-           draw_data(data.filter(function (row) {
-               return row.Temperature == desired_temp && row.General_Time == desired_hour
-           }));
-       }
-   });
-   */
-
 }
 
 window.updateData = updateData;
 },{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.f94dadc2.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.3ef9138b.js.map
