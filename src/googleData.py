@@ -40,17 +40,19 @@ pp = pprint.PrettyPrinter(depth=10)
 #tz is timezone offset, 360 is central time. 
 pytrends = TrendReq(hl='en-US', tz=360)
 
-"""topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "FIFA Women’s World Cup","Hurricane Dorian", "Notre Dame fire",
- "Christchurch shooting","Trump impeachment", "Lori Loughlin college scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
+"""topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
+ "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","march madness", 
+ "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+"""
+#List of search terms, but can only do 5 at a time. 
+#fix march maddness and NBA finals!!!
+#kw_list = ["march madness"]
+kw_list = ["NBA Finals"]
+"""
+,"Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
+ "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
  "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 """
-topics = ["MLS Cup"]
-#List of search terms, but can only do 5 at a time. 
-"""kw_list = ["MLS Cup"]
-,"Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "FIFA Women’s World Cup","Hurricane Dorian", "Notre Dame fire",
- "Christchurch shooting","Trump impeachment", "Lori Loughlin college scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
- "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
-
 
 start_date = datetime.date(2019,1,1)
 end_date = datetime.date(2019,1,6)
@@ -62,7 +64,7 @@ dd = defaultdict(list)
 while(end_date < stop_date):
   timeframeString = start_date.strftime('%Y-%m-%d')+' '+ end_date.strftime('%Y-%m-%d')
   print("DATE:",timeframeString)
-  time.sleep(10)
+  time.sleep(5)
   # cat is categories and 0 is all categories
   #timeframe is dates
   #gprop is What Google property to filter to, like images, shopping, etc. defaults to websearch. 
@@ -97,7 +99,7 @@ with open(input, 'r') as inp, open(outputname, 'w') as out:
   for row in csv.reader(inp):
     if row[1] == kw_list[0]: 
       row[1] = "interest"
-      
+      writer.writerow(row)
     if row[1] != "0": 
       
       
@@ -121,7 +123,7 @@ for topic in topics:
         row.append("long")
         writer.writerow(row)
       if row[1] != "interest": 
-        """
+       
         
         
         dash = location.find('-')
@@ -135,7 +137,7 @@ for topic in topics:
         if (paren != -1 ):
           location = location[0:(paren-1)]
         #row[0] = location
-        """
+       
         location = row[0]
         key = dd.get(location, 'no')
         if( key == 'no'):
@@ -155,5 +157,5 @@ for topic in topics:
         
       #writer.writerow(row)
 
-  
+  """
 
