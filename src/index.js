@@ -125,6 +125,7 @@ function addTooltip(svg, dataNest) {
   svg.selectAll('path.area')
     .data(dataNest)
     .on('mouseover', (d) => {
+      window.updateData(d.key)
       div.transition()
         .duration(300)
         .style('opacity', .8)
@@ -134,6 +135,7 @@ function addTooltip(svg, dataNest) {
         .style('top', (d3.event.pageY - 28) + 'px')
     })
     .on('mouseout', () => {
+      window.updateData("-1")
       div.transition()
         .duration(500)
         .style('opacity', 0)
