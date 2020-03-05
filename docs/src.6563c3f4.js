@@ -28630,43 +28630,125 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"MtRH":[function(require,module,exports) {
-// nytd_geo for a location
-// nytd_per for a person
-// nytd_org for an organization
-// nytd_des for a descriptor
-// nytd_ttl for a creative work title
-// nytd_topic for a topic
-// nytd_prog for a public company
-var d3 = require('d3');
+},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"Focm":[function(require,module,exports) {
+// You can require libraries
+var d3 = require('d3'); ////////////////////////////////////////////////////////////////////////////////
 
+
+var FILE_PATH = 'news_topics_2019/';
 var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
-var nytTopicFiles = [];
+var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous'];
+var newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster', 'Environment', 'Environment', 'Disaster', 'Sports', 'Sports', 'Disaster', 'Disaster', 'Miscellaneous', 'Sports', 'Politics', 'Environment', 'Environment', 'Sports', 'Miscellaneous', 'Sports', 'Politics', 'Sports', 'Disaster', 'Sports', 'Sports', 'Sports', 'Sports', 'Politics', 'Miscellaneous', 'Sports'];
+var newsTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
-  nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
+  newsTopicFiles.push(topic.replace(/ /g, '_') + '.csv');
 });
-d3.json(nytTopicFiles[2]).then(function (data) {
-  var WIDTH = 300;
-  var HEIGHT = 150;
-  var articles = [];
+var WIDTH = 700;
+var HEIGHT = WIDTH / 2; // Set the dimensions of the canvas / graph
 
-  for (var article in data.articles) {
-    articles.push(data.articles[article]);
-  }
+var margin = {
+  top: 20,
+  right: 20,
+  bottom: 50,
+  left: 50
+};
+var width = WIDTH - margin.left - margin.right;
+var height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
 
-  var svg = d3.select('#nyt_articles').append('svg').attr('height', HEIGHT).attr('width', WIDTH);
-  var y = d3.scaleLinear().range([0, 55]);
-  svg.selectAll('rect').data(articles).enter().append('rect').attr('x', 10).attr('y', function (d) {
-    return y(d.article_num) + 5;
-  }).attr('height', 50).attr('width', 600).style('fill', 'lightgrey').style("opacity", 1.0); // draw a rectangle
+var parseDate = d3.timeParse('%Y-%m-%d'); // Set the ranges
 
-  svg.selectAll('a').data(articles).enter().append('a').attr('href', function (d) {
-    return d.web_url;
-  }).append('text').attr('fill', 'black').text(function (d) {
-    return d.headline.main;
-  }).attr('text-anchor', 'left').attr('x', 15).attr('y', function (d) {
-    return y(d.article_num) + 35;
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]); // Define the axes
+
+var xAxis = d3.axisBottom(x);
+var yAxis = d3.axisLeft(y); // Define the area
+
+var area = d3.area().x(function (d) {
+  return x(d.Week);
+}).y0(height).y1(function (d) {
+  return y(d.interest);
+}); // Define the line
+
+var valueline = d3.line().x(function (d) {
+  return x(d.Week);
+}).y(function (d) {
+  return y(d.interest);
+}); // Adds the svg canvas
+
+var svg = d3.select('#graph').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // need to change this maybe
+
+var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20()
+
+window.onload = function () {
+  var text = 'Categories: ';
+  categories.forEach(function (cat) {
+    text += '<span style=\'color:' + color(cat) + '\'>';
+    text += cat + ' ';
+    text += '</span>';
   });
+  document.getElementById('graph-text').innerHTML = text;
+}; // Get the data
+
+
+d3.csv('news_topics_2019.csv').then(function (data) {
+  data.forEach(function (d) {
+    d.Week = parseDate(d.Week);
+    d.interest = +d.interest;
+
+    if (isNaN(d.interest)) {
+      d.interest = 0;
+    }
+
+    var idx = newsTopicTerms.indexOf(d.topic);
+    d.Category = newsTopicCategories[idx];
+  }); // use this to filter the data, if necessary
+
+  data = data.filter(function (d) {
+    return d.interest >= 0;
+  }); // Scale the range of the data
+
+  x.domain(d3.extent(data, function (d) {
+    return d.Week;
+  }));
+  y.domain([0, d3.max(data, function (d) {
+    return d.interest;
+  })]);
+  var dataNest = d3.nest().key(function (d) {
+    return d.topic;
+  }).entries(data);
+  dataNest.forEach(function (d) {
+    drawAreaGraph(d);
+  });
+  addTooltip(svg, dataNest);
+  addAxes(svg);
 });
-},{"d3":"UzF0"}]},{},["MtRH"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/NewYorkTimesAPI.d137d395.js.map
+
+function addTooltip(svg, dataNest) {
+  var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
+  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
+    div.transition().duration(300).style('opacity', .8).style('background', d.color);
+    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
+  }).on('mouseout', function () {
+    div.transition().duration(500).style('opacity', 0);
+  });
+}
+
+function drawAreaGraph(d) {
+  // Add the area
+  svg.append('path').attr('class', 'area').style('opacity', 0.2).style('fill', function () {
+    return d.color = color(d.values[0].Category);
+  }).attr('d', area(d.values)); // Add the valueline path.
+
+  svg.append('path').attr('class', 'line').style('stroke', function () {
+    return d.color = color(d.values[0].Category);
+  }).attr('d', valueline(d.values));
+}
+
+function addAxes(svg) {
+  // Add the X Axis
+  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis); // Add the Y Axis
+
+  svg.append('g').attr('class', 'y axis').call(yAxis);
+}
+},{"d3":"UzF0"}]},{},["Focm"], null)
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/src.6563c3f4.js.map

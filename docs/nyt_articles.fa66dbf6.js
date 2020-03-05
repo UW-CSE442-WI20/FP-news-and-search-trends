@@ -28884,7 +28884,7 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"NewYorkTimesAPI.js":[function(require,module,exports) {
+},{"./dist/package.js":"../node_modules/d3/dist/package.js","d3-array":"../node_modules/d3-array/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-brush":"../node_modules/d3-brush/src/index.js","d3-chord":"../node_modules/d3-chord/src/index.js","d3-collection":"../node_modules/d3-collection/src/index.js","d3-color":"../node_modules/d3-color/src/index.js","d3-contour":"../node_modules/d3-contour/src/index.js","d3-dispatch":"../node_modules/d3-dispatch/src/index.js","d3-drag":"../node_modules/d3-drag/src/index.js","d3-dsv":"../node_modules/d3-dsv/src/index.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-fetch":"../node_modules/d3-fetch/src/index.js","d3-force":"../node_modules/d3-force/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-geo":"../node_modules/d3-geo/src/index.js","d3-hierarchy":"../node_modules/d3-hierarchy/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-path":"../node_modules/d3-path/src/index.js","d3-polygon":"../node_modules/d3-polygon/src/index.js","d3-quadtree":"../node_modules/d3-quadtree/src/index.js","d3-random":"../node_modules/d3-random/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-scale-chromatic":"../node_modules/d3-scale-chromatic/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-voronoi":"../node_modules/d3-voronoi/src/index.js","d3-zoom":"../node_modules/d3-zoom/src/index.js"}],"nyt_articles.js":[function(require,module,exports) {
 // nytd_geo for a location
 // nytd_per for a person
 // nytd_org for an organization
@@ -28899,39 +28899,50 @@ var nytTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
   nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
 });
-d3.json(nytTopicFiles[2]).then(function (data) {
-  var WIDTH = 300;
-  var HEIGHT = 150;
+var request = new XMLHttpRequest();
+request.open('GET', 'https://news-and-search-trends.zkeyes.now.sh', true);
+
+request.onload = function () {
+  // Begin accessing JSON data here
+  var data = JSON.parse(this.response);
+
+  if (request.status >= 200 && request.status < 400) {
+    console.log(data);
+  } else {
+    console.log('error');
+  }
+};
+
+request.send();
+d3.json(nytTopicFiles[18]).then(function (data) {
   var articles = [];
 
   for (var article in data.articles) {
     articles.push(data.articles[article]);
   }
 
-  var svg = d3.select('#nyt_articles').append('svg').attr('height', HEIGHT).attr('width', WIDTH);
+  articles.sort(function (a, b) {
+    d1 = new Date(a.pub_date).getTime();
+    d2 = new Date(b.pub_date).getTime();
+    return d1 - d2;
+  });
+  var svg = d3.select('#nyt_articles').append('svg').attr('id', 'scroll-svg').attr('height', 55 * articles.length + 5 + 'px');
   var y = d3.scaleLinear().range([0, 55]);
-  svg.selectAll('rect').data(articles).enter().append('rect').attr('x', 10).attr('y', function (d) {
-    return y(d.article_num) + 5;
-  }).attr('height', 50).attr('width', 600).style('fill', 'lightgrey').style("opacity", 1.0); // draw a rectangle
+  var i = 0; // draw the rects
+
+  svg.selectAll('rect').data(articles).enter().append('rect').attr('y', function (d) {
+    return y(i++) + 5;
+  }).attr('height', 50).attr('width', '100%').style('fill', 'lightgrey').style('opacity', 1.0);
+  i = 0, j = 1; // draw the nyt titles
 
   svg.selectAll('a').data(articles).enter().append('a').attr('href', function (d) {
     return d.web_url;
-  }).append('text').attr('fill', 'black').text(function (d) {
-    return d.headline.main;
-  }).attr('text-anchor', 'left').attr('x', 15).attr('y', function (d) {
-    return y(d.article_num) + 35;
-  }); // container
-  //     .on("scroll.scroller", function () {
-  //         newScrollTop = container.node().scrollTop
-  //     });      
-  // var render = function () {
-  //     // Don't re-render if scroll didn't change
-  //     if (scrollTop !== newScrollTop) {
-  //         // Graphics Code Goes Here
-  //     }
-  //     window.requestAnimationFrame(render)
-  // }
-  // window.requestAnimationFrame(render)
+  }).attr('target', '_blank').append('text').attr('fill', 'black').attr('x', 15).attr('y', function () {
+    return y(i++) + 35;
+  }).text(function (d) {
+    var headline = d.headline.main;
+    return j++ + ': ' + headline;
+  }).attr('text-anchor', 'left');
 });
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -28961,7 +28972,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50251" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -29137,5 +29148,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","NewYorkTimesAPI.js"], null)
-//# sourceMappingURL=/NewYorkTimesAPI.f0d9a697.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","nyt_articles.js"], null)
+//# sourceMappingURL=/nyt_articles.fa66dbf6.js.map

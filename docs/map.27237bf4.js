@@ -28979,7 +28979,8 @@ Promise.all([d3.json(url), d3.json(data_url)]).then(function (data) {
       filtered = data.filter(function (d) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
       });
-      data1 = filtered;
+      data1 = filtered; //console.log(filtered);
+
       addPoints(filtered);
     }
   });
@@ -28994,15 +28995,13 @@ function addPoints(filtered, world) {
     var longitude = parseFloat(filtered[i]["long"]);
     var interest = parseInt(filtered[i]["interest"]);
     svg.append("circle").attr("cx", function (d) {
-      // console.log(filtered[i]["lat"]);
-      // console.log(filtered[i]["long"]);
-      // console.log(filtered[i]["date"]);
-      return projection([longitude, latitude])[0];
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
     }).attr("cy", function (d) {
-      return projection([longitude, latitude])[1];
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
     }).attr("r", function (d) {
       return Math.sqrt(interest);
     }).style("fill", "yellow").style("stroke", "gray").style("stroke-width", 0.25).style("opacity", 0.75);
+    svg.selectAll("circle").append("title").text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
   }
 }
 },{"d3":"../node_modules/d3/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -29033,7 +29032,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56027" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50251" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
