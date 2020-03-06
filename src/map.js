@@ -42,7 +42,7 @@ var svg = d3.select("#map1").append("svg").attr("width", w)
 var projection = d3.geoAlbersUsa()
   .translate([w / 2, h / 2])
   .scale([600]);//var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
-var center = projection([-97.0, 39.0]);
+var center = projection([-120.0, 50.0]);
 //Define what to do when panning or zooming
 
 var zooming = function (d) {
@@ -88,7 +88,7 @@ var map = svg.append("g")
   .call(zoom)  //Bind the zoom behavior
   .call(zoom.transform, d3.zoomIdentity  //Then apply the initial transform
     .translate(w / 2, h / 2)
-    .scale(0.25)
+    .scale(0.36)
     .translate(-center[0], -center[1]));
 
 var path = d3.geoPath().projection(projection);

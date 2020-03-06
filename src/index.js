@@ -33,8 +33,8 @@ newsTopicTerms.forEach(function (topic) {
 })
 
 
-const WIDTH = 700
-const HEIGHT = WIDTH / 2
+const WIDTH = 1460
+const HEIGHT = WIDTH / 3
 
 // Set the dimensions of the canvas / graph
 var margin = { top: 20, right: 20, bottom: 50, left: 50 }
