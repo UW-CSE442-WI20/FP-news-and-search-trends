@@ -117,7 +117,6 @@ d3.csv('news_topics_2019.csv')
     dataNest.forEach((d) => { drawAreaGraph(d) })
     addTooltip(svg, dataNest)
     addAxes(svg)
-    
   })
 
   
@@ -132,7 +131,6 @@ var svg1 = d3.select("#graph").on("click", function() {
 });
 
 function addTooltip(svg, dataNest) {
-  
   var div = d3.select('#graph').append('div')
     .attr('class', 'tooltip')
     .style('opacity', 0)

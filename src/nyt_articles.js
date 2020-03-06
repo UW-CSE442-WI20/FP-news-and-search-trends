@@ -25,22 +25,14 @@ newsTopicTerms.forEach(function (topic) {
     nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
 })
 
-var request = new XMLHttpRequest()
-request.open('GET', 'https://news-and-search-trends.zkeyes.now.sh', true)
-request.onload = function () {
-    // Begin accessing JSON data here
-    var data = JSON.parse(this.response)
 
-    if (request.status >= 200 && request.status < 400) {
-        console.log(data)
-    } else {
-        console.log('error')
-    }
-}
+// const axios = require('axios')
+// axios.get('https://news-and-search-trends.zkeyes.now.sh').then((response) => {
+//     console.log(response)
+// }).catch((error) => { console.error(error) })
 
-request.send()
 
-d3.json(nytTopicFiles[18]).then((data) => {
+d3.json(nytTopicFiles[4]).then(data => {
     var articles = []
     for (var article in data.articles) {
         articles.push(data.articles[article])
@@ -48,16 +40,16 @@ d3.json(nytTopicFiles[18]).then((data) => {
     articles.sort((a, b) => {
         d1 = new Date(a.pub_date).getTime()
         d2 = new Date(b.pub_date).getTime()
-        return d1 - d2
+        return d2 - d1
     })
 
     var svg = d3.select('#nyt_articles')
         .append('svg')
         .attr('id', 'scroll-svg')
-        .attr('height', 55 * articles.length + 5 + 'px')
+        .attr('height', 155 * articles.length + 35 + 'px')
 
     var y = d3.scaleLinear()
-        .range([0, 55]);
+        .range([0, 155]);
 
     var i = 0
     // draw the rects
@@ -65,32 +57,50 @@ d3.json(nytTopicFiles[18]).then((data) => {
         .data(articles)
         .enter()
         .append('rect')
-        .attr('y', (d) => {
-            return y(i++) + 5
-        })
-        .attr('height', 50)
+        .attr('y', () => y(i++) + 5 )
+        .attr('height', 150)
         .attr('width', '100%')
         .style('fill', 'lightgrey')
         .style('opacity', 1.0)
 
-    i = 0, j = 1
     // draw the nyt titles
+    i = 0
     svg.selectAll('a')
         .data(articles)
         .enter()
         .append('a')
-        .attr('href', (d) => { return d.web_url })
+        .attr('href', d => d.web_url)
         .attr('target', '_blank')
         .append('text')
+        .style('font-size', '20px')
         .attr('fill', 'black')
         .attr('x', 15)
-        .attr('y', () => { return y(i++) + 35 })
-        .text((d) => {
-            var headline = d.headline.main
-            return (j++) + ': ' + headline }
-        )
+        .attr('y', () => y(i++) + 85)
         .attr('text-anchor', 'left')
+        .text(d => d.headline.main)
 
+    var j = 0
+    svg.selectAll('image')
+        .data(articles)
+        .enter()
+        .append('image')
+        .attr('href', d =>
+            d.multimedia.length > 0 ?
+                'https://www.nytimes.com/' + d.multimedia[0].url :
+                './nyt_articles/nyt_logo.png'
+        )
+        .attr('width', '150')
+        .attr('height', '150')
+        .attr('x', '800')
+        .attr('y', () => y(j++) + 5)
+
+    svg.append('a')
+        .attr('href', 'https://developer.nytimes.com')
+        .attr('target', '_blank')
+        .append('image')
+        .attr('href', './nyt_articles/nyt_api_logo65.png')
+        .attr('x', '0')
+        .attr('y', 155 * articles.length + 5)
 })
 
 

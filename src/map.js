@@ -137,10 +137,7 @@ Promise.all([d3.json(url)]).then(function (data) {
       filtered = data.filter(function (d) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
       });
-
       data1 = filtered;
-      //console.log(filtered);
-      //addPoints(filtered);
     }
   });
 
@@ -176,13 +173,13 @@ function addPoints(filtered, world) {
           return 50
       })
       .attr("r", function (d) {
-        return Math.sqrt(interest) ;
+        return Math.sqrt(interest);
       })
       .style("fill", "yellow")
       .style("stroke", "gray")
       .style("stroke-width", 0.25)
       .style("opacity", 0.75);
-    
+
     svg.selectAll("circle")
       .append("title")
       .text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
@@ -193,45 +190,43 @@ function addPoints(filtered, world) {
 // Update data from a now selected temperature and hour
 function updateData(event) {
 
-      svg.selectAll("circle").remove();
+  svg.selectAll("circle").remove();
   // Gets data and compares it to temp and hour value
-      if (event != "-1") {
-        console.log(event)
-        if (event === "The NBA Finals") {
-          event = "NBA Finals";
-        } 
-        else if (event === "FIFA Women's World Cup") {
-          event = "Womens World Cup";
-        } else if (event === "NCAA Men's Division I Basketball Tournament"){
-          event = "march madness";
-        } else if (event === "Boeing 737 crashes") {
-          event = "Boeing 737 crash";
-        }
-        eventFile = event.replace(" ", "_");
-        
-        fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
-        d3.csv(fileName).then(function (data, error) {
-          
-          var filtered;
-          if (error) {
-            // console.log(error + "fnaj");
-          } else {
-            filtered = data.filter(function (d) {
-              return d["date"] === "2019-01-01"; //d["interest"]=== "12";
-            });
-      
-            data1 = filtered;
-            //console.log(filtered);
-            addPoints(filtered);
-          }
-        
-  });
+  if (event != "-1") {
+    console.log(event)
+    if (event === "The NBA Finals") {
+      event = "NBA Finals";
+    }
+    else if (event === "FIFA Women's World Cup") {
+      event = "Womens World Cup";
+    } else if (event === "NCAA Men's Division I Basketball Tournament") {
+      event = "march madness";
+    } else if (event === "Boeing 737 crashes") {
+      event = "Boeing 737 crash";
+    }
+    eventFile = event.replace(" ", "_");
+
+    fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
+    d3.csv(fileName).then(function (data, error) {
+
+      var filtered;
+      if (error) {
+        // console.log(error + "fnaj");
+      } else {
+        filtered = data.filter(function (d) {
+          return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+        });
+
+        data1 = filtered;
+        //console.log(filtered);
+        addPoints(filtered);
+      }
+
+    });
+  }
 }
 
-
-
-  }
-  window.updateData = updateData;
+window.updateData = updateData;
 
 
 
