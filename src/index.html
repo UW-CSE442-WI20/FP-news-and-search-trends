@@ -17,9 +17,9 @@
         </div>
         <div class="header__avatar">Your face</div>
     </header>
+
     <aside class="sidenav">
-        <img id="googleLogo"
-            src="https://ssl.gstatic.com/trends_tpt/fb29f61e3b0419e1e745c9245d00d094c5357b2246bbdf17cd2b03d7349b2c72.png">
+        <img id="googleLogo" src="../static/google-trends-logo.png">
         <ul class="sidenav__list">
             <li class="sidenav__list-item">Item One</li>
             <li class="sidenav__list-item">Item Two</li>
@@ -32,112 +32,34 @@
     <!-- Treat Main as Body -->
     <main class="main">
         <div class="main-cards">
-            
+
             <div class="card" id="graph">
-                
-                <script src="./index.js"></script>
+                <script src="./graph.js"></script>
                 <div id="graph-text">Graph</div>
             </div>
-      
-    
-        <div class="card" id = "slider">
-            <script src="https://d3js.org/d3.v5.min.js"></script>
-            <script src="https://unpkg.com/d3-simple-slider"></script>
-            <script type="text/javascript">
-                var data = [1,2,3,4,5,6,7,8,9,10,11,12];
-                var sliderRange = d3
-                    .sliderBottom()
-                    .min(d3.min(data))
-                    .max(d3.max(data))
-                    .width(1300)
-                    .tickFormat(d3.format(''))
-                    .ticks(12)
-                    .default([5, 7])
-                    .fill('#2196f3')
-                    .on('onchange', val => {
-                        //window.updateData(val)
-                        console.log(val);
-                    //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
-                    });
 
-                var gRange = d3
-                    .select('div#slider')
-                    .append('svg')
-                    .attr('width', 500)
-                    .attr('height', 100)
-                    .append('g')
-                    .attr('fill', 'red');
-
-                gRange.call(sliderRange);
-/*
-            d3.select('p#value-range').text(
-                sliderRange
-                .value()
-                .map(d3.format('.2%'))
-                .join('-')
-            );*/
-
-            /*
-                var hour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
-                var time_select = 16;
-                var TimeSlider = d3
-                    .sliderBottom()
-                    .min(d3.min(hour))
-                    .max(d3.max(hour))
-                    .width(1400)
-                    .tickFormat(d3.format(''))
-                    .ticks(12)
-                    .step(1)
-                    .default(12)
-                    .on('onchange', val => {
-                        time_select = val;
-                        console.log(time_select);
-                        window.updateData(time_select)
-                    });
-                var gTimeStep = d3
-                    .select('div#slider')
-                    .append('svg')
-                    .attr('width', 500)
-                    .attr('height', 100)
-                    .append('g')
-                    .attr('fill', 'red')
-                    .attr('font-size', '40px');
-                
-                    gTimeStep.call(TimeSlider);
-                    */
-                                
-            </script>
-        </div>
-       
-        <div class="card" id="row">
-            <div id="map1">
-                <script src="./map.js"></script>
-                <style>
-                    map1 {
-                        margin: 0;
-                        position: fixed;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                    }
-
-                    svg {
-                        width: 100%;
-                        
-                    }
-                </style>
-                Map
+            <div class="card" id="slider">
+                <script src="https://d3js.org/d3.v5.min.js"></script>
+                <script src="https://unpkg.com/d3-simple-slider"></script>
+                <script src="./slider.js"></script>
             </div>
 
-            <div id="article_pic">
-                Article Pic
+            <div class="card" id="row">
+                <div id="map1">
+                    <script src="./map.js"></script>
+                    <link rel="stylesheet" href="map_style.css">
+                    Map
+                </div>
+
+                <div id="article_pic">
+                    Article Pic
+                </div>
             </div>
-        </div>
-            
+
             <div class="card" id="nyt_articles">
-                <script src="./nyt_articles.js"></script>
-            </div>        
+                <script src="./nyt.js"></script>
+                <link rel="stylesheet" href="nyt_style.css">
+            </div>
         </div>
     </main>
     <footer class="footer">

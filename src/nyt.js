@@ -1,32 +1,6 @@
-// nytd_geo for a location
-// nytd_per for a person
-// nytd_org for an organization
-// nytd_des for a descriptor
-// nytd_ttl for a creative work title
-// nytd_topic for a topic
-// nytd_prog for a public company
-
+import * as constants from './constants.js'
 
 const d3 = require('d3')
-
-
-const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
-    'California earthquake', 'California wildfires', 'Christchurch shooting',
-    'Coco Gauff', 'College Football Playoff', 'Dayton shooting',
-    'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup',
-    'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi',
-    'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report',
-    'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire',
-    'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
-    'Trump impeachment', 'vaping', 'World Series']
-
-const months = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December']
-
-var nytTopicFiles = []
-newsTopicTerms.forEach(function (topic) {
-    nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
-})
 
 
 // const axios = require('axios')
@@ -34,15 +8,14 @@ newsTopicTerms.forEach(function (topic) {
 //     console.log(response)
 // }).catch((error) => { console.error(error) })
 
-
-d3.json(nytTopicFiles[18]).then(data => {
+d3.json(constants.nytTopicFiles[18]).then(data => {
     var articles = []
     for (var article in data.articles) {
         articles.push(data.articles[article])
     }
     articles.sort((a, b) => {
-        d1 = new Date(a.pub_date).getTime()
-        d2 = new Date(b.pub_date).getTime()
+        var d1 = new Date(a.pub_date).getTime()
+        var d2 = new Date(b.pub_date).getTime()
         return d2 - d1
     })
 
@@ -54,20 +27,8 @@ d3.json(nytTopicFiles[18]).then(data => {
     var y = d3.scaleLinear()
         .range([0, 155]);
 
-    var i = 0
-    // draw the rects
-    // svg.selectAll('rect')
-    //     .data(articles)
-    //     .enter()
-    //     .append('rect')
-    //     .attr('y', () => y(i++) + 5 )
-    //     .attr('height', 150)
-    //     .attr('width', '100%')
-    //     .style('fill', 'lightgrey')
-    //     .style('opacity', 1.0)
-
     // draw the nyt titles
-    i = 0
+    var i = 0
     svg.selectAll('#headline-link')
         .data(articles)
         .enter()
@@ -93,7 +54,7 @@ d3.json(nytTopicFiles[18]).then(data => {
         .attr('text-anchor', 'left')
         .text(d => {
             var date = new Date(d.pub_date)
-            return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
+            return constants.months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
         })
 
     i = 0

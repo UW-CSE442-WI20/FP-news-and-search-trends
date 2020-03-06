@@ -1,26 +1,6 @@
-// You can require libraries
+import * as constants from './constants'
+
 const d3 = require('d3')
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-const FILE_PATH = "trendsByLocation/";
-
-const newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes",
-  "California earthquake", "California wildfires", "Christchurch shooting",
-  "Coco Gauff", "College Football Playoff", "Dayton shooting",
-  "El Paso shooting", "Equifax data breach", "FIFA Women's World Cup",
-  "government shutdown", "Greta Thunberg", "Hurricane Dorian", "Katelyn Ohashi",
-  "Lori Loughlin college scandal", "MLS Cup", "Muller Report",
-  "NCAA Men's Division I Basketball Tournament", "Notre Dame fire",
-  "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters",
-  "Trump impeachment", "vaping", "World Series"];
-
-var newsTopicFiles = [];
-newsTopicTerms.forEach(function (topic) {
-  newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
-});
-//console.log(newsTopicFiles);
 
 //Width and height
 //Define quantize scale to sort data values into buckets of color

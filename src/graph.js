@@ -1,18 +1,6 @@
-// You can require libraries
+import * as constants from './constants'
+
 const d3 = require('d3')
-
-////////////////////////////////////////////////////////////////////////////////
-const FILE_PATH = 'news_topics_2019/'
-
-const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
-  'California earthquake', 'California wildfires', 'Christchurch shooting',
-  'Coco Gauff', 'College Football Playoff', 'Dayton shooting',
-  'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup',
-  'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi',
-  'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report',
-  'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire',
-  'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
-  'Trump impeachment', 'vaping', 'World Series']
 
 const categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']
 
@@ -25,13 +13,6 @@ const newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster',
   'Sports', 'Disaster',
   'Sports', 'Sports', 'Sports', 'Sports',
   'Politics', 'Miscellaneous', 'Sports']
-
-
-var newsTopicFiles = []
-newsTopicTerms.forEach(function (topic) {
-  newsTopicFiles.push(topic.replace(/ /g, '_') + '.csv')
-})
-
 
 const WIDTH = 1460
 const HEIGHT = WIDTH / 3
@@ -99,7 +80,7 @@ d3.csv('news_topics_2019.csv')
       if (isNaN(d.interest)) {
         d.interest = 0
       }
-      var idx = newsTopicTerms.indexOf(d.topic)
+      var idx = constants.newsTopicTerms.indexOf(d.topic)
       d.Category = newsTopicCategories[idx]
     })
 
