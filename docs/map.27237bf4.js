@@ -28979,8 +28979,7 @@ Promise.all([d3.json(url)]).then(function (data) {
       filtered = data.filter(function (d) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
       });
-      data1 = filtered; //console.log(filtered);
-      //addPoints(filtered);
+      data1 = filtered;
     }
   });
   window.setTimeout(function () {
@@ -29068,7 +29067,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51482" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61920" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

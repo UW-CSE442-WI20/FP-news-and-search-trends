@@ -28630,161 +28630,60 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"quTw":[function(require,module,exports) {
-// You can require libraries
-var d3 = require('d3'); ////////////////////////////////////////////////////////////////////////////////
+},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"vL65":[function(require,module,exports) {
+// nytd_geo for a location
+// nytd_per for a person
+// nytd_org for an organization
+// nytd_des for a descriptor
+// nytd_ttl for a creative work title
+// nytd_topic for a topic
+// nytd_prog for a public company
+var d3 = require('d3');
 
-
-var FILE_PATH = "trendsByLocation/";
-var newsTopicTerms = ["Area 51 raid", "Baby Yoda", "Boeing 737 crashes", "California earthquake", "California wildfires", "Christchurch shooting", "Coco Gauff", "College Football Playoff", "Dayton shooting", "El Paso shooting", "Equifax data breach", "FIFA Women's World Cup", "government shutdown", "Greta Thunberg", "Hurricane Dorian", "Katelyn Ohashi", "Lori Loughlin college scandal", "MLS Cup", "Muller Report", "NCAA Men's Division I Basketball Tournament", "Notre Dame fire", "Stanley Cup", "Super Bowl LIII", "The NBA Finals", "Tiger Woods Masters", "Trump impeachment", "vaping", "World Series"];
-var newsTopicFiles = [];
+var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
+var nytTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
-  newsTopicFiles.push(topic.replace(/ /g, "_") + ".csv");
-}); //console.log(newsTopicFiles);
-//Width and height
-//Define quantize scale to sort data values into buckets of color
+  nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
+}); // const axios = require('axios')
+// axios.get('https://news-and-search-trends.zkeyes.now.sh').then((response) => {
+//     console.log(response)
+// }).catch((error) => { console.error(error) })
 
-var color = d3.scaleQuantize().range(["rgb(237,248,233)", "rgb(186,228,179)", "rgb(116,196,118)", "rgb(49,163,84)", "rgb(0,109,44)"]); //Colors taken from colorbrewer.js, included in the D3 download
+d3.json(nytTopicFiles[4]).then(function (data) {
+  var articles = [];
 
-var w = 700;
-var h = w / 2;
-var path = d3.geoPath().projection(projection); // Set the dimensions of the canvas / graph
+  for (var article in data.articles) {
+    articles.push(data.articles[article]);
+  }
 
-var margin = {
-  top: 20,
-  right: 20,
-  bottom: 50,
-  left: 50
-},
-    width = w - margin.left - margin.right,
-    height = h - margin.top - margin.bottom;
-var svg = d3.select("#map1").append("svg").attr("width", w).attr("height", h); //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
-
-var projection = d3.geoAlbersUsa().translate([w / 2, h / 2]).scale([600]); //var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
-
-var center = projection([-120.0, 50.0]); //Define what to do when panning or zooming
-
-var zooming = function zooming(d) {
-  //Log out d3.event.transform, so you can see all the goodies inside
-  // console.log(d3.event.transform);
-  //New offset array
-  var offset = [d3.event.transform.x, d3.event.transform.y]; //Calculate new scale
-
-  var newScale = d3.event.transform.k * 2000; //Update projection with new offset and scale
-
-  projection.translate(offset).scale(newScale); //Update all paths and circles
-  //svg.selectAll("path")
-  // .attr("d", path);
-
-  svg.selectAll("circle").attr("cx", function (d) {
-    return projection([d.long, d.lat])[0];
-  }).attr("cy", function (d) {
-    return projection([d.long, d.lat])[1];
+  articles.sort(function (a, b) {
+    d1 = new Date(a.pub_date).getTime();
+    d2 = new Date(b.pub_date).getTime();
+    return d2 - d1;
   });
-}; //Then define the zoom behavior
+  var svg = d3.select('#nyt_articles').append('svg').attr('id', 'scroll-svg').attr('height', 155 * articles.length + 35 + 'px');
+  var y = d3.scaleLinear().range([0, 155]);
+  var i = 0; // draw the rects
 
+  svg.selectAll('rect').data(articles).enter().append('rect').attr('y', function () {
+    return y(i++) + 5;
+  }).attr('height', 150).attr('width', '100%').style('fill', 'lightgrey').style('opacity', 1.0); // draw the nyt titles
 
-var zoom = d3.zoom().scaleExtent([0.2, 2.0]).translateExtent([[-1200, -700], [1200, 700]]).on("zoom", zooming); //Create a container in which all zoom-able elements will live
-
-var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
-.call(zoom.transform, d3.zoomIdentity //Then apply the initial transform
-.translate(w / 2, h / 2).scale(0.36).translate(-center[0], -center[1]));
-var path = d3.geoPath().projection(projection);
-var data1;
-var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"; //var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
-
-/*var states = d3.json("us-states.json");
-var cities = d3.csv("us-cities.csv");
- 
-Promise.all([d3.json("us-states.geojson")]).then(function(data) {
-
-  var states = data[0];
-svg.append("path")
-  .attr("d", path(states));
-  
-})
-window.setTimeout(function() {
-  svg.selectAll("circle")
-    .transition().duration(5000)
-    .attr("r", function(d) {
-      return d.properties.pop_min / 1000000;
-    });
-}, 5000);;
-
-*/
-
-Promise.all([d3.json(url)]).then(function (data) {
-  var world = data[0]; //var places = data[1];
-
-  svg.append("path").attr("d", path(world)).style("fill", "grey").attr("stroke", "white");
-  d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
-    var filtered;
-
-    if (error) {// console.log(error + "fnaj");
-    } else {
-      filtered = data.filter(function (d) {
-        return d["date"] === "2019-01-01"; //d["interest"]=== "12";
-      });
-      data1 = filtered; //console.log(filtered);
-      //addPoints(filtered);
-    }
+  i = 0;
+  svg.selectAll('a').data(articles).enter().append('a').attr('href', function (d) {
+    return d.web_url;
+  }).attr('target', '_blank').append('text').style('font-size', '20px').attr('fill', 'black').attr('x', 15).attr('y', function () {
+    return y(i++) + 85;
+  }).attr('text-anchor', 'left').text(function (d) {
+    return d.headline.main;
   });
-  window.setTimeout(function () {
-    svg.selectAll("circle").transition().duration(5000);
-  }, 5000);
+  var j = 0;
+  svg.selectAll('image').data(articles).enter().append('image').attr('href', function (d) {
+    return d.multimedia.length > 0 ? 'https://www.nytimes.com/' + d.multimedia[0].url : './nyt_articles/nyt_logo.png';
+  }).attr('width', '150').attr('height', '150').attr('x', '800').attr('y', function () {
+    return y(j++) + 5;
+  });
+  svg.append('a').attr('href', 'https://developer.nytimes.com').attr('target', '_blank').append('image').attr('href', './nyt_articles/nyt_api_logo65.png').attr('x', '0').attr('y', 155 * articles.length + 5);
 });
-
-function addPoints(filtered, world) {
-  for (var i = 0; i < filtered.length; i++) {
-    var latitude = parseFloat(filtered[i]["lat"]);
-    var longitude = parseFloat(filtered[i]["long"]);
-    var interest = parseInt(filtered[i]["interest"]);
-    svg.append("circle").attr("cx", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
-    }).attr("cy", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
-    }).attr("r", function (d) {
-      return Math.sqrt(interest);
-    }).style("fill", "yellow").style("stroke", "gray").style("stroke-width", 0.25).style("opacity", 0.75);
-    svg.selectAll("circle").append("title").text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
-  }
-} // Update data from a now selected temperature and hour
-
-
-function updateData(event) {
-  svg.selectAll("circle").remove(); // Gets data and compares it to temp and hour value
-
-  if (event != "-1") {
-    console.log(event);
-
-    if (event === "The NBA Finals") {
-      event = "NBA Finals";
-    } else if (event === "FIFA Women's World Cup") {
-      event = "Womens World Cup";
-    } else if (event === "NCAA Men's Division I Basketball Tournament") {
-      event = "march madness";
-    } else if (event === "Boeing 737 crashes") {
-      event = "Boeing 737 crash";
-    }
-
-    eventFile = event.replace(" ", "_");
-    fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv";
-    d3.csv(fileName).then(function (data, error) {
-      var filtered;
-
-      if (error) {// console.log(error + "fnaj");
-      } else {
-        filtered = data.filter(function (d) {
-          return d["date"] === "2019-01-01"; //d["interest"]=== "12";
-        });
-        data1 = filtered; //console.log(filtered);
-
-        addPoints(filtered);
-      }
-    });
-  }
-}
-
-window.updateData = updateData;
-},{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.256b082d.js.map
+},{"d3":"UzF0"}]},{},["vL65"], null)
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt_articles.f99d1138.js.map

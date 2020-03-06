@@ -28785,4 +28785,4 @@ function addAxes(svg) {
   svg.append('g').attr('class', 'y axis').call(yAxis);
 }
 },{"d3":"UzF0"}]},{},["Focm"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/src.d6d30abe.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/src.8a879a4f.js.map
