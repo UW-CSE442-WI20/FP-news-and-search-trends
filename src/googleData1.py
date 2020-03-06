@@ -43,11 +43,11 @@ pytrends = TrendReq(hl='en-US', tz=360)
 """
 topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi", "march madness", 
- "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+ "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 """
 topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","march madness", 
- "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+ "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 
 
 #List of search terms, but can only do 5 at a time. 
@@ -55,7 +55,7 @@ topics = ["California Earthquake", "Equifax data breach", "government shutdown",
 """
 ,"Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "FIFA Women’s World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin college scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
- "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+ "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 
 
 start_date = datetime.date(2019,1,1)
@@ -119,7 +119,7 @@ for topic in topics:
   #query = kw_list[0]
   query = topic
   input = 'trends_%s.csv' % query
-  outputname = 'trends1_%s.csv' % query
+  outputname = 'zk_trends1_%s.csv' % query
   #outputname = 'trends_locations_%s.csv' % topic
   with open(input, 'r') as inp, open(outputname, 'w') as out:
     writer = csv.writer(out)

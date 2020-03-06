@@ -117,7 +117,27 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"pT13":[function(require,module,exports) {
+})({"iJA9":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.months = exports.nytTopicFiles = exports.newsTopicTerms = void 0;
+var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series']; // var newsTopicFilesTemp = []
+
+exports.newsTopicTerms = newsTopicTerms;
+var nytTopicFilesTemp = [];
+newsTopicTerms.forEach(function (topic) {
+  // newsTopicFilesTemp.push(topic.replace(/ /g, '_') + '.csv')
+  nytTopicFilesTemp.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
+});
+var nytTopicFiles = nytTopicFilesTemp; // export const newsTopicFiles = newsTopicFilesTemp
+
+exports.nytTopicFiles = nytTopicFiles;
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+exports.months = months;
+},{}],"pT13":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -28630,159 +28650,60 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"Focm":[function(require,module,exports) {
-// You can require libraries
-var d3 = require('d3'); ////////////////////////////////////////////////////////////////////////////////
+},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"pqRf":[function(require,module,exports) {
+"use strict";
+
+var constants = _interopRequireWildcard(require("./constants.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var d3 = require('d3'); // const axios = require('axios')
+// axios.get('https://news-and-search-trends.zkeyes.now.sh').then((response) => {
+//     console.log(response)
+// }).catch((error) => { console.error(error) })
 
 
-var FILE_PATH = 'news_topics_2019/';
-var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
-var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous'];
-var newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster', 'Environment', 'Environment', 'Disaster', 'Sports', 'Sports', 'Disaster', 'Disaster', 'Miscellaneous', 'Sports', 'Politics', 'Environment', 'Environment', 'Sports', 'Miscellaneous', 'Sports', 'Politics', 'Sports', 'Disaster', 'Sports', 'Sports', 'Sports', 'Sports', 'Politics', 'Miscellaneous', 'Sports'];
-var newsTopicFiles = [];
-newsTopicTerms.forEach(function (topic) {
-  newsTopicFiles.push(topic.replace(/ /g, '_') + '.csv');
-});
-var WIDTH = 1460;
-var HEIGHT = WIDTH / 3; // Set the dimensions of the canvas / graph
+d3.json(constants.nytTopicFiles[18]).then(function (data) {
+  var articles = [];
 
-var margin = {
-  top: 20,
-  right: 20,
-  bottom: 50,
-  left: 50
-};
-var width = WIDTH - margin.left - margin.right;
-var height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
+  for (var article in data.articles) {
+    articles.push(data.articles[article]);
+  }
 
-var parseDate = d3.timeParse('%Y-%m-%d'); // Set the ranges
-
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]); // Define the axes
-
-var xAxis = d3.axisBottom(x);
-var yAxis = d3.axisLeft(y); // Define the area
-
-var area = d3.area().x(function (d) {
-  return x(d.Week);
-}).y0(height).y1(function (d) {
-  return y(d.interest);
-}); // Define the line
-
-var valueline = d3.line().x(function (d) {
-  return x(d.Week);
-}).y(function (d) {
-  return y(d.interest);
-}); // Adds the svg canvas
-
-var svg = d3.select('#graph').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // need to change this maybe
-
-var color = d3.scaleOrdinal(d3.schemeCategory10); //d3.scale.category20()
-
-window.onload = function () {
-  var text = 'Categories: ';
-  categories.forEach(function (cat) {
-    text += '<span style=\'color:' + color(cat) + '\'>';
-    text += cat + ' ';
-    text += '</span>';
+  articles.sort(function (a, b) {
+    var d1 = new Date(a.pub_date).getTime();
+    var d2 = new Date(b.pub_date).getTime();
+    return d2 - d1;
   });
-  document.getElementById('graph-text').innerHTML = text;
-  selected = false;
-  eventSelect = "-1";
-}; // Get the data
+  var svg = d3.select('#nyt_articles').append('svg').attr('id', 'scroll-svg').attr('height', 155 * articles.length + 40 + 'px');
+  var y = d3.scaleLinear().range([0, 155]); // draw the nyt titles
 
-
-d3.csv('news_topics_2019.csv').then(function (data) {
-  data.forEach(function (d) {
-    d.Week = parseDate(d.Week);
-    d.interest = +d.interest;
-
-    if (isNaN(d.interest)) {
-      d.interest = 0;
-    }
-
-    var idx = newsTopicTerms.indexOf(d.topic);
-    d.Category = newsTopicCategories[idx];
-  }); // use this to filter the data, if necessary
-
-  data = data.filter(function (d) {
-    return d.interest >= 0;
-  }); // Scale the range of the data
-
-  x.domain(d3.extent(data, function (d) {
-    return d.Week;
-  }));
-  y.domain([0, d3.max(data, function (d) {
-    return d.interest;
-  })]);
-  var dataNest = d3.nest().key(function (d) {
-    return d.topic;
-  }).entries(data);
-  dataNest.forEach(function (d) {
-    drawAreaGraph(d);
+  var i = 0;
+  svg.selectAll('#headline-link').data(articles).enter().append('a').attr('id', 'headline-link').attr('href', function (d) {
+    return d.web_url;
+  }).attr('target', '_blank').append('text').attr('id', 'headline').attr('x', '195').attr('y', function () {
+    return y(i++) + 80;
+  }).attr('text-anchor', 'left').text(function (d) {
+    return d.headline.main;
   });
-  addTooltip(svg, dataNest);
-  addAxes(svg);
-});
-var eventSelect;
-var selected;
-var svg1 = d3.select("#graph").on("click", function () {
-  eventSelect = "-1"; //selected = !selected;
-
-  updateData("-1");
-  return "clicked";
-});
-
-function addTooltip(svg, dataNest) {
-  var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
-  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
-    if (!selected) {
-      window.updateData(d.key);
-    } //eventSelect = d.key;
-
-
-    div.transition().duration(300).style('opacity', .8).style('background', d.color);
-    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
-  }).on("click", function (d) {
-    // Determine if event is already clicked, if it is, unselect it. 
-
-    /*var active   = (eventSelect!=-1) ? false : true ,
-    if (!active) {
-      window.updateData("-1");
-    } else {
-      window.updateData(eventSelect);
-    }*/
-    //if (eventSelect=== "")
-    selected = !selected;
-    console.log(selected);
-    window.updateData(d.key);
-  }).on('mouseout', function () {
-    console.log(selected);
-
-    if (!selected) {
-      window.updateData("-1");
-    }
-
-    div.transition().duration(500).style('opacity', 0);
+  i = 0;
+  svg.selectAll('#date').data(articles).enter().append('text').attr('id', 'date').attr('x', '195').attr('y', function () {
+    return y(i++) + 100;
+  }).attr('text-anchor', 'left').text(function (d) {
+    var date = new Date(d.pub_date);
+    return constants.months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
   });
-}
-
-function drawAreaGraph(d) {
-  // Add the area
-  svg.append('path').attr('class', 'area').style('opacity', 0.2).style('fill', function () {
-    return d.color = color(d.values[0].Category);
-  }).attr('d', area(d.values)); // Add the valueline path.
-
-  svg.append('path').attr('class', 'line').style('stroke', function () {
-    return d.color = color(d.values[0].Category);
-  }).attr('d', valueline(d.values));
-}
-
-function addAxes(svg) {
-  // Add the X Axis
-  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis); // Add the Y Axis
-
-  svg.append('g').attr('class', 'y axis').call(yAxis);
-}
-},{"d3":"UzF0"}]},{},["Focm"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/src.8a879a4f.js.map
+  i = 0;
+  svg.selectAll('#image-link').data(articles).enter().append('a').attr('id', 'image-link').attr('href', function (d) {
+    return d.web_url;
+  }).attr('target', '_blank').append('image').attr('href', function (d) {
+    return d.multimedia.length > 0 ? 'https://www.nytimes.com/' + d.multimedia[0].url : './nyt_articles/nyt_logo.png';
+  }).attr('width', '155').attr('height', '155').attr('x', '20').attr('y', function () {
+    return y(i++) + 5;
+  });
+  svg.append('a').attr('id', 'nyt-api-attribution').attr('href', 'https://developer.nytimes.com').attr('target', '_blank').append('image').attr('href', './nyt_articles/nyt_api_logo.png').attr('x', '0').attr('y', 155 * articles.length + 5);
+});
+},{"./constants.js":"iJA9","d3":"UzF0"}]},{},["pqRf"], null)
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.063c6a6a.js.map

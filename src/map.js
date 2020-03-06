@@ -1,5 +1,4 @@
-import * as constants from './constants'
-
+// You can require libraries
 const d3 = require('d3')
 
 //Width and height
@@ -185,10 +184,8 @@ function updateData(event) {
       event = "Boeing 737 crash";
     }
     eventFile = event.replace(" ", "_");
-
     fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
     d3.csv(fileName).then(function (data, error) {
-
       var filtered;
       if (error) {
         // console.log(error + "fnaj");

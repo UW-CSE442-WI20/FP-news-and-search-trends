@@ -3,7 +3,7 @@ export const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes'
     'Coco Gauff', 'College Football Playoff', 'Dayton shooting',
     'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup',
     'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi',
-    'Lori Loughlin college scandal', 'MLS Cup', 'Muller Report',
+    'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report',
     'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire',
     'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
     'Trump impeachment', 'vaping', 'World Series']

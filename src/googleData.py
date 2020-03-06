@@ -4,15 +4,15 @@ import pdb
 import certifi
 import ssl
 import time
-import geopy.geocoders
-from geopy.geocoders import Nominatim
+# import geopy.geocoders
+# from geopy.geocoders import Nominatim
 ctx = ssl.create_default_context(cafile=certifi.where())
-geopy.geocoders.options.default_ssl_context = ctx
+# geopy.geocoders.options.default_ssl_context = ctx
 #geolocator = Nominatim(scheme='http')
 
-geopy.geocoders.options.default_user_agent = "my-application"
-geopy.geocoders.options.default_timeout = 7
-geolocator = Nominatim()
+# geopy.geocoders.options.default_user_agent = "my-application"
+# geopy.geocoders.options.default_timeout = 7
+# geolocator = Nominatim()
 import pandas as pd
 import sys
 import pandas as pd
@@ -42,16 +42,16 @@ pytrends = TrendReq(hl='en-US', tz=360)
 
 """topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","march madness", 
- "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+ "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 """
 #List of search terms, but can only do 5 at a time. 
 #fix march maddness and NBA finals!!!
 #kw_list = ["march madness"]
-kw_list = ["NBA Finals"]
+kw_list = ["Mueller Report"]
 """
 ,"Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crashes","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","NCAA Men's Division I Basketball Tournament", 
- "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Muller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+ "The NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
 """
 
 start_date = datetime.date(2019,1,1)

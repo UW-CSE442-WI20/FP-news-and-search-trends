@@ -12,7 +12,6 @@ text {
 
 path.line {
   fill: none;
-  /*stroke: purple;*/
   stroke-width: 0.75px;
 }
 
@@ -119,7 +118,7 @@ path.line {
   height: 540px;
   width: 100%;
 }
-
+  
 /* Slider */
 
 #slider {
@@ -223,30 +222,5 @@ div.tooltip {
   pointer-events: none;
 }
 
-#nyt_articles {
-  flex-direction: unset;
-  position: relative;
-  overflow-y: auto;
-  width: 100%;
-  height: 500px;
-  padding: 0px;
-}
 
-#scroll-svg {
-  position: absolute;
-  top: 0px;
-  width: 100%;
-}
-
-#headline {
-  fill: black;
-  font-size: 18px;
-  font-family: Georgia;
-}
-
-#date {
-  fill: grey;
-  font-family: Georgia;
-}
-
-/*# sourceMappingURL=/styles.8986bff4.css.map */
+/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.39655490.css.map */
