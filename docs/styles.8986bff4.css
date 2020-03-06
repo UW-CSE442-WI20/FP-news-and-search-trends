@@ -98,36 +98,12 @@ path.line {
   cursor: pointer;
 }
 
-.main-overview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-  /* Where the magic happens */
-  grid-auto-rows: 94px;
-  grid-gap: 20px;
-  margin: 20px;
-}
-
-.overviewcard {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #d3d3;
-}
-
-.main-cards {
-  column-count: 2;
-  column-gap: 20px;
-  margin: 20px;
-}
-
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: white/*#82bef6*/
-  ;
+  background-color: white/*#82bef6*/;
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
   padding: 24px;
@@ -138,15 +114,35 @@ path.line {
 
 /*Graph*/
 
-.card:first-child {
-  height: 410px;
-  width: 750px;
+#graph {
+  height: 540px;
+  width: 100%;
 }
 
 /* Slider */
 
-.card:nth-child(2) {
+#slider {
   height: 100px;
+}
+
+#article_pic {
+  height: 500px;
+  border: solid 2px black;
+  width: 40%;
+}
+
+#row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+#map1 {
+  border: solid 2px black;
+  width:59%;
+  height: 500px;
 }
 
 .menu-icon {

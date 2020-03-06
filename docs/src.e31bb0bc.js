@@ -28897,8 +28897,8 @@ var newsTopicFiles = [];
 newsTopicTerms.forEach(function (topic) {
   newsTopicFiles.push(topic.replace(/ /g, '_') + '.csv');
 });
-var WIDTH = 700;
-var HEIGHT = WIDTH / 2; // Set the dimensions of the canvas / graph
+var WIDTH = 1460;
+var HEIGHT = WIDTH / 3; // Set the dimensions of the canvas / graph
 
 var margin = {
   top: 20,
@@ -29066,7 +29066,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62127" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51482" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
