@@ -40,19 +40,17 @@
             </div>
       
     
-        <div class="card" id = "slider">Slider
+        <div class="card" id = "slider">
             <script src="https://d3js.org/d3.v5.min.js"></script>
             <script src="https://unpkg.com/d3-simple-slider"></script>
-            <script type="text/javascript" >
-                
-
+            <script type="text/javascript">
                 var hour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
                 var time_select = 16;
                 var TimeSlider = d3
                     .sliderBottom()
                     .min(d3.min(hour))
                     .max(d3.max(hour))
-                    .width(400)
+                    .width(1400)
                     .tickFormat(d3.format(''))
                     .ticks(12)
                     .step(1)
@@ -76,12 +74,8 @@
             </script>
         </div>
        
-            
-            <div class="card" id="nyt_articles">
-                <script src="./nyt_articles.js"></script>
-            </div>
-
-            <div class="card" id="map1">
+        <div class="card" id="row">
+            <div id="map1">
                 <script src="./map.js"></script>
                 <style>
                     map1 {
@@ -100,7 +94,15 @@
                 </style>
                 Map
             </div>
-        
+
+            <div id="article_pic">
+                Article Pic
+            </div>
+        </div>
+            
+            <div class="card" id="nyt_articles">
+                <script src="./nyt_articles.js"></script>
+            </div>        
         </div>
     </main>
     <footer class="footer">
