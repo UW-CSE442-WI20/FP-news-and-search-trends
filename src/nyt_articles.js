@@ -20,6 +20,9 @@ const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
     'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
     'Trump impeachment', 'vaping', 'World Series']
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December']
+
 var nytTopicFiles = []
 newsTopicTerms.forEach(function (topic) {
     nytTopicFiles.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json')
@@ -32,7 +35,7 @@ newsTopicTerms.forEach(function (topic) {
 // }).catch((error) => { console.error(error) })
 
 
-d3.json(nytTopicFiles[4]).then(data => {
+d3.json(nytTopicFiles[18]).then(data => {
     var articles = []
     for (var article in data.articles) {
         articles.push(data.articles[article])
@@ -46,59 +49,78 @@ d3.json(nytTopicFiles[4]).then(data => {
     var svg = d3.select('#nyt_articles')
         .append('svg')
         .attr('id', 'scroll-svg')
-        .attr('height', 155 * articles.length + 35 + 'px')
+        .attr('height', 155 * articles.length + 40 + 'px')
 
     var y = d3.scaleLinear()
         .range([0, 155]);
 
     var i = 0
     // draw the rects
-    svg.selectAll('rect')
-        .data(articles)
-        .enter()
-        .append('rect')
-        .attr('y', () => y(i++) + 5 )
-        .attr('height', 150)
-        .attr('width', '100%')
-        .style('fill', 'lightgrey')
-        .style('opacity', 1.0)
+    // svg.selectAll('rect')
+    //     .data(articles)
+    //     .enter()
+    //     .append('rect')
+    //     .attr('y', () => y(i++) + 5 )
+    //     .attr('height', 150)
+    //     .attr('width', '100%')
+    //     .style('fill', 'lightgrey')
+    //     .style('opacity', 1.0)
 
     // draw the nyt titles
     i = 0
-    svg.selectAll('a')
+    svg.selectAll('#headline-link')
         .data(articles)
         .enter()
         .append('a')
+        .attr('id', 'headline-link')
         .attr('href', d => d.web_url)
         .attr('target', '_blank')
         .append('text')
-        .style('font-size', '20px')
-        .attr('fill', 'black')
-        .attr('x', 15)
-        .attr('y', () => y(i++) + 85)
+        .attr('id', 'headline')
+        .attr('x', '195')
+        .attr('y', () => y(i++) + 80)
         .attr('text-anchor', 'left')
         .text(d => d.headline.main)
 
-    var j = 0
-    svg.selectAll('image')
+    i = 0
+    svg.selectAll('#date')
         .data(articles)
         .enter()
+        .append('text')
+        .attr('id', 'date')
+        .attr('x', '195')
+        .attr('y', () => y(i++) + 100)
+        .attr('text-anchor', 'left')
+        .text(d => {
+            var date = new Date(d.pub_date)
+            return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
+        })
+
+    i = 0
+    svg.selectAll('#image-link')
+        .data(articles)
+        .enter()
+        .append('a')
+        .attr('id', 'image-link')
+        .attr('href', d => d.web_url)
+        .attr('target', '_blank')
         .append('image')
         .attr('href', d =>
             d.multimedia.length > 0 ?
                 'https://www.nytimes.com/' + d.multimedia[0].url :
                 './nyt_articles/nyt_logo.png'
         )
-        .attr('width', '150')
-        .attr('height', '150')
-        .attr('x', '800')
-        .attr('y', () => y(j++) + 5)
+        .attr('width', '155')
+        .attr('height', '155')
+        .attr('x', '20')
+        .attr('y', () => y(i++) + 5)
 
     svg.append('a')
+        .attr('id', 'nyt-api-attribution')
         .attr('href', 'https://developer.nytimes.com')
         .attr('target', '_blank')
         .append('image')
-        .attr('href', './nyt_articles/nyt_api_logo65.png')
+        .attr('href', './nyt_articles/nyt_api_logo.png')
         .attr('x', '0')
         .attr('y', 155 * articles.length + 5)
 })
