@@ -184,13 +184,11 @@ path.line {
 }
 
 /* The active class is toggled on hamburger and close icon clicks */
-
 .sidenav.active {
   transform: translateX(0);
 }
 
 /* Only visible on mobile screens */
-
 .sidenav__close-icon {
   position: absolute;
   visibility: visible;
@@ -202,7 +200,6 @@ path.line {
 }
 
 /* Non-mobile styles for side nav responsiveness, 750px breakpoint */
-
 @media only screen and (min-width: 46.875em) {
   .sidenav {
     position: relative;

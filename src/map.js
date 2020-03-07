@@ -120,16 +120,12 @@ Promise.all([d3.json(url)]).then(function (data) {
     }
   });
 
-
   window.setTimeout(function () {
     svg.selectAll("circle")
       .transition().duration(5000)
 
   }, 5000);
 });
-
-
-
 
 
 function addPoints(filtered, world) {

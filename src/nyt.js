@@ -2,12 +2,6 @@ import * as constants from './constants.js'
 
 const d3 = require('d3')
 
-
-// const axios = require('axios')
-// axios.get('https://news-and-search-trends.zkeyes.now.sh').then((response) => {
-//     console.log(response)
-// }).catch((error) => { console.error(error) })
-
 d3.json(constants.nytTopicFiles[18]).then(data => {
     var articles = []
     for (var article in data.articles) {
@@ -72,7 +66,7 @@ d3.json(constants.nytTopicFiles[18]).then(data => {
                 './nyt_articles/nyt_logo.png'
         )
         .attr('width', '155')
-        .attr('height', '155')
+        .attr('height', '150')
         .attr('x', '20')
         .attr('y', () => y(i++) + 5)
 
