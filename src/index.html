@@ -3,11 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>CSE 442 Final Project</title>
-
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
+<!--Button in bottom right corner-->
+<a href="tutorial.html">
+    <div id="tutorial">
+        <i class="material-icons" style="font-size:60px;color:royalblue;">help</i>
+    </div>
+</a>
 
 <div class="grid-container">
     <header class="header">
@@ -17,7 +23,9 @@
             <input id="searchbar" type="text" placeholder="Search..">
             <script src="./search.js"></script>
         </div>
-        <div class="header__avatar">Your face</div>
+        <div class="header__avatar" style="height: 100%;">
+            <img id="UWLogo" src="https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/98/2014/09/07212705/W-Logo_RegistrationMark_White1.png">
+        </div>
     </header>
 
     <!--

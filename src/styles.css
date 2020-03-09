@@ -21,31 +21,29 @@ path.line {
   shape-rendering: crispEdges;
 }
 
-/* Simple dashboard grid CSS */
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 4px;
+  font: 12px sans-serif;
+  pointer-events: none;
+}
 
-/* Design resource from Matt Holland of Medium.com */
-
+/* Header & Footer */
 #googleLogo {
   border-radius: 50%;
   height: 80%;
   text-align: center;
 }
 
-/* Assign grid instructions to our parent grid container */
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  grid-template-rows: 50px 1fr 50px;
-  height: 100vh;
+#UWLogo {
+  height: 75%;
+  text-align: center;
+  margin-top: 5px;
 }
 
-/* Give every child element its grid name */
-
-.main {
-  background-color: #8fd4d9;
-  grid-column-start: 1;
-  grid-column-end: 3;
+.header__search {
+  margin-left: 42px;
 }
 
 .header, .footer {
@@ -59,23 +57,54 @@ path.line {
   grid-column-end: 3;
 }
 
+/* Home & Tutorial Buttons */
+#tutorial, #home {
+  height: 60px;
+  width: 60px;
+  bottom: 32px;
+  right: 10px;
+  position: fixed;
+  z-index: 1;
+  background-color: red;
+  border-radius: 50%;
+  text-align: center;
+}
+
+#tutorial {
+  cursor: help;
+}
+
+#home {
+  cursor: pointer;
+}
+
+/* Grid Layout, Main Area, and Cards Within Main */
+.grid-container {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-template-rows: 50px 1fr 50px;
+  height: 100vh;
+}
+
+.main {
+  background-color: #8fd4d9;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: white/*#82bef6*/
-  ;
+  background-color: white;
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
   padding: 24px;
   box-sizing: border-box;
 }
 
-/* Force varying heights to simulate dynamic content */
-
 /*Graph*/
-
 #graph {
   height: 540px;
   width: 100%;
@@ -84,19 +113,13 @@ path.line {
 }
   
 /* Slider */
-
 #slider {
   height: 100px;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-#article_pic {
-  height: 500px;
-  border: solid 2px black;
-  width: 40%;
-}
-
+/* Map and Article Pic Section */
 #row {
   display: flex;
   flex-direction: row;
@@ -111,76 +134,8 @@ path.line {
   height: 500px;
 }
 
-.menu-icon {
-  position: fixed;
-  display: flex;
-  top: 5px;
-  left: 10px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  z-index: 1;
-  cursor: pointer;
-  padding: 12px;
-  background-color: #DADAE3;
-}
-
-/* Make room for the menu icon on mobile */
-
-.header__search {
-  margin-left: 42px;
-}
-
-/* Mobile-first side nav styles */
-
-.sidenav {
-  grid-area: sidenav;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  overflow-y: auto;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  z-index: 2;
-  /* Needs to sit above the hamburger menu icon */
-  background-color: #394263;
-  transform: translateX(-245px);
-  transition: all .6s ease-in-out;
-}
-
-/* The active class is toggled on hamburger and close icon clicks */
-.sidenav.active {
-  transform: translateX(0);
-}
-
-/* Only visible on mobile screens */
-.sidenav__close-icon {
-  position: absolute;
-  visibility: visible;
-  top: 8px;
-  right: 12px;
-  cursor: pointer;
-  font-size: 20px;
-  color: #ddd;
-}
-
-/* Non-mobile styles for side nav responsiveness, 750px breakpoint */
-@media only screen and (min-width: 46.875em) {
-  .sidenav {
-    position: relative;
-    /* Fixed position on mobile */
-    transform: translateX(0);
-  }
-  .sidenav__close-icon {
-    visibility: hidden;
-  }
-}
-
-div.tooltip {
-  position: absolute;
-  text-align: left;
-  padding: 4px;
-  font: 12px sans-serif;
-  pointer-events: none;
+#article_pic {
+  height: 500px;
+  border: solid 2px black;
+  width: 40%;
 }

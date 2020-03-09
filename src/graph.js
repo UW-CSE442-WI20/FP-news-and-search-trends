@@ -15,10 +15,10 @@ const newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster',
   'Politics', 'Miscellaneous', 'Sports']
 
 const WIDTH = 1460
-const HEIGHT = WIDTH / 3
+const HEIGHT = WIDTH / 3.2
 
 // Set the dimensions of the canvas / graph
-var margin = { top: 20, right: 20, bottom: 50, left: 50 }
+var margin = { top: 20, right: 50, bottom: 20, left: 50 }
 var width = WIDTH - margin.left - margin.right
 var height = HEIGHT - margin.top - margin.bottom
 
