@@ -13,9 +13,10 @@ const newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster',
   'Sports', 'Disaster',
   'Sports', 'Sports', 'Sports', 'Sports',
   'Politics', 'Miscellaneous', 'Sports']
-
+  
 const WIDTH = 1460
 const HEIGHT = WIDTH / 3.2
+
 
 // Set the dimensions of the canvas / graph
 var margin = { top: 20, right: 50, bottom: 20, left: 50 }
@@ -71,11 +72,21 @@ window.onload = function () {
   eventSelect = "-1";
 }
 
+
+
 // Get the data
+console.log(dateStart);
+
+
 d3.csv('news_topics_2019.csv')
   .then((data) => {
     data.forEach(function (d) {
-      d.Week = parseDate(d.Week)
+      
+      d.Week = parseDate(d.Week);
+    
+
+      
+     // console.log(d.Week);
       d.interest = +d.interest
       if (isNaN(d.interest)) {
         d.interest = 0
@@ -85,8 +96,17 @@ d3.csv('news_topics_2019.csv')
     })
 
     // use this to filter the data, if necessary
-    data = data.filter(function (d) { return d.interest >= 0 })
-
+    data = data.filter(function (d) { 
+      //console.log
+      //(d.Week >= dateStart.Week) && (d.Week <= dateEnd.Week)
+      var d1 = new Date(d.Week);
+      
+      var d2 = new Date(dateStart);
+      var d3 = new Date(dateEnd);
+     
+     
+      return d.interest >= 0 && (d1 >  d2 ) && (d1< d3)})
+console.log(data)
     // Scale the range of the data
     x.domain(d3.extent(data, function (d) { return d.Week }))
     y.domain([0, d3.max(data, function (d) { return d.interest })])
@@ -190,3 +210,16 @@ function addAxes(svg) {
     .attr('class', 'y axis')
     .call(yAxis)
 }
+var date; 
+
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 0)); 
+
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 52)); 
+console.log(dateEnd);
+function updateTime(event) {
+ dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
+ dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
+
+  console.log(dateEnd);
+}
+window.updateTime = updateTime;
