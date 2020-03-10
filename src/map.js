@@ -103,15 +103,16 @@ Promise.all([d3.json(url)]).then(function (data) {
   var world = data[0];
   //var places = data[1];
 
+  // can change the colors of the map if needed
   svg.append("path")
     .attr("d", path(world))
-    .style("fill", "grey")
-    .attr("stroke", "white");
+    .style("fill", "white")
+    .attr("stroke", "grey");
 
-  d3.csv("trendsByLocation/trends_locations_Stanley_Cup.csv").then(function (data, error) {
+  d3.csv("trendsByLocation/trends_locations_government_shutdown.csv").then(function (data, error) {
     var filtered;
     if (error) {
-      // console.log(error + "fnaj");
+      console.log(error);
     } else {
       filtered = data.filter(function (d) {
         return d["date"] === "2019-01-01"; //d["interest"]=== "12";
@@ -128,7 +129,7 @@ Promise.all([d3.json(url)]).then(function (data) {
 });
 
 
-function addPoints(filtered, world) {
+function addPoints(event, color, filtered, world) {
   for (var i = 0; i < filtered.length; i++) {
     var latitude = parseFloat(filtered[i]["lat"]);
     var longitude = parseFloat(filtered[i]["long"]);
@@ -150,25 +151,25 @@ function addPoints(filtered, world) {
       .attr("r", function (d) {
         return Math.sqrt(interest);
       })
-      .style("fill", "yellow")
+      .style("fill", color)
       .style("stroke", "gray")
       .style("stroke-width", 0.25)
       .style("opacity", 0.75);
 
     svg.selectAll("circle")
       .append("title")
-      .text(filtered[i]["geoName"] + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
+      .text(event + " in " + filtered[i]["geoName"].replace(" USA", "") + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
   }
 
 }
 
 // Update data from a now selected temperature and hour
-function updateData(event) {
+function updateData(event, color) {
 
   svg.selectAll("circle").remove();
   // Gets data and compares it to temp and hour value
   if (event != "-1") {
-    console.log(event)
+    //console.log(event)
     if (event === "The NBA Finals") {
       event = "NBA Finals";
     }
@@ -179,8 +180,10 @@ function updateData(event) {
     } else if (event === "Boeing 737 crashes") {
       event = "Boeing 737 crash";
     }
-    eventFile = event.replace(" ", "_");
+    // replace all spaces with underscores
+    eventFile = event.replace(/ /g, '_');
     fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
+    console.log(fileName);
     d3.csv(fileName).then(function (data, error) {
       var filtered;
       if (error) {
@@ -192,7 +195,7 @@ function updateData(event) {
 
         data1 = filtered;
         //console.log(filtered);
-        addPoints(filtered);
+        addPoints(event, color, filtered);
       }
 
     });

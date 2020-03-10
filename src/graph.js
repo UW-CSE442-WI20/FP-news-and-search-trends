@@ -2,20 +2,10 @@ import * as constants from './constants'
 
 const d3 = require('d3')
 
-const categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']
-
-const newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster',
-  'Environment', 'Environment', 'Disaster',
-  'Sports', 'Sports', 'Disaster',
-  'Disaster', 'Miscellaneous', 'Sports',
-  'Politics', 'Environment', 'Environment', 'Sports',
-  'Miscellaneous', 'Sports', 'Politics',
-  'Sports', 'Disaster',
-  'Sports', 'Sports', 'Sports', 'Sports',
-  'Politics', 'Miscellaneous', 'Sports']
-
-const WIDTH = 1460
-const HEIGHT = WIDTH / 3.2
+//const WIDTH = 1460;
+const HEIGHT = 450;
+const WIDTH = HEIGHT * 2.8;
+//const HEIGHT = WIDTH / 3.2;
 
 // Set the dimensions of the canvas / graph
 var margin = { top: 20, right: 50, bottom: 20, left: 50 }
@@ -44,25 +34,30 @@ var valueline = d3.line()
   .x(function (d) { return x(d.Week) })
   .y(function (d) { return y(d.interest) })
 
+/* (currently commented out) code to help resize the graph below
+courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
+
 // Adds the svg canvas
 var svg = d3.select('#graph')
+  //.append('div')
+  //.classed('svg-container', true)
   .append('svg')
-  .attr('width', width + margin.left + margin.right)
-  .attr('height', height + margin.top + margin.bottom)
+  //.attr("preserveAspectRatio", "xMinYMin meet")
+  //.attr("viewBox", "0 0 " + WIDTH + " " + HEIGHT)
+  //.classed('svg-content-responsive', true)
+  .attr('width', WIDTH)
+  .attr('height', HEIGHT)
   .attr('class', 'chart')
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-// need to change this maybe
-const color = d3.scaleOrdinal(d3.schemeCategory10) //d3.scale.category20()
-
-
+const catColor = d3.scaleOrdinal(constants.categoryColors);
+//console.log(d3.schemeCategory10);
 
 window.onload = function () {
-
   var text = 'Categories: '
-  categories.forEach(function (cat) {
-    text += '<span style=\'color:' + color(cat) + '\'>'
+  constants.categories.forEach(function (cat) {
+    text += '<span style=\'color:' + catColor(cat) + '\'>'
     text += cat + ' '
     text += '</span>'
   })
@@ -81,7 +76,7 @@ d3.csv('news_topics_2019.csv')
         d.interest = 0
       }
       var idx = constants.newsTopicTerms.indexOf(d.topic)
-      d.Category = newsTopicCategories[idx]
+      d.Category = constants.newsTopicCategories[idx]
     })
 
     // use this to filter the data, if necessary
@@ -100,14 +95,13 @@ d3.csv('news_topics_2019.csv')
     addAxes(svg)
   })
 
-  
 var eventSelect;
 var selected;
 
-var svg1 = d3.select("#graph").on("click", function() {
-  eventSelect="-1";
+var svg1 = d3.select("#graph").on("click", function () {
+  eventSelect = "-1";
   //selected = !selected;
-  updateData("-1");
+  //updateData("-1");
   return "clicked";
 });
 
@@ -119,9 +113,10 @@ function addTooltip(svg, dataNest) {
   svg.selectAll('path.area')
     .data(dataNest)
     .on('mouseover', (d) => {
-      if (!selected){
+      /*if (!selected){
         window.updateData(d.key)
-      }
+        window.updateArticles(d.key)
+      }*/
       //eventSelect = d.key;
       div.transition()
         .duration(300)
@@ -131,7 +126,7 @@ function addTooltip(svg, dataNest) {
         .style('left', (d3.event.pageX) + 'px')
         .style('top', (d3.event.pageY - 28) + 'px')
     })
-    .on("click", function(d){
+    .on("click", function (d) {
       // Determine if event is already clicked, if it is, unselect it. 
       /*var active   = (eventSelect!=-1) ? false : true ,
       if (!active) {
@@ -140,32 +135,32 @@ function addTooltip(svg, dataNest) {
         window.updateData(eventSelect);
       }*/
       //if (eventSelect=== "")
-      
-      selected = !selected;
-      console.log(selected);
-      window.updateData(d.key);
 
+      // don't need to unselect
+      //selected = !selected;
+      //console.log(selected);
+      //console.log(d);
+      window.updateData(d.key, d.color);
+      window.updateArticles(d.key)
     })
     .on('mouseout', () => {
-      console.log(selected);
-      if (!selected) {
+      //console.log(selected);
+      /*if (!selected) {
         window.updateData("-1")
-      }
+      }*/
       div.transition()
         .duration(500)
         .style('opacity', 0)
     })
-
 }
 
 function drawAreaGraph(d) {
-  
   // Add the area
   svg.append('path')
     .attr('class', 'area')
     .style('opacity', 0.2)
     .style('fill', function () {
-      return d.color = color(d.values[0].Category)
+      return d.color = catColor(d.values[0].Category)
     })
     .attr('d', area(d.values))
 
@@ -173,7 +168,7 @@ function drawAreaGraph(d) {
   svg.append('path')
     .attr('class', 'line')
     .style('stroke', function () {
-      return d.color = color(d.values[0].Category)
+      return d.color = catColor(d.values[0].Category)
     })
     .attr('d', valueline(d.values))
 }
