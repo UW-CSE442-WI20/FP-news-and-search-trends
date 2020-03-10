@@ -77,26 +77,7 @@ var data1;
 
 
 var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-//var data_url = "http://enjalot.github.io/wwsd/data/world/ne_50m_populated_places_simple.geojson";
-/*var states = d3.json("us-states.json");
-var cities = d3.csv("us-cities.csv");
- 
-Promise.all([d3.json("us-states.geojson")]).then(function(data) {
 
-  var states = data[0];
-svg.append("path")
-  .attr("d", path(states));
-  
-})
-window.setTimeout(function() {
-  svg.selectAll("circle")
-    .transition().duration(5000)
-    .attr("r", function(d) {
-      return d.properties.pop_min / 1000000;
-    });
-}, 5000);;
-
-*/
 
 
 Promise.all([d3.json(url)]).then(function (data) {
@@ -115,8 +96,15 @@ Promise.all([d3.json(url)]).then(function (data) {
       console.log(error);
     } else {
       filtered = data.filter(function (d) {
-        return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+        //console.log("START" +dateStart)
+        var d1 = new Date(dateStart);
+        var d2 = new Date(dateEnd);
+        var rowDate = new Date (d.date)
+        //console.log("END"+d2);
+       // console.log(d.date);
+        return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
       });
+     // console.log(filtered)
       data1 = filtered;
     }
   });
@@ -163,8 +151,8 @@ function addPoints(event, color, filtered, world) {
 
 }
 
-// Update data from a now selected temperature and hour
-function updateData(event, color) {
+
+function updateData(event, color, dateStart, dateEnd) {
 
   svg.selectAll("circle").remove();
  
@@ -190,8 +178,15 @@ function updateData(event, color) {
       if (error) {
         // console.log(error + "fnaj");
       } else {
+        console.log(dateStart)
         filtered = data.filter(function (d) {
-          return d["date"] === "2019-01-01"; //d["interest"]=== "12";
+          var d1 = new Date(dateStart);
+          var d2 = new Date(dateEnd);
+          var rowDate = new Date (d.date)
+          console.log("END"+d2);
+          console.log(d.date);
+          return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
+        
         });
 
         data1 = filtered;
@@ -202,16 +197,21 @@ function updateData(event, color) {
     });
   }
 }
-/*
+var dateStart = (new Date(2019, 0, 1 + 7 * 30)); 
+
+var dateEnd = (new Date(2019, 0, 1 + 7 * 31)); 
+
+
 function updateTime1(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
   dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
 
-//console.log(dateEnd);
+//console.log("DATE"+dateEnd);
 
 }
-//window.updateTime = updateTime;
-*/
+
+window.updateTime1 = updateTime1;
+
 window.updateData = updateData;
 
 

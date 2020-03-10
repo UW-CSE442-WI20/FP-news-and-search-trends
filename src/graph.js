@@ -63,57 +63,59 @@ window.onload = function () {
   })
   document.getElementById('graph-text').innerHTML = text
   selected = false;
+  
   eventSelect = "-1";
 }
 
-
+updateGraph();
 
 // Get the data
 console.log(dateStart);
 
-
-d3.csv('news_topics_2019.csv')
-  .then((data) => {
-    data.forEach(function (d) {
+function updateGraph() {
+  d3.csv('news_topics_2019.csv')
+    .then((data) => {
+      data.forEach(function (d) {
+        
+        d.Week = parseDate(d.Week);
       
-      d.Week = parseDate(d.Week);
-    
 
+        
+      // console.log(d.Week);
+        d.interest = +d.interest
+        if (isNaN(d.interest)) {
+          d.interest = 0
+        }
+        var idx = constants.newsTopicTerms.indexOf(d.topic)
+        d.Category = constants.newsTopicCategories[idx]
+      })
+
+      // use this to filter the data, if necessary
+      data = data.filter(function (d) { 
+        //console.log
+        //(d.Week >= dateStart.Week) && (d.Week <= dateEnd.Week)
+        var d1 = new Date(d.Week);
+        
+        var d2 = new Date(dateStart);
+        var d3 = new Date(dateEnd);
       
-     // console.log(d.Week);
-      d.interest = +d.interest
-      if (isNaN(d.interest)) {
-        d.interest = 0
-      }
-      var idx = constants.newsTopicTerms.indexOf(d.topic)
-      d.Category = constants.newsTopicCategories[idx]
+      
+        return d.interest >= 0 && (d1 >  d2 ) && (d1< d3)})
+      console.log(data)
+      // Scale the range of the data
+      x.domain(d3.extent(data, function (d) { return d.Week }))
+      y.domain([0, d3.max(data, function (d) { return d.interest })])
+
+      var dataNest = d3.nest()
+        .key(function (d) { return d.topic })
+        .entries(data)
+        svg.selectAll('path.area').remove();
+        svg.selectAll('path.line').remove();
+      dataNest.forEach((d) => { drawAreaGraph(d) })
+      addTooltip(svg, dataNest)
+      addAxes(svg)
     })
-
-    // use this to filter the data, if necessary
-    data = data.filter(function (d) { 
-      //console.log
-      //(d.Week >= dateStart.Week) && (d.Week <= dateEnd.Week)
-      var d1 = new Date(d.Week);
-      
-      var d2 = new Date(dateStart);
-      var d3 = new Date(dateEnd);
-     
-     
-      return d.interest >= 0 && (d1 >  d2 ) && (d1< d3)})
-console.log(data)
-    // Scale the range of the data
-    x.domain(d3.extent(data, function (d) { return d.Week }))
-    y.domain([0, d3.max(data, function (d) { return d.interest })])
-
-    var dataNest = d3.nest()
-      .key(function (d) { return d.topic })
-      .entries(data)
-
-    dataNest.forEach((d) => { drawAreaGraph(d) })
-    addTooltip(svg, dataNest)
-    addAxes(svg)
-  })
-
+  }
 var eventSelect;
 var selected;
 
@@ -159,7 +161,7 @@ function addTooltip(svg, dataNest) {
       //selected = !selected;
       //console.log(selected);
       //console.log(d);
-      window.updateData(d.key, d.color);
+      window.updateData(d.key, d.color, dateStart, dateEnd);
       window.updateArticles(d.key)
     })
     .on('mouseout', () => {
@@ -175,6 +177,9 @@ function addTooltip(svg, dataNest) {
 
 function drawAreaGraph(d) {
   // Add the area
+  
+  //svg.selectAll('path.area').remove();
+
   svg.append('path')
     .attr('class', 'area')
     .style('opacity', 0.2)
@@ -183,17 +188,22 @@ function drawAreaGraph(d) {
     })
     .attr('d', area(d.values))
 
+   // svg.selectAll('path.line').remove();
   // Add the valueline path.
+
   svg.append('path')
     .attr('class', 'line')
     .style('stroke', function () {
       return d.color = catColor(d.values[0].Category)
     })
     .attr('d', valueline(d.values))
+
 }
 
 function addAxes(svg) {
   // Add the X Axis
+  svg.selectAll("g").remove();
+
   svg.append('g')
     .attr('class', 'x axis')
     .attr('transform', 'translate(0,' + height + ')')
@@ -204,16 +214,19 @@ function addAxes(svg) {
     .attr('class', 'y axis')
     .call(yAxis)
 }
-var date; 
 
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 0)); 
+ 
 
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 52)); 
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30)); 
+
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39)); 
 console.log(dateEnd);
 function updateTime(event) {
  dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
  dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
 
   console.log(dateEnd);
+  updateGraph();
+  
 }
 window.updateTime = updateTime;
