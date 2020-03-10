@@ -158,10 +158,11 @@ div.tooltip {
   
 /* Slider */
 #slider {
-  height: 100px;
+  height: 90px;
   width:100%;
   grid-column-start: 1;
   grid-column-end: 3;
+  padding-left: 10px;
 }
 
 /* Map and Article Pic Section */
@@ -172,12 +173,12 @@ div.tooltip {
   justify-content: space-between;
   padding: 5px;
   width:100%;
-  grid-column-start: 1;
-  grid-column-end: 3;
-
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 #map1 {
+  background-color: white;
   border: solid 2px #34a853;
   border-radius: 1%;
   width: 50%;

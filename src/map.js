@@ -21,7 +21,7 @@ var svg = d3.select("#map1").append("svg").attr("width", '100%')
 var projection = d3.geoAlbersUsa()
   .translate([50, 0])
   .scale([600]);//var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
-var center = projection([-120.0, 50.0]);
+var center = projection([-118.0, 50.0]);
 //Define what to do when panning or zooming
 
 var zooming = function (d) {
