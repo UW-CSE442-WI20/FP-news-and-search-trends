@@ -23,9 +23,11 @@ function updateArticles(event) {
             .append('svg')
             .attr('id', 'scroll-svg')
             .attr('height', 155 * articles.length + 40 + 'px')
+            
 
         var y = d3.scaleLinear()
-            .range([0, 155]);
+            .range([0, 155])
+
 
         // draw the nyt titles
         var i = 0
@@ -43,6 +45,8 @@ function updateArticles(event) {
             .attr('text-anchor', 'left')
             .text(d => d.headline.main)
 
+        
+        
         i = 0
         svg.selectAll('#date')
             .data(articles)
