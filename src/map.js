@@ -15,11 +15,11 @@ var margin = { top: 20, right: 20, bottom: 50, left: 50 },
   width = w - margin.left - margin.right,
   height = h - margin.top - margin.bottom;
 
-var svg = d3.select("#map1").append("svg").attr("width", w)
-  .attr("height", h);
+var svg = d3.select("#map1").append("svg").attr("width", '100%')
+  .attr("height", '100%');
 //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
 var projection = d3.geoAlbersUsa()
-  .translate([w / 2, h / 2])
+  .translate([50, 0])
   .scale([600]);//var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
 var center = projection([-120.0, 50.0]);
 //Define what to do when panning or zooming
@@ -67,7 +67,7 @@ var map = svg.append("g")
   .call(zoom)  //Bind the zoom behavior
   .call(zoom.transform, d3.zoomIdentity  //Then apply the initial transform
     .translate(w / 2, h / 2)
-    .scale(0.36)
+    .scale(0.50)
     .translate(-center[0], -center[1]));
 
 var path = d3.geoPath().projection(projection);

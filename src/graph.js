@@ -16,7 +16,7 @@ var height = HEIGHT - margin.top - margin.bottom
 var parseDate = d3.timeParse('%Y-%m-%d')
 
 // Set the ranges
-var x = d3.scaleTime().range([0, width])
+var x = d3.scaleTime().range([0, document.getElementById('graph').clientWidth])
 var y = d3.scaleLinear().range([height, 0])
 
 // Define the axes
@@ -45,7 +45,8 @@ var svg = d3.select('#graph')
   //.attr("preserveAspectRatio", "xMinYMin meet")
   //.attr("viewBox", "0 0 " + WIDTH + " " + HEIGHT)
   //.classed('svg-content-responsive', true)
-  .attr('width', WIDTH)
+  //.attr('width', WIDTH)
+  .attr('width', '100%')
   .attr('height', HEIGHT)
   .attr('class', 'chart')
   .append('g')
@@ -182,6 +183,7 @@ function drawAreaGraph(d) {
 
   svg.append('path')
     .attr('class', 'area')
+    .attr('width', '100%')
     .style('opacity', 0.2)
     .style('fill', function () {
       return d.color = catColor(d.values[0].Category)
@@ -193,6 +195,7 @@ function drawAreaGraph(d) {
 
   svg.append('path')
     .attr('class', 'line')
+    .attr('width', '100%')
     .style('stroke', function () {
       return d.color = catColor(d.values[0].Category)
     })

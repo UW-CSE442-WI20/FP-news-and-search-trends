@@ -10,6 +10,10 @@ text {
   font-size: 12px;
 }
 
+path.area {
+  width: 100%;
+}
+
 path.line {
   fill: none;
   stroke-width: 0.75px;
@@ -112,6 +116,7 @@ div.tooltip {
   width: 100%;
   grid-column-start: 1;
   grid-column-end: 3;
+  padding-left: 0px;
 }
   
 /* Slider */
@@ -137,7 +142,7 @@ div.tooltip {
 
 #map1 {
   border: solid 2px black;
-  width: 59%;
+  width: 50%;
   height: 500px;
 }
 
