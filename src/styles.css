@@ -61,25 +61,62 @@ div.tooltip {
   grid-column-end: 3;
 }
 
-/* Home & Tutorial Buttons */
-#tutorial, #home {
+/* Tutorial Button */
+#tutorial {
   height: 60px;
   width: 60px;
   bottom: 32px;
   right: 10px;
   position: fixed;
   z-index: 1;
-  background-color: red;
+  background-color: #ea4335;
   border-radius: 50%;
   text-align: center;
-}
-
-#tutorial {
-  cursor: help;
-}
-
-#home {
+  display: inline-block;
   cursor: pointer;
+}
+
+/* Help Tooltip */
+
+/* Tooltip text */
+#tutorial .tooltiptext {
+  visibility: hidden;
+  width: 400px;
+  height: 480px;
+  background-color: #34a853;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 72px;
+  right: 0px;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+#tutorial .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 91%;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #34a853 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#tutorial:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Grid Layout, Main Area, and Cards Within Main */
@@ -92,7 +129,7 @@ div.tooltip {
 }
 
 .main {
-  background-color: #8fd4d9;
+  background-color: #4285f4;/* #8fd4d9;*/
   grid-column-start: 1;
   grid-column-end: 3;
   width: 100%;
@@ -141,15 +178,10 @@ div.tooltip {
 }
 
 #map1 {
-  border: solid 2px black;
+  border: solid 2px #34a853;
+  border-radius: 1%;
   width: 50%;
   height: 500px;
-}
-
-#article_pic {
-  height: 500px;
-  border: solid 2px black;
-  width: 40%;
 }
 
 /* (currently not used) code to help resize the graph 

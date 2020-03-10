@@ -5,7 +5,8 @@
     width: 49%;
     height: 504px;
     padding: 0px;
-    border: solid 2px black;
+    border: solid 2px #34a853;
+    border-radius: 1%;
     margin-bottom: 0;
 }
 
