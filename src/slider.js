@@ -1,16 +1,22 @@
 var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+weeks2019 = d3.range(0, 53).map(function (d) {
+    return new Date(2019, 0, 1 + 7 * d);
+});
+defaultStart = new Date(2019, 0, 1 + 7 * 20)
+defaultEnd = new Date(2019, 0, 1 + 7 * 39)
 var sliderRange = d3
     .sliderBottom()
-    .min(d3.min(data))
-    .max(d3.max(data))
+    .min(d3.min(weeks2019))
+    .max(d3.max(weeks2019))
     .width(1300)
-    .tickFormat(d3.format(''))
-    .ticks(12)
-    .default([5, 7])
+    .tickFormat(d3.timeFormat('%m-%d'))
+    .step(28)
+    .default([defaultStart,defaultEnd])
     .fill('#2196f3')
     .on('onchange', val => {
-        //window.updateData(val)
-        console.log(val);
+        //date = d3.timeFormat('%Y-%m-%d')(val);
+        window.updateTime(val)
+       // console.log(val)
         //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
     });
 

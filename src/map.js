@@ -167,7 +167,8 @@ function addPoints(event, color, filtered, world) {
 function updateData(event, color) {
 
   svg.selectAll("circle").remove();
-  // Gets data and compares it to temp and hour value
+ 
+  
   if (event != "-1") {
     //console.log(event)
     if (event === "The NBA Finals") {
@@ -201,7 +202,16 @@ function updateData(event, color) {
     });
   }
 }
+/*
+function updateTime1(event) {
+  dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
+  dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
 
+//console.log(dateEnd);
+
+}
+//window.updateTime = updateTime;
+*/
 window.updateData = updateData;
 
 
