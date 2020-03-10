@@ -80,6 +80,9 @@ var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data
 
 
 
+
+
+
 Promise.all([d3.json(url)]).then(function (data) {
   var world = data[0];
   //var places = data[1];
@@ -118,10 +121,13 @@ Promise.all([d3.json(url)]).then(function (data) {
 
 
 function addPoints(event, color, filtered, world) {
-  for (var i = 0; i < filtered.length; i++) {
+  var minCities = Math.min(filtered.length, 100);
+  svg.selectAll("circle").remove();
+  for (var i = 0; i < minCities; i++) {
     var latitude = parseFloat(filtered[i]["lat"]);
     var longitude = parseFloat(filtered[i]["long"]);
-    var interest = parseInt(filtered[i]["interest"]);
+    var interest = parseInt(filtered[i]["average"]);
+    //var interest = parseInt(filtered[i]["interest"]);
 
     svg.append("circle")
       .attr("cx", function (d) {
@@ -151,9 +157,13 @@ function addPoints(event, color, filtered, world) {
 
 }
 
+var color1; 
+var event1; 
 
 function updateData(event, color, dateStart, dateEnd) {
 
+event1 = event;
+color1 = color;
   svg.selectAll("circle").remove();
  
   
@@ -173,6 +183,13 @@ function updateData(event, color, dateStart, dateEnd) {
     eventFile = event.replace(/ /g, '_');
     fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
     console.log(fileName);
+
+
+    
+   // var arr = [{"shape":"square","color":"red","used":1,"instances":1},{"shape":"square","color":"red","used":2,"instances":1},{"shape":"circle","color":"blue","used":0,"instances":0},{"shape":"square","color":"blue","used":4,"instances":4},{"shape":"circle","color":"red","used":1,"instances":1},{"shape":"circle","color":"red","used":1,"instances":0},{"shape":"square","color":"blue","used":4,"instances":5},{"shape":"square","color":"red","used":2,"instances":1}];
+
+   
+
     d3.csv(fileName).then(function (data, error) {
       var filtered;
       if (error) {
@@ -183,18 +200,58 @@ function updateData(event, color, dateStart, dateEnd) {
           var d1 = new Date(dateStart);
           var d2 = new Date(dateEnd);
           var rowDate = new Date (d.date)
-          console.log("END"+d2);
-          console.log(d.date);
+          //console.log("END"+d2);
+         // console.log(d.date);
           return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
         
         });
-
+        console.log(filtered);
         data1 = filtered;
-        //console.log(filtered);
-        addPoints(event, color, filtered);
+        
+
+        var helper = {};
+        var result = filtered.reduce(function(r, o) {
+      var key = o.geoName;
+      
+      if(!helper[key]) {
+        helper[key] = Object.assign({}, o); // create a copy of o
+        r.push(helper[key]);
+        helper[key].count = 1;
+        helper[key].average = (parseInt(helper[key].interest) + 0.0) / helper[key].count;
+      } else {
+        helper[key].interest = parseInt(o.interest) + parseInt(helper[key].interest);
+        helper[key].count += 1;
+      }
+    
+      return r;
+    }, []);
+    
+    console.log(result);
+
+      
+
+
+
+        
+        /*
+        var filtered1; 
+        filtered1 = filtered.filter(function(d){
+          var data1 = d3.nest()
+          .key(function(d) { return d.geoName;})
+          .rollup(function(d) { 
+              return d3.sum(d, function(g) {return g.value; });
+          }).entries(filtered1);
+        });
+
+        console.log(filtered1);
+        */
+
+        addPoints(event, color, result);
       }
 
     });
+
+
   }
 }
 var dateStart = (new Date(2019, 0, 1 + 7 * 30)); 
@@ -205,7 +262,7 @@ var dateEnd = (new Date(2019, 0, 1 + 7 * 31));
 function updateTime1(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
   dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
-
+updateData(event1, color1, dateStart, dateEnd);
 //console.log("DATE"+dateEnd);
 
 }
