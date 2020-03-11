@@ -220,9 +220,9 @@ function addAxes(svg) {
 
  
 
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30)); 
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 26 - 1)); 
 
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39)); 
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 35 - 2)); 
 console.log(dateEnd);
 function updateTime(event) {
  dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);

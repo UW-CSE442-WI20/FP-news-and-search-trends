@@ -28942,7 +28942,7 @@ var height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
 
 var parseDate = d3.timeParse('%Y-%m-%d'); // Set the ranges
 
-var x = d3.scaleTime().range([0, width]);
+var x = d3.scaleTime().range([0, document.getElementById('graph').clientWidth]);
 var y = d3.scaleLinear().range([height, 0]); // Define the axes
 
 var xAxis = d3.axisBottom(x);
@@ -28968,7 +28968,8 @@ var svg = d3.select('#graph') //.append('div')
 .append('svg') //.attr("preserveAspectRatio", "xMinYMin meet")
 //.attr("viewBox", "0 0 " + WIDTH + " " + HEIGHT)
 //.classed('svg-content-responsive', true)
-.attr('width', WIDTH).attr('height', HEIGHT).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+//.attr('width', WIDTH)
+.attr('width', '100%').attr('height', HEIGHT).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 var catColor = d3.scaleOrdinal(constants.categoryColors); //console.log(d3.schemeCategory10);
 
 window.onload = function () {
@@ -29079,12 +29080,12 @@ function addTooltip(svg, dataNest) {
 function drawAreaGraph(d) {
   // Add the area
   //svg.selectAll('path.area').remove();
-  svg.append('path').attr('class', 'area').style('opacity', 0.2).style('fill', function () {
+  svg.append('path').attr('class', 'area').attr('width', '100%').style('opacity', 0.2).style('fill', function () {
     return d.color = catColor(d.values[0].Category);
   }).attr('d', area(d.values)); // svg.selectAll('path.line').remove();
   // Add the valueline path.
 
-  svg.append('path').attr('class', 'line').style('stroke', function () {
+  svg.append('path').attr('class', 'line').attr('width', '100%').style('stroke', function () {
     return d.color = catColor(d.values[0].Category);
   }).attr('d', valueline(d.values));
 }
@@ -29097,8 +29098,8 @@ function addAxes(svg) {
   svg.append('g').attr('class', 'y axis').call(yAxis);
 }
 
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30));
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39));
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 26 - 1));
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 35 - 2));
 console.log(dateEnd);
 
 function updateTime(event) {
@@ -29137,7 +29138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53669" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50117" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

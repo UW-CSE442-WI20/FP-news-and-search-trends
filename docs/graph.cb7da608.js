@@ -28630,196 +28630,231 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"quTw":[function(require,module,exports) {
-// You can require libraries
-var d3 = require('d3'); //Width and height
-//Define quantize scale to sort data values into buckets of color
+},{"./dist/package.js":"pT13","d3-array":"K0bd","d3-axis":"mp0m","d3-brush":"tkh5","d3-chord":"Iy8J","d3-collection":"S3hn","d3-color":"Peej","d3-contour":"SiBy","d3-dispatch":"D3zY","d3-drag":"kkdU","d3-dsv":"EC2w","d3-ease":"pJ11","d3-fetch":"grWT","d3-force":"oYRE","d3-format":"VuZR","d3-geo":"Ah6W","d3-hierarchy":"Kps6","d3-interpolate":"k9aH","d3-path":"OTyq","d3-polygon":"H15P","d3-quadtree":"lUbg","d3-random":"Gz2j","d3-scale":"zL2z","d3-scale-chromatic":"ado2","d3-selection":"ysDv","d3-shape":"maww","d3-time":"hQYG","d3-time-format":"UYpZ","d3-timer":"rdzS","d3-transition":"UqVV","d3-voronoi":"rLIC","d3-zoom":"MHdZ"}],"iJA9":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
+
+var d3 = require('d3');
+
+var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
+exports.newsTopicTerms = newsTopicTerms;
+var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']; // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
+
+exports.categories = categories;
+var categoryColors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]; // manually-chosen categories for each topic
+
+exports.categoryColors = categoryColors;
+var newsTopicCategories = ['Miscellaneous', 'Miscellaneous', 'Disaster', 'Environment', 'Environment', 'Disaster', 'Sports', 'Sports', 'Disaster', 'Disaster', 'Miscellaneous', 'Sports', 'Politics', 'Environment', 'Environment', 'Sports', 'Miscellaneous', 'Sports', 'Politics', 'Sports', 'Disaster', 'Sports', 'Sports', 'Sports', 'Sports', 'Politics', 'Miscellaneous', 'Sports']; // var newsTopicFilesTemp = []
+
+exports.newsTopicCategories = newsTopicCategories;
+var nytTopicFilesTemp = [];
+newsTopicTerms.forEach(function (topic) {
+  // newsTopicFilesTemp.push(topic.replace(/ /g, '_') + '.csv')
+  nytTopicFilesTemp.push('nyt_articles/NYT_' + topic.replace(/ /g, '_') + '.json');
+});
+var nytTopicFiles = nytTopicFilesTemp; // export const newsTopicFiles = newsTopicFilesTemp
+
+exports.nytTopicFiles = nytTopicFiles;
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+exports.months = months;
+},{"d3":"UzF0"}],"knfB":[function(require,module,exports) {
+"use strict";
+
+var constants = _interopRequireWildcard(require("./constants"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var d3 = require('d3'); //const WIDTH = 1460;
 
 
-var color = d3.scaleQuantize().range(["rgb(237,248,233)", "rgb(186,228,179)", "rgb(116,196,118)", "rgb(49,163,84)", "rgb(0,109,44)"]); //Colors taken from colorbrewer.js, included in the D3 download
-
-var w = 700;
-var h = w / 2;
-var path = d3.geoPath().projection(projection); // Set the dimensions of the canvas / graph
+var HEIGHT = 450;
+var WIDTH = HEIGHT * 2.8; //const HEIGHT = WIDTH / 3.2;
+// Set the dimensions of the canvas / graph
 
 var margin = {
   top: 20,
-  right: 20,
-  bottom: 50,
+  right: 50,
+  bottom: 20,
   left: 50
-},
-    width = w - margin.left - margin.right,
-    height = h - margin.top - margin.bottom;
-var svg = d3.select("#map1").append("svg").attr("width", w).attr("height", h); //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
+};
+var width = WIDTH - margin.left - margin.right;
+var height = HEIGHT - margin.top - margin.bottom; // Parse the date / time
 
-var projection = d3.geoAlbersUsa().translate([w / 2, h / 2]).scale([600]); //var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
+var parseDate = d3.timeParse('%Y-%m-%d'); // Set the ranges
 
-var center = projection([-120.0, 50.0]); //Define what to do when panning or zooming
+var x = d3.scaleTime().range([0, document.getElementById('graph').clientWidth]);
+var y = d3.scaleLinear().range([height, 0]); // Define the axes
 
-var zooming = function zooming(d) {
-  //Log out d3.event.transform, so you can see all the goodies inside
-  // console.log(d3.event.transform);
-  //New offset array
-  var offset = [d3.event.transform.x, d3.event.transform.y]; //Calculate new scale
+var xAxis = d3.axisBottom(x);
+var yAxis = d3.axisLeft(y); // Define the area
 
-  var newScale = d3.event.transform.k * 2000; //Update projection with new offset and scale
+var area = d3.area().x(function (d) {
+  return x(d.Week);
+}).y0(height).y1(function (d) {
+  return y(d.interest);
+}); // Define the line
 
-  projection.translate(offset).scale(newScale); //Update all paths and circles
-  //svg.selectAll("path")
-  // .attr("d", path);
+var valueline = d3.line().x(function (d) {
+  return x(d.Week);
+}).y(function (d) {
+  return y(d.interest);
+});
+/* (currently commented out) code to help resize the graph below
+courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
+// Adds the svg canvas
 
-  svg.selectAll("circle").attr("cx", function (d) {
-    return projection([d.long, d.lat])[0];
-  }).attr("cy", function (d) {
-    return projection([d.long, d.lat])[1];
+var svg = d3.select('#graph') //.append('div')
+//.classed('svg-container', true)
+.append('svg') //.attr("preserveAspectRatio", "xMinYMin meet")
+//.attr("viewBox", "0 0 " + WIDTH + " " + HEIGHT)
+//.classed('svg-content-responsive', true)
+//.attr('width', WIDTH)
+.attr('width', '100%').attr('height', HEIGHT).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+var catColor = d3.scaleOrdinal(constants.categoryColors); //console.log(d3.schemeCategory10);
+
+window.onload = function () {
+  var text = 'Categories: ';
+  constants.categories.forEach(function (cat) {
+    text += '<span style=\'color:' + catColor(cat) + '\'>';
+    text += cat + ' ';
+    text += '</span>';
   });
-}; //Then define the zoom behavior
+  document.getElementById('graph-text').innerHTML = text;
+  selected = false;
+  eventSelect = "-1";
+};
 
+updateGraph(); // Get the data
 
-var zoom = d3.zoom().scaleExtent([0.2, 2.0]).translateExtent([[-1200, -700], [1200, 700]]).on("zoom", zooming); //Create a container in which all zoom-able elements will live
+console.log(dateStart);
 
-var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
-.call(zoom.transform, d3.zoomIdentity //Then apply the initial transform
-.translate(w / 2, h / 2).scale(0.36).translate(-center[0], -center[1]));
-var path = d3.geoPath().projection(projection);
-var data1;
-var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-Promise.all([d3.json(url)]).then(function (data) {
-  var world = data[0]; //var places = data[1];
-  // can change the colors of the map if needed
+function updateGraph() {
+  d3.csv('news_topics_2019.csv').then(function (data) {
+    data.forEach(function (d) {
+      d.Week = parseDate(d.Week); // console.log(d.Week);
 
-  svg.append("path").attr("d", path(world)).style("fill", "white").attr("stroke", "grey");
-  d3.csv("trendsByLocation/trends_locations_government_shutdown.csv").then(function (data, error) {
-    var filtered;
+      d.interest = +d.interest;
 
-    if (error) {
-      console.log(error);
-    } else {
-      filtered = data.filter(function (d) {
-        //console.log("START" +dateStart)
-        var d1 = new Date(dateStart);
-        var d2 = new Date(dateEnd);
-        var rowDate = new Date(d.date); //console.log("END"+d2);
-        // console.log(d.date);
+      if (isNaN(d.interest)) {
+        d.interest = 0;
+      }
 
-        return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
-      }); // console.log(filtered)
+      var idx = constants.newsTopicTerms.indexOf(d.topic);
+      d.Category = constants.newsTopicCategories[idx];
+    }); // use this to filter the data, if necessary
 
-      data1 = filtered;
-    }
+    data = data.filter(function (d) {
+      //console.log
+      //(d.Week >= dateStart.Week) && (d.Week <= dateEnd.Week)
+      var d1 = new Date(d.Week);
+      var d2 = new Date(dateStart);
+      var d3 = new Date(dateEnd);
+      return d.interest >= 0 && d1 > d2 && d1 < d3;
+    });
+    console.log(data); // Scale the range of the data
+
+    x.domain(d3.extent(data, function (d) {
+      return d.Week;
+    }));
+    y.domain([0, d3.max(data, function (d) {
+      return d.interest;
+    })]);
+    var dataNest = d3.nest().key(function (d) {
+      return d.topic;
+    }).entries(data);
+    svg.selectAll('path.area').remove();
+    svg.selectAll('path.line').remove();
+    dataNest.forEach(function (d) {
+      drawAreaGraph(d);
+    });
+    addTooltip(svg, dataNest);
+    addAxes(svg);
   });
-  window.setTimeout(function () {
-    svg.selectAll("circle").transition().duration(5000);
-  }, 5000);
+}
+
+var eventSelect;
+var selected;
+var svg1 = d3.select("#graph").on("click", function () {
+  eventSelect = "-1"; //selected = !selected;
+  //updateData("-1");
+
+  return "clicked";
 });
 
-function addPoints(event, color, filtered, world) {
-  var minCities = Math.min(filtered.length, 100);
-  svg.selectAll("circle").remove();
+function addTooltip(svg, dataNest) {
+  var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
+  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
+    /*if (!selected){
+      window.updateData(d.key)
+      window.updateArticles(d.key)
+    }*/
+    //eventSelect = d.key;
+    div.transition().duration(300).style('opacity', .8).style('background', d.color);
+    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
+  }).on("click", function (d) {
+    // Determine if event is already clicked, if it is, unselect it. 
 
-  for (var i = 0; i < minCities; i++) {
-    var latitude = parseFloat(filtered[i]["lat"]);
-    var longitude = parseFloat(filtered[i]["long"]);
-    var interest = parseInt(filtered[i]["average"]); //var interest = parseInt(filtered[i]["interest"]);
+    /*var active   = (eventSelect!=-1) ? false : true ,
+    if (!active) {
+      window.updateData("-1");
+    } else {
+      window.updateData(eventSelect);
+    }*/
+    //if (eventSelect=== "")
+    // don't need to unselect
+    //selected = !selected;
+    //console.log(selected);
+    //console.log(d);
+    window.updateData(d.key, d.color, dateStart, dateEnd);
+    window.updateArticles(d.key);
+  }).on('mouseout', function () {
+    //console.log(selected);
 
-    svg.append("circle").attr("cx", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
-    }).attr("cy", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
-    }).attr("r", function (d) {
-      return Math.sqrt(interest);
-    }).style("fill", color).style("stroke", "gray").style("stroke-width", 0.25).style("opacity", 0.75);
-    svg.selectAll("circle").append("title").text(event + " in " + filtered[i]["geoName"].replace(" USA", "") + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
-  }
+    /*if (!selected) {
+      window.updateData("-1")
+    }*/
+    div.transition().duration(500).style('opacity', 0);
+  });
 }
 
-var color1;
-var event1;
+function drawAreaGraph(d) {
+  // Add the area
+  //svg.selectAll('path.area').remove();
+  svg.append('path').attr('class', 'area').attr('width', '100%').style('opacity', 0.2).style('fill', function () {
+    return d.color = catColor(d.values[0].Category);
+  }).attr('d', area(d.values)); // svg.selectAll('path.line').remove();
+  // Add the valueline path.
 
-function updateData(event, color, dateStart, dateEnd) {
-  event1 = event;
-  color1 = color;
-  svg.selectAll("circle").remove();
-
-  if (event != "-1") {
-    //console.log(event)
-    if (event === "The NBA Finals") {
-      event = "NBA Finals";
-    } else if (event === "FIFA Women's World Cup") {
-      event = "Womens World Cup";
-    } else if (event === "NCAA Men's Division I Basketball Tournament") {
-      event = "march madness";
-    } else if (event === "Boeing 737 crashes") {
-      event = "Boeing 737 crash";
-    } // replace all spaces with underscores
-
-
-    eventFile = event.replace(/ /g, '_');
-    fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv";
-    console.log(fileName); // var arr = [{"shape":"square","color":"red","used":1,"instances":1},{"shape":"square","color":"red","used":2,"instances":1},{"shape":"circle","color":"blue","used":0,"instances":0},{"shape":"square","color":"blue","used":4,"instances":4},{"shape":"circle","color":"red","used":1,"instances":1},{"shape":"circle","color":"red","used":1,"instances":0},{"shape":"square","color":"blue","used":4,"instances":5},{"shape":"square","color":"red","used":2,"instances":1}];
-
-    d3.csv(fileName).then(function (data, error) {
-      var filtered;
-
-      if (error) {// console.log(error + "fnaj");
-      } else {
-        console.log(dateStart);
-        filtered = data.filter(function (d) {
-          var d1 = new Date(dateStart);
-          var d2 = new Date(dateEnd);
-          var rowDate = new Date(d.date); //console.log("END"+d2);
-          // console.log(d.date);
-
-          return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
-        });
-        console.log(filtered);
-        data1 = filtered;
-        var helper = {};
-        var result = filtered.reduce(function (r, o) {
-          var key = o.geoName;
-
-          if (!helper[key]) {
-            helper[key] = Object.assign({}, o); // create a copy of o
-
-            r.push(helper[key]);
-            helper[key].count = 1;
-            helper[key].average = (parseInt(helper[key].interest) + 0.0) / helper[key].count;
-          } else {
-            helper[key].interest = parseInt(o.interest) + parseInt(helper[key].interest);
-            helper[key].count += 1;
-          }
-
-          return r;
-        }, []);
-        console.log(result);
-        /*
-        var filtered1; 
-        filtered1 = filtered.filter(function(d){
-          var data1 = d3.nest()
-          .key(function(d) { return d.geoName;})
-          .rollup(function(d) { 
-              return d3.sum(d, function(g) {return g.value; });
-          }).entries(filtered1);
-        });
-         console.log(filtered1);
-        */
-
-        addPoints(event, color, result);
-      }
-    });
-  }
+  svg.append('path').attr('class', 'line').attr('width', '100%').style('stroke', function () {
+    return d.color = catColor(d.values[0].Category);
+  }).attr('d', valueline(d.values));
 }
 
-var dateStart = new Date(2019, 0, 1 + 7 * 30);
-var dateEnd = new Date(2019, 0, 1 + 7 * 31);
+function addAxes(svg) {
+  // Add the X Axis
+  svg.selectAll("g").remove();
+  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis); // Add the Y Axis
 
-function updateTime1(event) {
+  svg.append('g').attr('class', 'y axis').call(yAxis);
+}
+
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 26 - 1));
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 35 - 2));
+console.log(dateEnd);
+
+function updateTime(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
   dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
-  updateData(event1, color1, dateStart, dateEnd); //console.log("DATE"+dateEnd);
+  console.log(dateEnd);
+  updateGraph();
 }
 
-window.updateTime1 = updateTime1;
-window.updateData = updateData;
-},{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.7ff98902.js.map
+window.updateTime = updateTime;
+},{"./constants":"iJA9","d3":"UzF0"}]},{},["knfB"], null)
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/graph.cb7da608.js.map

@@ -254,9 +254,9 @@ color1 = color;
 
   }
 }
-var dateStart = (new Date(2019, 0, 1 + 7 * 30)); 
+var dateStart = new Date(2019, 0, 1 + 7 * 26 - 1);
 
-var dateEnd = (new Date(2019, 0, 1 + 7 * 31)); 
+var dateEnd = (new Date(2019, 0, 1 + 7 * 35 - 2)); 
 
 
 function updateTime1(event) {

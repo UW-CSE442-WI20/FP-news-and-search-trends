@@ -129,15 +129,15 @@ var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 weeks2019 = d3.range(0, 53).map(function (d) {
   return new Date(2019, 0, 1 + 7 * d);
 });
-defaultStart = new Date(2019, 0, 1 + 7 * 30);
-defaultEnd = new Date(2019, 0, 1 + 7 * 31);
-var sliderRange = d3.sliderBottom().min(d3.min(weeks2019)).max(d3.max(weeks2019)).width(1300).tickFormat(d3.timeFormat('%m-%d')).step(28).default([defaultStart, defaultEnd]).fill('#2196f3').on('onchange', function (val) {
+defaultStart = new Date(2019, 0, 1 + 7 * 26 - 1);
+defaultEnd = new Date(2019, 0, 1 + 7 * 35 - 2);
+var sliderRange = d3.sliderBottom().min(d3.min(weeks2019)).max(d3.max(weeks2019)).width(document.getElementById('slider').clientWidth).tickFormat(d3.timeFormat('%b')).step(28).default([defaultStart, defaultEnd]).fill('#2196f3').on('onchange', function (val) {
   //date = d3.timeFormat('%Y-%m-%d')(val);
   window.updateTime1(val);
   window.updateTime(val); // console.log(val)
   //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
 });
-var gRange = d3.select('div#slider').append('svg').attr('width', 500).attr('height', 100).append('g').attr('fill', 'red');
+var gRange = d3.select('div#slider').append('svg').attr('width', 500).attr('height', 100).append('g').attr('fill', 'red').attr('transform', 'translate(30,0)');
 gRange.call(sliderRange);
 /*
 d3.select('p#value-range').text(
@@ -202,7 +202,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53669" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50117" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
