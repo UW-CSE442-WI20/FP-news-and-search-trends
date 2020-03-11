@@ -28904,11 +28904,11 @@ var margin = {
 },
     width = w - margin.left - margin.right,
     height = h - margin.top - margin.bottom;
-var svg = d3.select("#map1").append("svg").attr("width", w).attr("height", h); //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
+var svg = d3.select("#map1").append("svg").attr("width", '100%').attr("height", '100%'); //.attr("transform", "translate(" + 20 + "," + 20 + ")");;
 
-var projection = d3.geoAlbersUsa().translate([w / 2, h / 2]).scale([600]); //var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
+var projection = d3.geoAlbersUsa().translate([50, 0]).scale([600]); //var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
 
-var center = projection([-120.0, 50.0]); //Define what to do when panning or zooming
+var center = projection([-118.0, 50.0]); //Define what to do when panning or zooming
 
 var zooming = function zooming(d) {
   //Log out d3.event.transform, so you can see all the goodies inside
@@ -28934,7 +28934,7 @@ var zoom = d3.zoom().scaleExtent([0.2, 2.0]).translateExtent([[-1200, -700], [12
 
 var map = svg.append("g").attr("id", "map").call(zoom) //Bind the zoom behavior
 .call(zoom.transform, d3.zoomIdentity //Then apply the initial transform
-.translate(w / 2, h / 2).scale(0.36).translate(-center[0], -center[1]));
+.translate(w / 2, h / 2).scale(0.50).translate(-center[0], -center[1]));
 var path = d3.geoPath().projection(projection);
 var data1;
 var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
@@ -29103,7 +29103,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53669" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55419" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

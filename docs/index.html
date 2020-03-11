@@ -4,72 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <title>CSE 442 Final Project</title>
-    <link rel="stylesheet" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.01487a4e.css">
+    <link rel="stylesheet" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.0d5ddcd5.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="icon" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/favicon.cdc6fe9a.png">
 </head>
 
 <!--Button in bottom right corner-->
-<a href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/tutorial.html">
-    <div id="tutorial">
-        <i class="material-icons" style="font-size:60px;color:royalblue;">help</i>
-    </div>
-</a>
+<div id="tutorial">
+    <i class="material-icons" style="font-size:60px;color:#fbbc05;">help</i>
+    <span class="tooltiptext">Tooltip text</span>
+</div>
 
 <div class="grid-container">
     <header class="header">
         <img id="googleLogo" src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/google-trends-logo.4f166eb7.png">
-        <h1>Google Search Trends Data</h1>
+        <h1>Google Search Trends Data 2019</h1>
         <div class="header__search">
             <input id="searchbar" type="text" placeholder="Search..">
-            <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/search.861aae96.js"></script>
         </div>
         <div class="header__avatar" style="height: 100%;">
             <img id="UWLogo" src="https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/98/2014/09/07212705/W-Logo_RegistrationMark_White1.png">
         </div>
     </header>
 
-    <!--
-    <aside class="sidenav">
-        <img id="googleLogo" src="../static/google-trends-logo.png">
-        <ul class="sidenav__list">
-            <li class="sidenav__list-item">Item One</li>
-            <li class="sidenav__list-item">Item Two</li>
-            <li class="sidenav__list-item">Item Three</li>
-            <li class="sidenav__list-item">Item Four</li>
-            <li class="sidenav__list-item">Item Five</li>
-        </ul>
-    </aside>-->
-
     <!-- Treat Main as Body -->
     <main class="main">
         <div class="main-cards">
 
             <div class="card" id="graph">
-                <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/graph.02f27ece.js"></script>
+                <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/graph.26c19932.js"></script>
                 <div id="graph-text">Graph</div>
             </div>
 
             <div class="card" id="slider">
                 <script src="https://d3js.org/d3.v5.min.js"></script>
                 <script src="https://unpkg.com/d3-simple-slider"></script>
-                <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/slider.69c0714c.js"></script>
+                <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/slider.7c2420c8.js"></script>
             </div>
 
-            <div class="card" id="row">
+            <div id="row">
                 <div id="map1">
-                    <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.7ff98902.js"></script>
+                    <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.73e09cf8.js"></script>
                     <link rel="stylesheet" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map_style.10e19e68.css">
-                    Map
                 </div>
 
-                <div id="article_pic">
-                    Article Pic
+                <div class="card" id="nyt_articles">
+                    <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.0419898d.js"></script>
+                    <link rel="stylesheet" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt_style.7bd78754.css">
                 </div>
-            </div>
-
-            <div class="card" id="nyt_articles">
-                <script src="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.0419898d.js"></script>
-                <link rel="stylesheet" href="https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt_style.09a7dc43.css">
             </div>
         </div>
     </main>
