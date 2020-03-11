@@ -1,6 +1,8 @@
 import * as constants from './constants'
 
 const d3 = require('d3')
+const axios = require('axios')
+
 
 //const WIDTH = 1460;
 const HEIGHT = 450;
@@ -34,18 +36,14 @@ var valueline = d3.line()
   .x(function (d) { return x(d.Week) })
   .y(function (d) { return y(d.interest) })
 
+var allData = []
+
 /* (currently commented out) code to help resize the graph below
 courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
 
 // Adds the svg canvas
 var svg = d3.select('#graph')
-  //.append('div')
-  //.classed('svg-container', true)
   .append('svg')
-  //.attr("preserveAspectRatio", "xMinYMin meet")
-  //.attr("viewBox", "0 0 " + WIDTH + " " + HEIGHT)
-  //.classed('svg-content-responsive', true)
-  //.attr('width', WIDTH)
   .attr('width', '100%')
   .attr('height', HEIGHT)
   .attr('class', 'chart')
@@ -53,7 +51,6 @@ var svg = d3.select('#graph')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 const catColor = d3.scaleOrdinal(constants.categoryColors);
-//console.log(d3.schemeCategory10);
 
 window.onload = function () {
   var text = 'Categories: '
@@ -64,25 +61,17 @@ window.onload = function () {
   })
   document.getElementById('graph-text').innerHTML = text
   selected = false;
-  
+
   eventSelect = "-1";
 }
 
-updateGraph();
+initGraph();
 
-// Get the data
-console.log(dateStart);
-
-function updateGraph() {
+function initGraph() {
   d3.csv('news_topics_2019.csv')
     .then((data) => {
       data.forEach(function (d) {
-        
         d.Week = parseDate(d.Week);
-      
-
-        
-      // console.log(d.Week);
         d.interest = +d.interest
         if (isNaN(d.interest)) {
           d.interest = 0
@@ -90,42 +79,34 @@ function updateGraph() {
         var idx = constants.newsTopicTerms.indexOf(d.topic)
         d.Category = constants.newsTopicCategories[idx]
       })
-
-      // use this to filter the data, if necessary
-      data = data.filter(function (d) { 
-        //console.log
-        //(d.Week >= dateStart.Week) && (d.Week <= dateEnd.Week)
-        var d1 = new Date(d.Week);
-        
-        var d2 = new Date(dateStart);
-        var d3 = new Date(dateEnd);
-      
-      
-        return d.interest >= 0 && (d1 >  d2 ) && (d1< d3)})
-      console.log(data)
-      // Scale the range of the data
-      x.domain(d3.extent(data, function (d) { return d.Week }))
-      y.domain([0, d3.max(data, function (d) { return d.interest })])
-
-      var dataNest = d3.nest()
-        .key(function (d) { return d.topic })
-        .entries(data)
-        svg.selectAll('path.area').remove();
-        svg.selectAll('path.line').remove();
-      dataNest.forEach((d) => { drawAreaGraph(d) })
-      addTooltip(svg, dataNest)
-      addAxes(svg)
+      allData = data
+      updateGraph()
     })
-  }
-var eventSelect;
-var selected;
+}
 
-var svg1 = d3.select("#graph").on("click", function () {
-  eventSelect = "-1";
-  //selected = !selected;
-  //updateData("-1");
-  return "clicked";
-});
+function updateGraph() {
+  
+  var data = allData.filter(function (d) {
+    var date1 = new Date(d.Week);
+    var date2 = new Date(dateStart);
+    var date3 = new Date(dateEnd);
+    return d.interest >= 0 && (date1 > date2) && (date1 < date3)
+  })
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function (d) { return d.Week }))
+  y.domain([0, d3.max(data, function (d) { return d.interest })])
+
+  var dataNest = d3.nest()
+    .key(function (d) { return d.topic })
+    .entries(data)
+
+  svg.selectAll('path.area').remove();
+  svg.selectAll('path.line').remove();
+  dataNest.forEach((d) => { drawAreaGraph(d) })
+  addTooltip(svg, dataNest)
+  addAxes(svg)
+}
 
 function addTooltip(svg, dataNest) {
   var div = d3.select('#graph').append('div')
@@ -134,12 +115,7 @@ function addTooltip(svg, dataNest) {
 
   svg.selectAll('path.area')
     .data(dataNest)
-    .on('mouseover', (d) => {
-      /*if (!selected){
-        window.updateData(d.key)
-        window.updateArticles(d.key)
-      }*/
-      //eventSelect = d.key;
+    .on('mouseover', d => {
       div.transition()
         .duration(300)
         .style('opacity', .8)
@@ -149,27 +125,10 @@ function addTooltip(svg, dataNest) {
         .style('top', (d3.event.pageY - 28) + 'px')
     })
     .on("click", function (d) {
-      // Determine if event is already clicked, if it is, unselect it. 
-      /*var active   = (eventSelect!=-1) ? false : true ,
-      if (!active) {
-        window.updateData("-1");
-      } else {
-        window.updateData(eventSelect);
-      }*/
-      //if (eventSelect=== "")
-
-      // don't need to unselect
-      //selected = !selected;
-      //console.log(selected);
-      //console.log(d);
       window.updateData(d.key, d.color, dateStart, dateEnd);
       window.updateArticles(d.key)
     })
     .on('mouseout', () => {
-      //console.log(selected);
-      /*if (!selected) {
-        window.updateData("-1")
-      }*/
       div.transition()
         .duration(500)
         .style('opacity', 0)
@@ -178,9 +137,6 @@ function addTooltip(svg, dataNest) {
 
 function drawAreaGraph(d) {
   // Add the area
-  
-  //svg.selectAll('path.area').remove();
-
   svg.append('path')
     .attr('class', 'area')
     .attr('width', '100%')
@@ -190,9 +146,7 @@ function drawAreaGraph(d) {
     })
     .attr('d', area(d.values))
 
-   // svg.selectAll('path.line').remove();
   // Add the valueline path.
-
   svg.append('path')
     .attr('class', 'line')
     .attr('width', '100%')
@@ -204,7 +158,6 @@ function drawAreaGraph(d) {
 }
 
 function addAxes(svg) {
-  // Add the X Axis
   svg.selectAll("g").remove();
 
   svg.append('g')
@@ -212,24 +165,43 @@ function addAxes(svg) {
     .attr('transform', 'translate(0,' + height + ')')
     .call(xAxis)
 
-  // Add the Y Axis
   svg.append('g')
     .attr('class', 'y axis')
     .call(yAxis)
 }
 
- 
+function search() {
+  var query = document.getElementById('searchbar').value
+  var input = query.toLowerCase().replace(/ /g, '+')
+  axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then((response) => {
+    generateInterestData(response, query)
+    updateGraph()
+  }).catch(error => console.error(error))
+}
 
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30)); 
+function generateInterestData(response, topic) {
+  var interestList = response.data.default.timelineData
+  for (var entry in interestList) {
+    var date = new Date(interestList[entry].formattedAxisTime)
+    var interest = interestList[entry].hasData[0] ? interestList[entry].value[0] : 0
+    allData.push({ topic: topic, Week: date, interest: interest, Category: 'Miscellaneous' })
+  }
+}
 
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39)); 
-console.log(dateEnd);
+var input = document.getElementById('searchbar');
+input.addEventListener("keyup", event => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    search();
+  }
+});
+
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30));
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39));
+
 function updateTime(event) {
- dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
- dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
-
-  console.log(dateEnd);
+  dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
+  dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
   updateGraph();
-  
 }
 window.updateTime = updateTime;
