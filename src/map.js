@@ -229,8 +229,8 @@ function updateData(event, color, dateStart, dateEnd) {
     }
   }
 }
-var dateStart = (new Date(2019, 0, 1 + 7 * 30));
-var dateEnd = (new Date(2019, 0, 1 + 7 * 31));
+var dateStart = new Date(2019, 1 - 1, 1);
+var dateEnd = new Date(2019, 12 - 1, 31);
 
 function updateTime1(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);

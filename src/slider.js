@@ -10,8 +10,8 @@ weeks2019 = d3.range(0, 53).map(function (d) {
     return new Date(2019, 0, 1 + 7 * d);
 });
 
-defaultStart = new Date(2019, 0, 1 + 7 * 26 - 1)
-defaultEnd = new Date(2019, 0, 1 + 7 * 35 - 2)
+defaultStart = new Date(2019, 1 - 1, 1)
+defaultEnd = new Date(2019, 12 - 1, 31)
 var sliderRange = d3
     .sliderBottom()
     .min(d3.min(weeks2019))
@@ -19,13 +19,13 @@ var sliderRange = d3
     .width(document.getElementById('slider').clientWidth)
     .tickFormat(d3.timeFormat('%b'))
     .step(28)
-    .default([defaultStart,defaultEnd])
+    .default([defaultStart, defaultEnd])
     .fill('#2196f3')
     .on('onchange', val => {
         //date = d3.timeFormat('%Y-%m-%d')(val);
         window.updateTime1(val)
         window.updateTime(val)
-       // console.log(val)
+        // console.log(val)
         //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
     });
 

@@ -3,7 +3,6 @@ import * as constants from './constants'
 const d3 = require('d3')
 const axios = require('axios')
 
-
 //const WIDTH = 1460;
 const HEIGHT = 450;
 const WIDTH = HEIGHT * 2.8;
@@ -38,9 +37,6 @@ var valueline = d3.line()
 
 var allData = []
 
-/* (currently commented out) code to help resize the graph below
-courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
-
 // Adds the svg canvas
 var svg = d3.select('#graph')
   .append('svg')
@@ -50,8 +46,10 @@ var svg = d3.select('#graph')
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-const catColor = d3.scaleOrdinal(constants.categoryColors);
+// color scale
+const catColor = d3.scaleOrdinal(d3.schemeCategory10);
 
+// legend (currently not showing up)
 window.onload = function () {
   var text = 'Categories: '
   constants.categories.forEach(function (cat) {
@@ -65,6 +63,9 @@ window.onload = function () {
   eventSelect = "-1";
 }
 
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 1 - 1, 1));
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 12 - 1, 31));
+
 initGraph();
 
 function initGraph() {
@@ -72,20 +73,19 @@ function initGraph() {
     .then((data) => {
       data.forEach(function (d) {
         d.Week = parseDate(d.Week);
-        d.interest = +d.interest
+        d.interest = +d.interest;
         if (isNaN(d.interest)) {
-          d.interest = 0
+          d.interest = 0;
         }
-        var idx = constants.newsTopicTerms.indexOf(d.topic)
-        d.Category = constants.newsTopicCategories[idx]
-      })
-      allData = data
-      updateGraph()
+        var idx = constants.newsTopicTerms.indexOf(d.topic);
+        d.Category = constants.newsTopicCategories[idx];
+      });
+      allData = data;
+      updateGraph();
     })
 }
 
 function updateGraph() {
-  
   var data = allData.filter(function (d) {
     var date1 = new Date(d.Week);
     var date2 = new Date(dateStart);
@@ -126,7 +126,7 @@ function addTooltip(svg, dataNest) {
     })
     .on("click", function (d) {
       window.updateData(d.key, d.color, dateStart, dateEnd);
-      window.updateArticles(d.key)
+      window.updateArticles(d.key);
     })
     .on('mouseout', () => {
       div.transition()
@@ -154,7 +154,6 @@ function drawAreaGraph(d) {
       return d.color = catColor(d.values[0].Category)
     })
     .attr('d', valueline(d.values))
-
 }
 
 function addAxes(svg) {
@@ -175,6 +174,7 @@ function search() {
   var input = query.toLowerCase().replace(/ /g, '+')
   axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then((response) => {
     generateInterestData(response, query)
+    console.log("added data for " + query);
     updateGraph()
   }).catch(error => console.error(error))
 }
@@ -184,7 +184,7 @@ function generateInterestData(response, topic) {
   for (var entry in interestList) {
     var date = new Date(interestList[entry].formattedAxisTime)
     var interest = interestList[entry].hasData[0] ? interestList[entry].value[0] : 0
-    allData.push({ topic: topic, Week: date, interest: interest, Category: 'Miscellaneous' })
+    allData.push({ topic: topic, Week: date, interest: interest, Category: 'Custom' })
   }
 }
 
@@ -195,9 +195,6 @@ input.addEventListener("keyup", event => {
     search();
   }
 });
-
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30));
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39));
 
 function updateTime(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
