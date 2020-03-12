@@ -22,10 +22,9 @@ var projection = d3.geoAlbersUsa()
   .translate([50, 0])
   .scale([600]);//var projection = d3.geoAlbersUsa();//rotate([90, 0, 0]);
 var center = projection([-118.0, 50.0]);
+
 //Define what to do when panning or zooming
-
 var zooming = function (d) {
-
   //Log out d3.event.transform, so you can see all the goodies inside
   // console.log(d3.event.transform);
 
@@ -50,9 +49,6 @@ var zooming = function (d) {
     .attr("cy", function (d) {
       return projection([d.long, d.lat])[1];
     });
-
-
-
 }
 
 //Then define the zoom behavior
@@ -73,15 +69,7 @@ var map = svg.append("g")
 var path = d3.geoPath().projection(projection);
 var data1;
 
-
-
-
 var url = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
-
-
-
-
-
 
 Promise.all([d3.json(url)]).then(function (data) {
   var world = data[0];
@@ -93,7 +81,7 @@ Promise.all([d3.json(url)]).then(function (data) {
     .style("fill", "white")
     .attr("stroke", "grey");
 
-  d3.csv("trendsByLocation/trends_locations_government_shutdown.csv").then(function (data, error) {
+  /*d3.csv("trendsByLocation/trends_locations_government_shutdown.csv").then(function (data, error) {
     var filtered;
     if (error) {
       console.log(error);
@@ -116,7 +104,7 @@ Promise.all([d3.json(url)]).then(function (data) {
     svg.selectAll("circle")
       .transition().duration(5000)
 
-  }, 5000);
+  }, 5000);*/
 });
 
 
@@ -152,20 +140,17 @@ function addPoints(event, color, filtered, world) {
 
     svg.selectAll("circle")
       .append("title")
-      .text(event + " in " + filtered[i]["geoName"].replace(" USA", "") + " on " + filtered[i]["date"] + ": " + filtered[i]["interest"]);
+      .text(event + " in " + filtered[i]["geoName"].replace(" USA", "") + " average: " + interest);
   }
-
 }
 
 var color1;
 var event1;
 
 function updateData(event, color, dateStart, dateEnd) {
-
   event1 = event;
   color1 = color;
   svg.selectAll("circle").remove();
-
 
   if (event != "-1") {
     //console.log(event)
@@ -179,98 +164,80 @@ function updateData(event, color, dateStart, dateEnd) {
     } else if (event === "Boeing 737 crashes") {
       event = "Boeing 737 crash";
     }
-    // replace all spaces with underscores
-    eventFile = event.replace(/ /g, '_');
-    fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
-    console.log(fileName);
+    if (event != undefined) {
+      // replace all spaces with underscores
+      eventFile = event.replace(/ /g, '_');
+      fileName = "trendsByLocation/trends_locations_" + eventFile + ".csv"
+      console.log(fileName);
 
+      // var arr = [{"shape":"square","color":"red","used":1,"instances":1},{"shape":"square","color":"red","used":2,"instances":1},{"shape":"circle","color":"blue","used":0,"instances":0},{"shape":"square","color":"blue","used":4,"instances":4},{"shape":"circle","color":"red","used":1,"instances":1},{"shape":"circle","color":"red","used":1,"instances":0},{"shape":"square","color":"blue","used":4,"instances":5},{"shape":"square","color":"red","used":2,"instances":1}];
 
+      d3.csv(fileName).then(function (data, error) {
+        var filtered;
+        if (error) {
+          // console.log(error + "fnaj");
+        } else {
+          console.log(dateStart)
+          filtered = data.filter(function (d) {
+            var d1 = new Date(dateStart);
+            var d2 = new Date(dateEnd);
+            var rowDate = new Date(d.date)
+            //console.log("END"+d2);
+            // console.log(d.date);
+            return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
 
-    // var arr = [{"shape":"square","color":"red","used":1,"instances":1},{"shape":"square","color":"red","used":2,"instances":1},{"shape":"circle","color":"blue","used":0,"instances":0},{"shape":"square","color":"blue","used":4,"instances":4},{"shape":"circle","color":"red","used":1,"instances":1},{"shape":"circle","color":"red","used":1,"instances":0},{"shape":"square","color":"blue","used":4,"instances":5},{"shape":"square","color":"red","used":2,"instances":1}];
+          });
+          console.log(filtered);
+          data1 = filtered;
 
+          var helper = {};
+          var result = filtered.reduce(function (r, o) {
+            var key = o.geoName;
 
+            if (!helper[key]) {
+              helper[key] = Object.assign({}, o); // create a copy of o
+              r.push(helper[key]);
+              helper[key].count = 1;
+              helper[key].average = (parseInt(helper[key].interest) + 0.0) / helper[key].count;
+            } else {
+              helper[key].interest = parseInt(o.interest) + parseInt(helper[key].interest);
+              helper[key].count += 1;
+              helper[key].average = helper[key].interest / helper[key].count;
+            }
 
-    d3.csv(fileName).then(function (data, error) {
-      var filtered;
-      if (error) {
-        // console.log(error + "fnaj");
-      } else {
-        console.log(dateStart)
-        filtered = data.filter(function (d) {
-          var d1 = new Date(dateStart);
-          var d2 = new Date(dateEnd);
-          var rowDate = new Date(d.date)
-          //console.log("END"+d2);
-          // console.log(d.date);
-          return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
+            return r;
+          }, []);
 
-        });
-        console.log(filtered);
-        data1 = filtered;
+          console.log(result);
 
+          /*
+          var filtered1; 
+          filtered1 = filtered.filter(function(d){
+            var data1 = d3.nest()
+            .key(function(d) { return d.geoName;})
+            .rollup(function(d) { 
+                return d3.sum(d, function(g) {return g.value; });
+            }).entries(filtered1);
+          });
+  
+          console.log(filtered1);
+          */
 
-        var helper = {};
-        var result = filtered.reduce(function (r, o) {
-          var key = o.geoName;
-
-          if (!helper[key]) {
-            helper[key] = Object.assign({}, o); // create a copy of o
-            r.push(helper[key]);
-            helper[key].count = 1;
-            helper[key].average = (parseInt(helper[key].interest) + 0.0) / helper[key].count;
-          } else {
-            helper[key].interest = parseInt(o.interest) + parseInt(helper[key].interest);
-            helper[key].count += 1;
-          }
-
-          return r;
-        }, []);
-
-        console.log(result);
-
-
-
-
-
-
-        /*
-        var filtered1; 
-        filtered1 = filtered.filter(function(d){
-          var data1 = d3.nest()
-          .key(function(d) { return d.geoName;})
-          .rollup(function(d) { 
-              return d3.sum(d, function(g) {return g.value; });
-          }).entries(filtered1);
-        });
-
-        console.log(filtered1);
-        */
-
-        addPoints(event, color, result);
-      }
-
-    });
-
-
+          addPoints(event, color, result);
+        }
+      });
+    }
   }
 }
 var dateStart = (new Date(2019, 0, 1 + 7 * 30));
-
 var dateEnd = (new Date(2019, 0, 1 + 7 * 31));
-
 
 function updateTime1(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
   dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
   updateData(event1, color1, dateStart, dateEnd);
   //console.log("DATE"+dateEnd);
-
 }
 
 window.updateTime1 = updateTime1;
-
 window.updateData = updateData;
-
-
-
-
