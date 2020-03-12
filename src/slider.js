@@ -16,7 +16,8 @@ var sliderRange = d3
     .sliderBottom()
     .min(d3.min(weeks2019))
     .max(d3.max(weeks2019))
-    .width(document.getElementById('slider').clientWidth)
+    .width(document.getElementById('slider').clientWidth - 100)
+    //.height(100)
     .tickFormat(d3.timeFormat('%b'))
     .step(28)
     .default([defaultStart, defaultEnd])
@@ -32,11 +33,13 @@ var sliderRange = d3
 var gRange = d3
     .select('div#slider')
     .append('svg')
-    .attr('width', 500)
-    .attr('height', 100)
+    //.attr('width', 500)
+    //.attr('height', 100)
     .append('g')
-    .attr('fill', 'red')
-    .attr('transform', 'translate(30,0)');
+    //.attr('width', 500)
+    //.attr('height', 100)
+    //.attr('fill', 'red')
+    .attr('transform', 'translate(40,0)');
 
 gRange.call(sliderRange);
 
