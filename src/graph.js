@@ -58,13 +58,51 @@ window.onload = function () {
     text += '</span>'
   })
   document.getElementById('graph-text').innerHTML = text
-  selected = false;
 
-  eventSelect = "-1";
+  //selected = false;
+  //eventSelect = "-1";
 }
 
 var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 1 - 1, 1));
 var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 12 - 1, 31));
+
+const areaOpacity = 0.3;
+const lineOpacity = 0.3;
+
+function drawAreaGraph(d) {
+  // Add the area
+  svg.append('path')
+    .attr('class', 'area')
+    .attr('width', '100%')
+    .style('opacity', areaOpacity)
+    .style('fill', function () {
+      return d.color = catColor(d.values[0].Category)
+    })
+    .attr('d', area(d.values))
+
+  // Add the valueline path.
+  svg.append('path')
+    .attr('class', 'line')
+    .attr('width', '100%')
+    .style('opacity', lineOpacity)
+    .style('stroke', function () {
+      return d.color = catColor(d.values[0].Category)
+    })
+    .attr('d', valueline(d.values))
+}
+
+function addAxes(svg) {
+  svg.selectAll("g").remove();
+
+  svg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(xAxis)
+
+  svg.append('g')
+    .attr('class', 'y axis')
+    .call(yAxis)
+}
 
 initGraph();
 
@@ -108,6 +146,8 @@ function updateGraph() {
   addAxes(svg)
 }
 
+const selectedOpacity = 0.9;
+
 function addTooltip(svg, dataNest) {
   var div = d3.select('#graph').append('div')
     .attr('class', 'tooltip')
@@ -127,46 +167,14 @@ function addTooltip(svg, dataNest) {
     .on("click", function (d) {
       window.updateData(d.key, d.color, dateStart, dateEnd);
       window.updateArticles(d.key);
+      svg.selectAll('path.area').style('opacity', areaOpacity);
+      d3.select(this).style('opacity', selectedOpacity);
     })
     .on('mouseout', () => {
       div.transition()
         .duration(500)
         .style('opacity', 0)
     })
-}
-
-function drawAreaGraph(d) {
-  // Add the area
-  svg.append('path')
-    .attr('class', 'area')
-    .attr('width', '100%')
-    .style('opacity', 0.2)
-    .style('fill', function () {
-      return d.color = catColor(d.values[0].Category)
-    })
-    .attr('d', area(d.values))
-
-  // Add the valueline path.
-  svg.append('path')
-    .attr('class', 'line')
-    .attr('width', '100%')
-    .style('stroke', function () {
-      return d.color = catColor(d.values[0].Category)
-    })
-    .attr('d', valueline(d.values))
-}
-
-function addAxes(svg) {
-  svg.selectAll("g").remove();
-
-  svg.append('g')
-    .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(xAxis)
-
-  svg.append('g')
-    .attr('class', 'y axis')
-    .call(yAxis)
 }
 
 function search() {

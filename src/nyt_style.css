@@ -1,6 +1,7 @@
 #nyt_articles {
     flex-direction: unset;
     position: relative;
+    overflow-x: auto;
     overflow-y: auto;
     width: 49%;
     height: 504px;
