@@ -97,6 +97,7 @@ function updateGraph() {
 
 const areaOpacity = 0.3;
 const selectedOpacity = 0.9;
+const nonSelectedOpacity = areaOpacity / 2;
 const lineOpacity = 0.3;
 
 function drawAreaGraph(d) {
@@ -104,7 +105,17 @@ function drawAreaGraph(d) {
   svg.append('path')
     .attr('class', 'area')
     .attr('width', '100%')
-    .style('opacity', d.key == selectedTopic ? selectedOpacity : areaOpacity)
+    .style('opacity', function () {
+      if (selectedTopic != "") {
+        if (d.key == selectedTopic) {
+          return selectedOpacity;
+        } else {
+          return nonSelectedOpacity;
+        }
+      } else {
+        return areaOpacity;
+      }
+    })
     .style('fill', function () {
       return d.color = catColor(d.values[0].Category)
     })
@@ -151,10 +162,9 @@ function addTooltip(svg, dataNest) {
         .style('top', (d3.event.pageY - 28) + 'px')
     })
     .on("click", function (d) {
-      // clear previous selection
-      svg.selectAll('path.area').style('opacity', areaOpacity);
-
       if (d.key != selectedTopic) {  // select
+        // set others to be non-selected
+        svg.selectAll('path.area').style('opacity', nonSelectedOpacity);
         d3.select(this).style('opacity', selectedOpacity);
         selectedTopic = d.key;
 
@@ -166,7 +176,10 @@ function addTooltip(svg, dataNest) {
           window.updateArticles(d.key, dateStart, dateEnd, "");
         }
       } else {  // deselect
+        // clear previous selection
+        svg.selectAll('path.area').style('opacity', areaOpacity);
         selectedTopic = "";
+
         window.updateData(undefined, d.color, dateStart, dateEnd);
         window.updateArticles(undefined, dateStart, dateEnd, constants.articlePlaceholder)
       }

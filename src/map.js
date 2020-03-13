@@ -133,7 +133,7 @@ function addPoints(event, color, filtered, world) {
       .attr("r", function (d) {
         return Math.sqrt(interest);
       })
-      .style("fill", color)
+      .style("fill", interest > 90 ? "yellow" : color)
       .style("stroke", "gray")
       .style("stroke-width", 0.25)
       .style("opacity", 0.75);
