@@ -189,22 +189,5 @@ div.tooltip {
   height: 500px;
 }
 
-/* (currently not used) code to help resize the graph 
-courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
 
-.svg-container {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  vertical-align: top;
-  overflow: hidden;
-}
-.svg-content-responsive {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 0;
-}
-
-/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.57c995e7.css.map */
+/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.31347220.css.map */

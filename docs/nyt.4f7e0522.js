@@ -28638,7 +28638,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.articlePlaceholder = exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
 
-var d3 = require('d3');
+var d3 = require('d3'); // might want to change order of this (and newsTopicCategories) to match CombineFiles.py
+
 
 var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
 exports.newsTopicTerms = newsTopicTerms;
@@ -28757,11 +28758,11 @@ var dateEnd = new Date(2019, 12 - 1, 31);
 function updateArticleTimeframe(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
   dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
-  updateArticles(newsEvent, dateStart, dateEnd);
+  updateArticles(newsEvent, dateStart, dateEnd, "Articles and map data unavailable for custom topics");
 }
 
 window.updateArticles = updateArticles;
 window.updateArticleTimeframe = updateArticleTimeframe;
 window.addEventListener ? window.addEventListener("load", placeholderText, false) : window.attachEvent && window.attachEvent("onload", placeholderText);
 },{"./constants.js":"iJA9","d3":"UzF0"}]},{},["pqRf"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.7ba6263d.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.4f7e0522.js.map
