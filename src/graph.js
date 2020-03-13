@@ -78,7 +78,8 @@ function updateGraph() {
     var date1 = new Date(d.Week);
     var date2 = new Date(dateStart);
     var date3 = new Date(dateEnd);
-    return d.interest >= 0 && (date1 >= date2) && (date1 <= date3)
+    var filtered = (filteredCategory != "" ? (d.Category == filteredCategory) : true);
+    return d.interest >= 0 && (date1 >= date2) && (date1 <= date3) && filtered;
   })
 
   // Scale the range of the data
@@ -266,16 +267,46 @@ function updateTime(event) {
 }
 window.updateTime = updateTime;
 
+var filteredCategory = "";
 function createLegend() {
   console.log("graph load")
-  var legend = document.getElementById('graph-text');
-  var text = 'Categories: '
   constants.categories.forEach(function (cat) {
-    text += '<span style=\'color:' + catColor(cat) + '\'>'
-    text += cat + ' '
-    text += '</span>'
+    var txt = '<span style=\'color:' + catColor(cat) + '\'>'
+    txt += cat + ' '
+    txt += '</span>'
+
+    var elt = document.getElementById(cat);
+    elt.innerHTML = txt;
+
+    elt.addEventListener("click", () => {
+      if (filteredCategory == cat) {  // deselect
+        filteredCategory = "";
+
+        var text = '<span style=\'color:' + catColor(cat) + '\'>'
+        text += cat + ' '
+        text += '</span>'
+        elt.innerHTML = text;
+      } else {  // reselect
+        filteredCategory = cat;
+
+        // clear other selections
+        constants.categories.forEach(function (categ) {
+          var texte = '<span style=\'color:' + catColor(categ) + '\'>'
+          texte += categ + ' '
+          texte += '</span>'
+
+          var leg = document.getElementById(categ);
+          leg.innerHTML = texte;
+        })
+
+        var text = '<span style=\'color:' + catColor(cat) + '\'>'
+        text += '<b>' + cat + '</b> '
+        text += '</span>'
+        elt.innerHTML = text;
+      }
+      updateGraph();
+    })
   })
-  legend.innerHTML = text;
 }
 
 window.addEventListener ?

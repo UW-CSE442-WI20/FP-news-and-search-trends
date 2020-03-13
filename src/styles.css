@@ -188,3 +188,7 @@ div.tooltip {
   width: 1000px;
   height: 500px;
 }
+
+.block {
+  display: inline-block;
+}
