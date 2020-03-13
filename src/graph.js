@@ -92,6 +92,8 @@ function updateGraph() {
 
   svg.selectAll('path.area').remove();
   svg.selectAll('path.line').remove();
+  svg.selectAll('circle').remove();
+
   dataNest.forEach((d) => { drawAreaGraph(d) })
   addTooltip(svg, dataNest)
   addAxes(svg)
@@ -103,6 +105,14 @@ const nonSelectedOpacity = areaOpacity / 2;
 const lineOpacity = 0.3;
 
 function drawAreaGraph(d) {
+  addArea(d);
+  addLine(d);
+  if (d.key == selectedTopic) {
+    addDataPoints(d);
+  }
+}
+
+function addArea(d) {
   // Add the area
   svg.append('path')
     .attr('class', 'area')
@@ -122,7 +132,9 @@ function drawAreaGraph(d) {
       return d.color = catColor(d.values[0].Category)
     })
     .attr('d', area(d.values))
+}
 
+function addLine(d) {
   // Add the valueline path.
   svg.append('path')
     .attr('class', 'line')
@@ -132,6 +144,23 @@ function drawAreaGraph(d) {
       return d.color = catColor(d.values[0].Category)
     })
     .attr('d', valueline(d.values))
+}
+
+function addDataPoints(d) {
+  // scatter
+  svg.selectAll("dot")
+    .data(d.values/*.filter((value) => {
+        return value.interest > 0;
+      })*/)
+    .enter().append("circle")
+    .attr("r", 3)
+    .attr("fill", catColor(d.values[0].Category))
+    .attr("cx", function (datum) { return x(datum.Week) })
+    .attr("cy", function (datum) { return y(datum.interest) })
+    .append("title")
+    .text((datumm) => {
+      return "week: " + d3.timeFormat('%Y-%m-%d')(datumm.Week) + ", interest: " + datumm.interest;
+    });
 }
 
 function addAxes(svg) {
@@ -154,37 +183,20 @@ function addTooltip(svg, dataNest) {
 
   svg.selectAll('path.area')
     .data(dataNest)
-    
+
     .on("click", function (d) {
+      // clear scatter points
+      svg.selectAll("circle").remove();
+
       if (d.key != selectedTopic) {  // select
         // set others to be non-selected
-
         svg.selectAll('path.area').style('opacity', nonSelectedOpacity);
+
         d3.select(this).style('opacity', selectedOpacity);
         selectedTopic = d.key;
-/*
-//this fix then makes things unclickable after you click on a topic, click away, then try to go back. 
-        svg.append('path')
-        .attr('class', 'area')
-        .attr('width', '100%')
-        .style('opacity', selectedOpacity)
-        .style('fill', function () {
-          return d.color = catColor(d.values[0].Category)
-        })
-        .attr('d', area(d.values))
-*/
-        // Add the valueline path.
-        svg.append('path')
-          .attr('class', 'line')
-          .attr('width', '100%')
-          .style('opacity', lineOpacity)
-          .style('stroke', function () {
-            return d.color = catColor(d.values[0].Category)
-          })
-          .attr('d', valueline(d.values))
-          
-         
-        if (customSet.has(d.key)) {
+        addDataPoints(d);
+
+        if (customSet.has(d.key)) {  // custom topic
           window.updateData(undefined, d.color, dateStart, dateEnd);
           window.updateArticles(undefined, dateStart, dateEnd, "Articles and map data unavailable for custom topics like \"" + d.key + "\"");
         } else {
@@ -214,9 +226,6 @@ function addTooltip(svg, dataNest) {
         .duration(500)
         .style('opacity', 0)
     })
-
-   
-
 }
 
 var customSet = new Set();
@@ -304,7 +313,8 @@ function createLegend() {
         text += '</span>'
         elt.innerHTML = text;
       }
-      updateGraph();
+
+      updateGraph();  // filter
     })
   })
 }
