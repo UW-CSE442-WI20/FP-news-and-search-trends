@@ -16,8 +16,9 @@ var height = HEIGHT - margin.top - margin.bottom
 // Parse the date / time
 var parseDate = d3.timeParse('%Y-%m-%d')
 
+//console.log("client width " + document.getElementById('graph').clientWidth);
 // Set the ranges
-var x = d3.scaleTime().range([0, document.getElementById('graph').clientWidth])
+var x = d3.scaleTime().range([0, document.getElementById('graph').clientWidth - 75])
 var y = d3.scaleLinear().range([height, 0])
 
 // Define the axes
@@ -77,7 +78,7 @@ function updateGraph() {
     var date1 = new Date(d.Week);
     var date2 = new Date(dateStart);
     var date3 = new Date(dateEnd);
-    return d.interest >= 0 && (date1 > date2) && (date1 < date3)
+    return d.interest >= 0 && (date1 >= date2) && (date1 <= date3)
   })
 
   // Scale the range of the data

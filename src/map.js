@@ -186,7 +186,7 @@ function updateData(event, color, dateStart, dateEnd) {
             var rowDate = new Date(d.date)
             //console.log("END"+d2);
             // console.log(d.date);
-            return rowDate > d1 && rowDate < d2; //d["interest"]=== "12";
+            return rowDate >= d1 && rowDate <= d2; //d["interest"]=== "12";
 
           });
           console.log(filtered);
