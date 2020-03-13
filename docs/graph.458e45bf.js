@@ -30816,16 +30816,29 @@ function addAxes(svg) {
 
 function addTooltip(svg, dataNest) {
   var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
-  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
-    div.transition().duration(300).style('opacity', .8).style('background', d.color);
-    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
-  }).on("click", function (d) {
+  svg.selectAll('path.area').data(dataNest).on("click", function (d) {
     if (d.key != selectedTopic) {
       // select
       // set others to be non-selected
       svg.selectAll('path.area').style('opacity', nonSelectedOpacity);
       d3.select(this).style('opacity', selectedOpacity);
       selectedTopic = d.key;
+      /*
+      //this fix then makes things unclickable after you click on a topic, click away, then try to go back. 
+              svg.append('path')
+              .attr('class', 'area')
+              .attr('width', '100%')
+              .style('opacity', selectedOpacity)
+              .style('fill', function () {
+                return d.color = catColor(d.values[0].Category)
+              })
+              .attr('d', area(d.values))
+      */
+      // Add the valueline path.
+
+      svg.append('path').attr('class', 'line').attr('width', '100%').style('opacity', lineOpacity).style('stroke', function () {
+        return d.color = catColor(d.values[0].Category);
+      }).attr('d', valueline(d.values));
 
       if (customSet.has(d.key)) {
         window.updateData(undefined, d.color, dateStart, dateEnd);
@@ -30842,6 +30855,9 @@ function addTooltip(svg, dataNest) {
       window.updateData(undefined, d.color, dateStart, dateEnd);
       window.updateArticles(undefined, dateStart, dateEnd, constants.articlePlaceholder);
     }
+  }).on('mouseover', function (d) {
+    div.transition().duration(300).style('opacity', .8).style('background', d.color);
+    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
   }).on('mouseout', function () {
     div.transition().duration(500).style('opacity', 0);
   });
@@ -30946,7 +30962,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54840" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

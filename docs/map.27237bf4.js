@@ -28888,9 +28888,8 @@ Object.keys(_d3Zoom).forEach(function (key) {
 // You can require libraries
 var d3 = require('d3'); //Width and height
 //Define quantize scale to sort data values into buckets of color
+//Colors taken from colorbrewer.js, included in the D3 download
 
-
-var color = d3.scaleQuantize().range(["rgb(237,248,233)", "rgb(186,228,179)", "rgb(116,196,118)", "rgb(49,163,84)", "rgb(0,109,44)"]); //Colors taken from colorbrewer.js, included in the D3 download
 
 var w = 700;
 var h = w / 2;
@@ -28969,17 +28968,26 @@ Promise.all([d3.json(url)]).then(function (data) {
 
 function addPoints(event, color, filtered, world) {
   var minCities = Math.min(filtered.length, 50);
+  var forTextArray = [];
   svg.selectAll("circle").remove();
+  svg.selectAll("text").remove();
 
   for (var i = 0; i < minCities; i++) {
     var latitude = parseFloat(filtered[i]["lat"]);
     var longitude = parseFloat(filtered[i]["long"]);
-    var interest = parseInt(filtered[i]["average"]); //var interest = parseInt(filtered[i]["interest"]);
+    var interest = parseInt(filtered[i]["average"]);
+    console.log(filtered[i]);
+
+    if (interest >= 85) {
+      forTextArray.push(filtered[i]);
+    }
 
     svg.append("circle").attr("cx", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else console.log("ERROR: " + d);
+      return 50;
     }).attr("cy", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else console.log("ERROR: " + d);
+      return 50;
     }).attr("r", function (d) {
       return Math.sqrt(interest);
     }).style("fill", color).style("stroke", "gray").style("stroke-width", 0.25).style("opacity", function (d) {
@@ -28998,8 +29006,30 @@ function addPoints(event, color, filtered, world) {
       event = "Lori Loughlin college scandal";
     }
 
-    svg.selectAll("circle").append("title").text(event + " in " + filtered[i]["geoName"].replace(" USA", "") + " average: " + interest);
+    if (interest >= 85) svg.append("circle").attr("cx", function (d) {
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
+    }).attr("cy", function (d) {
+      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
+    }).attr("r", function (d) {
+      return 2;
+    }).style("fill", "black");
+    svg.selectAll("circle").append("title").text(event + " in " + filtered[i]["geoName"].replace(" United States of America", "") + " average: " + interest);
   }
+
+  svg.selectAll("text").data(forTextArray).enter().append("text") // append text
+  .attr("x", function (d) {
+    if (projection([parseFloat(d["long"]), parseFloat(d["lat"])])) return projection([parseFloat(d["long"]), parseFloat(d["lat"])])[0];else return 50;
+  }).attr("y", function (d) {
+    if (projection([parseFloat(d["long"]), parseFloat(d["lat"])])) return projection([parseFloat(d["long"]), parseFloat(d["lat"])])[1];else return 50;
+  }).attr("dy", -8) // set y position of bottom of text
+  .style("fill", "black") // fill the text with the colour black
+  .attr("text-anchor", "middle") // set anchor y justification
+  .text(function (d) {
+    var place = d["city"]; //place = place.substring(0, place.length - 3);
+    //if (d["average"] >= 80)
+
+    return place;
+  }); // define the text to display
 }
 
 var color1;
@@ -29009,6 +29039,7 @@ function updateData(event, color, dateStart, dateEnd) {
   event1 = event;
   color1 = color;
   svg.selectAll("circle").remove();
+  svg.selectAll("text").remove();
 
   if (event != "-1") {
     //console.log(event)
@@ -29123,7 +29154,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55896" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54840" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
