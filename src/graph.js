@@ -161,7 +161,8 @@ function addTooltip(svg, dataNest) {
         svg.selectAll('path.area').style('opacity', nonSelectedOpacity);
         d3.select(this).style('opacity', selectedOpacity);
         selectedTopic = d.key;
-
+/*
+//this fix then makes things unclickable after you click on a topic, click away, then try to go back. 
         svg.append('path')
         .attr('class', 'area')
         .attr('width', '100%')
@@ -170,7 +171,7 @@ function addTooltip(svg, dataNest) {
           return d.color = catColor(d.values[0].Category)
         })
         .attr('d', area(d.values))
-
+*/
         // Add the valueline path.
         svg.append('path')
           .attr('class', 'line')
