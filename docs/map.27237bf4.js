@@ -29064,8 +29064,8 @@ function updateData(event, color, dateStart, dateEnd) {
   }
 }
 
-var dateStart = new Date(2019, 0, 1 + 7 * 30);
-var dateEnd = new Date(2019, 0, 1 + 7 * 31);
+var dateStart = new Date(2019, 0, 1 + 7 * 26 - 1);
+var dateEnd = new Date(2019, 0, 1 + 7 * 35 - 2);
 
 function updateTime1(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
@@ -29103,7 +29103,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55419" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52814" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

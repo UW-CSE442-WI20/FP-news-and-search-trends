@@ -28636,13 +28636,13 @@ Object.keys(_d3Zoom).forEach(function (key) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
+exports.articlePlaceholder = exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
 
 var d3 = require('d3');
 
 var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
 exports.newsTopicTerms = newsTopicTerms;
-var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']; // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
+var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous', 'Custom']; // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
 
 exports.categories = categories;
 var categoryColors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]; // manually-chosen categories for each topic
@@ -28661,6 +28661,8 @@ var nytTopicFiles = nytTopicFilesTemp; // export const newsTopicFiles = newsTopi
 exports.nytTopicFiles = nytTopicFiles;
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 exports.months = months;
+var articlePlaceholder = "Articles for chosen topic will appear here if available";
+exports.articlePlaceholder = articlePlaceholder;
 },{"d3":"UzF0"}],"pqRf":[function(require,module,exports) {
 "use strict";
 
@@ -28672,53 +28674,94 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var d3 = require('d3');
 
-function updateArticles(event) {
-  var eventFile = 'nyt_articles/NYT_' + event.replace(/ /g, '_') + '.json';
-  console.log(eventFile);
-  d3.json(eventFile).then(function (data) {
-    var articles = [];
+var newsEvent;
 
-    for (var article in data.articles) {
-      articles.push(data.articles[article]);
-    }
+function placeholderText() {
+  console.log("nyt load");
+  customText(constants.articlePlaceholder);
+}
 
-    articles.sort(function (a, b) {
-      var d1 = new Date(a.pub_date).getTime();
-      var d2 = new Date(b.pub_date).getTime();
-      return d2 - d1;
-    }); // clear previous articles
+function customText(text) {
+  // clear previous articles
+  d3.select('#nyt_articles').selectAll('svg').remove();
+  document.getElementById("article_text").innerHTML = //"<center>" +
+  text; //+ "</center>";
+}
 
-    d3.select('#nyt_articles').selectAll('svg').remove();
-    var svg = d3.select('#nyt_articles').append('svg').attr('id', 'scroll-svg').attr('height', 155 * articles.length + 40 + 'px');
-    var y = d3.scaleLinear().range([0, 155]); // draw the nyt titles
+function updateArticles(event, dateStart, dateEnd, text) {
+  newsEvent = event;
 
-    var i = 0;
-    svg.selectAll('#headline-link').data(articles).enter().append('a').attr('id', 'headline-link').attr('href', function (d) {
-      return d.web_url;
-    }).attr('target', '_blank').append('text').attr('id', 'headline').attr('x', '195').attr('y', function () {
-      return y(i++) + 80;
-    }).attr('text-anchor', 'left').text(function (d) {
-      return d.headline.main;
+  if (event == undefined) {
+    customText(text);
+  } else {
+    var beginning = new Date(dateStart);
+    var end = new Date(dateEnd);
+    var eventFile = 'nyt_articles/NYT_' + event.replace(/ /g, '_') + '.json';
+    console.log(eventFile);
+    d3.json(eventFile).then(function (data) {
+      var articles = [];
+
+      for (var article in data.articles) {
+        articles.push(data.articles[article]);
+      }
+
+      articles.sort(function (a, b) {
+        var d1 = new Date(a.pub_date).getTime();
+        var d2 = new Date(b.pub_date).getTime();
+        return d2 - d1;
+      });
+      articles = articles.filter(function (article) {
+        var article_date = new Date(article.pub_date);
+        return article_date >= beginning && article_date <= end;
+      });
+
+      if (articles.length == 0) {
+        customText("No articles available for \"" + event + "\" between " + dateStart + " and " + dateEnd);
+      } else {
+        customText("");
+        var svg = d3.select('#nyt_articles').append('svg').attr('id', 'scroll-svg').attr('height', 155 * articles.length + 40 + 'px');
+        var y = d3.scaleLinear().range([0, 155]); // draw the nyt titles
+
+        var i = 0;
+        svg.selectAll('#headline-link').data(articles).enter().append('a').attr('id', 'headline-link').attr('href', function (d) {
+          return d.web_url;
+        }).attr('target', '_blank').append('text').attr('id', 'headline').attr('x', '195').attr('y', function () {
+          return y(i++) + 80;
+        }).attr('text-anchor', 'left').text(function (d) {
+          return d.headline.main;
+        });
+        i = 0;
+        svg.selectAll('#date').data(articles).enter().append('text').attr('id', 'date').attr('x', '195').attr('y', function () {
+          return y(i++) + 100;
+        }).attr('text-anchor', 'left').text(function (d) {
+          var date = new Date(d.pub_date);
+          return constants.months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        });
+        i = 0;
+        svg.selectAll('#image-link').data(articles).enter().append('a').attr('id', 'image-link').attr('href', function (d) {
+          return d.web_url;
+        }).attr('target', '_blank').append('image').attr('href', function (d) {
+          return d.multimedia.length > 0 ? 'https://www.nytimes.com/' + d.multimedia[0].url : './nyt_articles/nyt_logo.png';
+        }).attr('width', '155').attr('height', '150').attr('x', '20').attr('y', function () {
+          return y(i++) + 5;
+        });
+        svg.append('a').attr('id', 'nyt-api-attribution').attr('href', 'https://developer.nytimes.com').attr('target', '_blank').append('image').attr('href', './nyt_articles/nyt_api_logo.png').attr('x', '0').attr('y', 155 * articles.length + 5);
+      }
     });
-    i = 0;
-    svg.selectAll('#date').data(articles).enter().append('text').attr('id', 'date').attr('x', '195').attr('y', function () {
-      return y(i++) + 100;
-    }).attr('text-anchor', 'left').text(function (d) {
-      var date = new Date(d.pub_date);
-      return constants.months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-    });
-    i = 0;
-    svg.selectAll('#image-link').data(articles).enter().append('a').attr('id', 'image-link').attr('href', function (d) {
-      return d.web_url;
-    }).attr('target', '_blank').append('image').attr('href', function (d) {
-      return d.multimedia.length > 0 ? 'https://www.nytimes.com/' + d.multimedia[0].url : './nyt_articles/nyt_logo.png';
-    }).attr('width', '155').attr('height', '150').attr('x', '20').attr('y', function () {
-      return y(i++) + 5;
-    });
-    svg.append('a').attr('id', 'nyt-api-attribution').attr('href', 'https://developer.nytimes.com').attr('target', '_blank').append('image').attr('href', './nyt_articles/nyt_api_logo.png').attr('x', '0').attr('y', 155 * articles.length + 5);
-  });
+  }
+}
+
+var dateStart = new Date(2019, 1 - 1, 1);
+var dateEnd = new Date(2019, 12 - 1, 31);
+
+function updateArticleTimeframe(event) {
+  dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
+  dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
+  updateArticles(newsEvent, dateStart, dateEnd);
 }
 
 window.updateArticles = updateArticles;
+window.updateArticleTimeframe = updateArticleTimeframe;
+window.addEventListener ? window.addEventListener("load", placeholderText, false) : window.attachEvent && window.attachEvent("onload", placeholderText);
 },{"./constants.js":"iJA9","d3":"UzF0"}]},{},["pqRf"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.0419898d.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt.7ba6263d.js.map

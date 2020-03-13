@@ -118,27 +118,37 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"Nwn9":[function(require,module,exports) {
-window.onload = function () {
-  defaultStart = new Date(2019, 0, 1 + 7 * 30);
-  defaultEnd = new Date(2019, 0, 1 + 7 * 31);
-  var array = [defaultStart, defaultEnd];
-  window.updateTime1(array);
-};
+function initLoad() {
+  console.log("slider load");
+  defaultStart = new Date(2019, 1 - 1, 1);
+  defaultEnd = new Date(2019, 12 - 1, 31);
+}
 
 var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 weeks2019 = d3.range(0, 53).map(function (d) {
   return new Date(2019, 0, 1 + 7 * d);
 });
-defaultStart = new Date(2019, 0, 1 + 7 * 26 - 1);
-defaultEnd = new Date(2019, 0, 1 + 7 * 35 - 2);
-var sliderRange = d3.sliderBottom().min(d3.min(weeks2019)).max(d3.max(weeks2019)).width(document.getElementById('slider').clientWidth).tickFormat(d3.timeFormat('%b')).step(28).default([defaultStart, defaultEnd]).fill('#2196f3').on('onchange', function (val) {
+defaultStart = new Date(2019, 1 - 1, 1);
+defaultEnd = new Date(2019, 12 - 1, 31);
+var sliderRange = d3.sliderBottom().min(d3.min(weeks2019)).max(d3.max(weeks2019)).width(document.getElementById('slider').clientWidth - 100) //.height(100)
+.tickFormat(d3.timeFormat('%b')).step(28).default([defaultStart, defaultEnd]).fill('#2196f3').on('onchange', function (val) {
   //date = d3.timeFormat('%Y-%m-%d')(val);
-  window.updateTime1(val);
-  window.updateTime(val); // console.log(val)
+  window.updateTime1(val); // map
+
+  window.updateTime(val); // graph
+
+  window.updateArticleTimeframe(val); // nyt
+  // console.log(val)
   //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
 });
-var gRange = d3.select('div#slider').append('svg').attr('width', 500).attr('height', 100).append('g').attr('fill', 'red').attr('transform', 'translate(30,0)');
+var gRange = d3.select('div#slider').append('svg') //.attr('width', 500)
+//.attr('height', 100)
+.append('g') //.attr('width', 500)
+//.attr('height', 100)
+//.attr('fill', 'red')
+.attr('transform', 'translate(40,0)');
 gRange.call(sliderRange);
+window.addEventListener ? window.addEventListener("load", initLoad, false) : window.attachEvent && window.attachEvent("onload", initLoad);
 /*
 d3.select('p#value-range').text(
     sliderRange
@@ -175,4 +185,4 @@ var gTimeStep = d3
 gTimeStep.call(TimeSlider);
 */
 },{}]},{},["Nwn9"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/slider.7c2420c8.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/slider.03c4ac4b.js.map

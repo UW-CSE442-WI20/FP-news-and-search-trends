@@ -28636,13 +28636,13 @@ Object.keys(_d3Zoom).forEach(function (key) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
+exports.articlePlaceholder = exports.months = exports.nytTopicFiles = exports.newsTopicCategories = exports.categoryColors = exports.categories = exports.newsTopicTerms = void 0;
 
 var d3 = require('d3');
 
 var newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes', 'California earthquake', 'California wildfires', 'Christchurch shooting', 'Coco Gauff', 'College Football Playoff', 'Dayton shooting', 'El Paso shooting', 'Equifax data breach', 'FIFA Women\'s World Cup', 'government shutdown', 'Greta Thunberg', 'Hurricane Dorian', 'Katelyn Ohashi', 'Lori Loughlin college scandal', 'MLS Cup', 'Mueller Report', 'NCAA Men\'s Division I Basketball Tournament', 'Notre Dame fire', 'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters', 'Trump impeachment', 'vaping', 'World Series'];
 exports.newsTopicTerms = newsTopicTerms;
-var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']; // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
+var categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous', 'Custom']; // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
 
 exports.categories = categories;
 var categoryColors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]; // manually-chosen categories for each topic
@@ -28661,6 +28661,8 @@ var nytTopicFiles = nytTopicFilesTemp; // export const newsTopicFiles = newsTopi
 exports.nytTopicFiles = nytTopicFiles;
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 exports.months = months;
+var articlePlaceholder = "Articles for chosen topic will appear here if available";
+exports.articlePlaceholder = articlePlaceholder;
 },{"d3":"UzF0"}],"EDTP":[function(require,module,exports) {
 'use strict';
 
@@ -30471,25 +30473,13 @@ var valueline = d3.line().x(function (d) {
   return y(d.interest);
 });
 var allData = [];
-/* (currently commented out) code to help resize the graph below
-courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-is-resized-in-d3-js */
-// Adds the svg canvas
+var selectedTopic = ""; // Adds the svg canvas
 
-var svg = d3.select('#graph').append('svg').attr('width', '100%').attr('height', HEIGHT).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-var catColor = d3.scaleOrdinal(constants.categoryColors);
+var svg = d3.select('#graph').append('svg').attr('width', '100%').attr('height', HEIGHT).attr('class', 'chart').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // color scale
 
-window.onload = function () {
-  var text = 'Categories: ';
-  constants.categories.forEach(function (cat) {
-    text += '<span style=\'color:' + catColor(cat) + '\'>';
-    text += cat + ' ';
-    text += '</span>';
-  });
-  document.getElementById('graph-text').innerHTML = text;
-  selected = false;
-  eventSelect = "-1";
-};
-
+var catColor = d3.scaleOrdinal(d3.schemeCategory10);
+var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 1 - 1, 1));
+var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 12 - 1, 31));
 initGraph();
 
 function initGraph() {
@@ -30536,26 +30526,17 @@ function updateGraph() {
   addAxes(svg);
 }
 
-function addTooltip(svg, dataNest) {
-  var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
-  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
-    div.transition().duration(300).style('opacity', .8).style('background', d.color);
-    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
-  }).on("click", function (d) {
-    window.updateData(d.key, d.color, dateStart, dateEnd);
-    window.updateArticles(d.key);
-  }).on('mouseout', function () {
-    div.transition().duration(500).style('opacity', 0);
-  });
-}
+var areaOpacity = 0.3;
+var selectedOpacity = 0.9;
+var lineOpacity = 0.3;
 
 function drawAreaGraph(d) {
   // Add the area
-  svg.append('path').attr('class', 'area').attr('width', '100%').style('opacity', 0.2).style('fill', function () {
+  svg.append('path').attr('class', 'area').attr('width', '100%').style('opacity', d.key == selectedTopic ? selectedOpacity : areaOpacity).style('fill', function () {
     return d.color = catColor(d.values[0].Category);
   }).attr('d', area(d.values)); // Add the valueline path.
 
-  svg.append('path').attr('class', 'line').attr('width', '100%').style('stroke', function () {
+  svg.append('path').attr('class', 'line').attr('width', '100%').style('opacity', lineOpacity).style('stroke', function () {
     return d.color = catColor(d.values[0].Category);
   }).attr('d', valueline(d.values));
 }
@@ -30566,15 +30547,55 @@ function addAxes(svg) {
   svg.append('g').attr('class', 'y axis').call(yAxis);
 }
 
+function addTooltip(svg, dataNest) {
+  var div = d3.select('#graph').append('div').attr('class', 'tooltip').style('opacity', 0);
+  svg.selectAll('path.area').data(dataNest).on('mouseover', function (d) {
+    div.transition().duration(300).style('opacity', .8).style('background', d.color);
+    div.html('<i>' + d.key + '</i>').style('left', d3.event.pageX + 'px').style('top', d3.event.pageY - 28 + 'px');
+  }).on("click", function (d) {
+    // clear previous selection
+    svg.selectAll('path.area').style('opacity', areaOpacity);
+
+    if (d.key != selectedTopic) {
+      // select
+      d3.select(this).style('opacity', selectedOpacity);
+      selectedTopic = d.key;
+
+      if (customSet.has(d.key)) {
+        window.updateData(undefined, d.color, dateStart, dateEnd);
+        window.updateArticles(undefined, dateStart, dateEnd, "Articles and map data unavailable for custom topics like \"" + d.key + "\"");
+      } else {
+        window.updateData(d.key, d.color, dateStart, dateEnd);
+        window.updateArticles(d.key, dateStart, dateEnd, "");
+      }
+    } else {
+      // deselect
+      selectedTopic = "";
+      window.updateData(undefined, d.color, dateStart, dateEnd);
+      window.updateArticles(undefined, dateStart, dateEnd, constants.articlePlaceholder);
+    }
+  }).on('mouseout', function () {
+    div.transition().duration(500).style('opacity', 0);
+  });
+}
+
+var customSet = new Set();
+
 function search() {
   var query = document.getElementById('searchbar').value;
-  var input = query.toLowerCase().replace(/ /g, '+');
-  axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then(function (response) {
-    generateInterestData(response, query);
-    updateGraph();
-  }).catch(function (error) {
-    return console.error(error);
-  });
+
+  if (customSet.has(query)) {
+    console.log("data already added for " + query);
+  } else {
+    var input = query.toLowerCase().replace(/ /g, '+');
+    axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then(function (response) {
+      generateInterestData(response, query);
+      console.log("added data for " + query);
+      updateGraph();
+    }).catch(function (error) {
+      return console.error(error);
+    });
+  }
 }
 
 function generateInterestData(response, topic) {
@@ -30587,20 +30608,26 @@ function generateInterestData(response, topic) {
       topic: topic,
       Week: date,
       interest: interest,
-      Category: 'Miscellaneous'
+      Category: 'Custom'
     });
   }
+
+  customSet.add(topic);
 }
 
 var input = document.getElementById('searchbar');
 input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
-    event.preventDefault();
+    event.preventDefault(); //console.log("key searched");
+
     search();
   }
 });
-var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 30));
-var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 0, 1 + 7 * 39));
+var enterButton = document.getElementById('searchbutton');
+enterButton.addEventListener("click", function () {
+  //console.log("button searched");
+  search();
+});
 
 function updateTime(event) {
   dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
@@ -30609,5 +30636,19 @@ function updateTime(event) {
 }
 
 window.updateTime = updateTime;
+
+function createLegend() {
+  console.log("graph load");
+  var legend = document.getElementById('graph-text');
+  var text = 'Categories: ';
+  constants.categories.forEach(function (cat) {
+    text += '<span style=\'color:' + catColor(cat) + '\'>';
+    text += cat + ' ';
+    text += '</span>';
+  });
+  legend.innerHTML = text;
+}
+
+window.addEventListener ? window.addEventListener("load", createLegend, false) : window.attachEvent && window.attachEvent("onload", createLegend);
 },{"./constants":"iJA9","d3":"UzF0","axios":"dZBD"}]},{},["knfB"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/graph.26c19932.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/graph.5db16a10.js.map

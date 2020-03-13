@@ -137,7 +137,8 @@ var sliderRange = d3.sliderBottom().min(d3.min(weeks2019)).max(d3.max(weeks2019)
   window.updateTime(val); // console.log(val)
   //d3.select('p#value-range').text(val.map(d3.format('.2%')).join('-'));
 });
-var gRange = d3.select('div#slider').append('svg').attr('width', 500).attr('height', 100).append('g').attr('fill', 'red').attr('transform', 'translate(30,0)');
+var gRange = d3.select('div#slider').append('svg').attr('width', 500).attr('height', 100).append('g').attr('fill', 'red').attr('transform', 'translate(30,6)'); //.attr("transform", "translate(0,2)");
+
 gRange.call(sliderRange);
 /*
 d3.select('p#value-range').text(
@@ -202,7 +203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55419" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52814" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

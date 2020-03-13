@@ -5,6 +5,10 @@ html, body {
   width: 100%;
 }
 
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 text {
   font-family: arial;
   font-size: 12px;
@@ -181,7 +185,7 @@ div.tooltip {
   background-color: white;
   border: solid 2px #34a853;
   border-radius: 1%;
-  width: 50%;
+  width: 1000px;
   height: 500px;
 }
 
@@ -203,4 +207,4 @@ courtesy of https://stackoverflow.com/questions/16265123/resize-svg-when-window-
   left: 0;
 }
 
-/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.0d5ddcd5.css.map */
+/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.57c995e7.css.map */

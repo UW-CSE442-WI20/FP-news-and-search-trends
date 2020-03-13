@@ -1,6 +1,7 @@
 #nyt_articles {
     flex-direction: unset;
     position: relative;
+    overflow-x: auto;
     overflow-y: auto;
     width: 49%;
     height: 504px;
@@ -28,4 +29,4 @@
 }
 
 
-/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt_style.7bd78754.css.map */
+/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/nyt_style.500cf633.css.map */
