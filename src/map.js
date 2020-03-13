@@ -164,6 +164,7 @@ function addPoints(event, color, filtered, world) {
       } else if (event === "Lori Loughlin scandal") {
         event =  "Lori Loughlin college scandal"
       }
+      /*
       if (interest >= 85) 
         svg.append("circle")
         .attr("cx", function (d) {
@@ -182,7 +183,7 @@ function addPoints(event, color, filtered, world) {
           return 2 ;
         })
         .style("fill", "black")
-
+*/
     svg.selectAll("circle")
       .append("title")
       .text(event + " in " + filtered[i]["geoName"].replace(" United States of America", "") + " average: " + interest);
@@ -193,7 +194,7 @@ function addPoints(event, color, filtered, world) {
     }
 
     
-
+/*
     svg.selectAll("text")
       .data(forTextArray)
       .enter()
@@ -220,7 +221,7 @@ function addPoints(event, color, filtered, world) {
         return place;
       }
       ); // define the text to display
-
+*/
 }
 
 var color1;
