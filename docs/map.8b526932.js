@@ -28751,31 +28751,59 @@ function addPoints(event, color, filtered, world) {
     } else if (event === "Lori Loughlin scandal") {
       event = "Lori Loughlin college scandal";
     }
+    /*
+    if (interest >= 85) 
+      svg.append("circle")
+      .attr("cx", function (d) {
+        if (projection([longitude, latitude]))
+          return projection([longitude, latitude])[0];
+        else
+          return 50
+      })
+      .attr("cy", function (d) {
+        if (projection([longitude, latitude]))
+          return projection([longitude, latitude])[1];
+        else
+          return 50
+      })
+      .attr("r", function (d) {
+        return 2 ;
+      })
+      .style("fill", "black")
+    */
 
-    if (interest >= 85) svg.append("circle").attr("cx", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[0];else return 50;
-    }).attr("cy", function (d) {
-      if (projection([longitude, latitude])) return projection([longitude, latitude])[1];else return 50;
-    }).attr("r", function (d) {
-      return 2;
-    }).style("fill", "black");
+
     svg.selectAll("circle").append("title").text(event + " in " + filtered[i]["geoName"].replace(" United States of America", "") + " average: " + interest);
   }
+  /*
+      svg.selectAll("text")
+        .data(forTextArray)
+        .enter()
+        .append("text") // append text
+        .attr("x", function (d) {
+          if (projection([parseFloat(d["long"]), parseFloat(d["lat"])]))
+            return (projection([parseFloat(d["long"]), parseFloat(d["lat"])]))[0];
+          else
+            return 50
+        })
+        .attr("y", function (d) {
+          if (projection([parseFloat(d["long"]), parseFloat(d["lat"])]))
+            return (projection([parseFloat(d["long"]), parseFloat(d["lat"])]))[1];
+          else
+            return 50
+        })
+        .attr("dy", -8) // set y position of bottom of text
+       .style("fill", "black") // fill the text with the colour black
+       .attr("text-anchor", "middle") // set anchor y justification
+       .text(function(d) {
+        var place = d["city"];
+        //place = place.substring(0, place.length - 3);
+        //if (d["average"] >= 80)
+          return place;
+        }
+        ); // define the text to display
+  */
 
-  svg.selectAll("text").data(forTextArray).enter().append("text") // append text
-  .attr("x", function (d) {
-    if (projection([parseFloat(d["long"]), parseFloat(d["lat"])])) return projection([parseFloat(d["long"]), parseFloat(d["lat"])])[0];else return 50;
-  }).attr("y", function (d) {
-    if (projection([parseFloat(d["long"]), parseFloat(d["lat"])])) return projection([parseFloat(d["long"]), parseFloat(d["lat"])])[1];else return 50;
-  }).attr("dy", -8) // set y position of bottom of text
-  .style("fill", "black") // fill the text with the colour black
-  .attr("text-anchor", "middle") // set anchor y justification
-  .text(function (d) {
-    var place = d["city"]; //place = place.substring(0, place.length - 3);
-    //if (d["average"] >= 80)
-
-    return place;
-  }); // define the text to display
 }
 
 var color1;
@@ -28873,4 +28901,4 @@ function updateTime1(event) {
 window.updateTime1 = updateTime1;
 window.updateData = updateData;
 },{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.62143711.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.8b526932.js.map
