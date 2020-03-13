@@ -109,12 +109,14 @@ Promise.all([d3.json(url)]).then(function (data) {
 
 
 function addPoints(event, color, filtered, world) {
-  var minCities = Math.min(filtered.length, 100);
+
+  var minCities = Math.min(filtered.length, 50);
   svg.selectAll("circle").remove();
   for (var i = 0; i < minCities; i++) {
     var latitude = parseFloat(filtered[i]["lat"]);
     var longitude = parseFloat(filtered[i]["long"]);
     var interest = parseInt(filtered[i]["average"]);
+   
     //var interest = parseInt(filtered[i]["interest"]);
 
     svg.append("circle")
@@ -131,12 +133,27 @@ function addPoints(event, color, filtered, world) {
           return 50
       })
       .attr("r", function (d) {
-        return Math.sqrt(interest);
+        return Math.sqrt(interest) ;
       })
-      .style("fill", interest > 90 ? "yellow" : color)
+      .style("fill", color)
       .style("stroke", "gray")
       .style("stroke-width", 0.25)
-      .style("opacity", 0.75);
+      .style("opacity", function (d) {
+          return interest*0.01 ;
+      })
+      //.style("opacity", 0.75);
+      if (event === "NBA Finals") {
+        event = "The NBA Finals";
+      }
+      else if (event === "Womens World Cup" ) {
+        event = "FIFA Women's World Cup";
+      } else if (event === "march madness" ) {
+        event =  "NCAA Men's Division I Basketball Tournament";
+      } else if (event === "Boeing 737 crash" ) {
+        event =  "Boeing 737 crashes";
+      } else if (event === "Lori Loughlin scandal") {
+        event =  "Lori Loughlin college scandal"
+      }
 
     svg.selectAll("circle")
       .append("title")
@@ -186,7 +203,7 @@ function updateData(event, color, dateStart, dateEnd) {
             var rowDate = new Date(d.date)
             //console.log("END"+d2);
             // console.log(d.date);
-            return rowDate >= d1 && rowDate <= d2; //d["interest"]=== "12";
+            return rowDate >= d1 && rowDate <= d2 && d["interest"]>30; //d["interest"]=== "12";
 
           });
           console.log(filtered);
