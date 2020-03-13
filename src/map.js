@@ -246,7 +246,9 @@ function updateData(event, color, dateStart, dateEnd) {
     } else if (event === "Boeing 737 crashes") {
       event = "Boeing 737 crash";
     } else if (event === "Lori Loughlin college scandal") {
-      event = "Lori Loughlin scandal"
+      event = "Lori Loughlin scandal";
+    } else if (event === "California earthquake") {
+      event = "California Earthquake";
     }
     if (event != undefined) {
       // replace all spaces with underscores
