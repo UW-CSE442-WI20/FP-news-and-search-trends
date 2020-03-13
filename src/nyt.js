@@ -124,7 +124,7 @@ var dateEnd = new Date(2019, 12 - 1, 31);
 function updateArticleTimeframe(event) {
     dateStart = d3.timeFormat('%Y-%m-%d')(event[0]);
     dateEnd = d3.timeFormat('%Y-%m-%d')(event[1]);
-    updateArticles(newsEvent, dateStart, dateEnd);
+    updateArticles(newsEvent, dateStart, dateEnd, "Articles and map data unavailable for custom topics");
 }
 
 window.updateArticles = updateArticles;

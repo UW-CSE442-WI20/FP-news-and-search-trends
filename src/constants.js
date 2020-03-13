@@ -1,5 +1,6 @@
 const d3 = require('d3')
 
+// might want to change order of this (and newsTopicCategories) to match CombineFiles.py
 export const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes',
     'California earthquake', 'California wildfires', 'Christchurch shooting',
     'Coco Gauff', 'College Football Playoff', 'Dayton shooting',
