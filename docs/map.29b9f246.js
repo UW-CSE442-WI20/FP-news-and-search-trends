@@ -28827,6 +28827,8 @@ function updateData(event, color, dateStart, dateEnd) {
       event = "Boeing 737 crash";
     } else if (event === "Lori Loughlin college scandal") {
       event = "Lori Loughlin scandal";
+    } else if (event === "California earthquake") {
+      event = "California Earthquake";
     }
 
     if (event != undefined) {
@@ -28901,4 +28903,4 @@ function updateTime1(event) {
 window.updateTime1 = updateTime1;
 window.updateData = updateData;
 },{"d3":"UzF0"}]},{},["quTw"], null)
-//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.bedbb7f7.js.map
+//# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/map.29b9f246.js.map
