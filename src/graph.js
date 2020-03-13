@@ -153,22 +153,35 @@ function addTooltip(svg, dataNest) {
 
   svg.selectAll('path.area')
     .data(dataNest)
-    .on('mouseover', d => {
-      div.transition()
-        .duration(300)
-        .style('opacity', .8)
-        .style('background', d.color)
-      div.html('<i>' + d.key + '</i>')
-        .style('left', (d3.event.pageX) + 'px')
-        .style('top', (d3.event.pageY - 28) + 'px')
-    })
+    
     .on("click", function (d) {
       if (d.key != selectedTopic) {  // select
         // set others to be non-selected
+
         svg.selectAll('path.area').style('opacity', nonSelectedOpacity);
         d3.select(this).style('opacity', selectedOpacity);
         selectedTopic = d.key;
 
+        svg.append('path')
+        .attr('class', 'area')
+        .attr('width', '100%')
+        .style('opacity', selectedOpacity)
+        .style('fill', function () {
+          return d.color = catColor(d.values[0].Category)
+        })
+        .attr('d', area(d.values))
+
+        // Add the valueline path.
+        svg.append('path')
+          .attr('class', 'line')
+          .attr('width', '100%')
+          .style('opacity', lineOpacity)
+          .style('stroke', function () {
+            return d.color = catColor(d.values[0].Category)
+          })
+          .attr('d', valueline(d.values))
+          
+         
         if (customSet.has(d.key)) {
           window.updateData(undefined, d.color, dateStart, dateEnd);
           window.updateArticles(undefined, dateStart, dateEnd, "Articles and map data unavailable for custom topics like \"" + d.key + "\"");
@@ -185,11 +198,23 @@ function addTooltip(svg, dataNest) {
         window.updateArticles(undefined, dateStart, dateEnd, constants.articlePlaceholder)
       }
     })
+    .on('mouseover', d => {
+      div.transition()
+        .duration(300)
+        .style('opacity', .8)
+        .style('background', d.color)
+      div.html('<i>' + d.key + '</i>')
+        .style('left', (d3.event.pageX) + 'px')
+        .style('top', (d3.event.pageY - 28) + 'px')
+    })
     .on('mouseout', () => {
       div.transition()
         .duration(500)
         .style('opacity', 0)
     })
+
+   
+
 }
 
 var customSet = new Set();

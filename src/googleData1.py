@@ -44,10 +44,13 @@ pytrends = TrendReq(hl='en-US', tz=360)
 topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi", "march madness", 
  "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
-"""
+
 topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","march madness", 
  "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Mueller Report", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+"""
+
+topics = [ "Mueller Report"  ]
 
 
 #List of search terms, but can only do 5 at a time. 
@@ -118,8 +121,8 @@ for topic in topics:
   states = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ]
   #query = kw_list[0]
   query = topic
-  input = 'trends_%s.csv' % query
-  outputname = 'zk_trends1_%s.csv' % query
+  input = 'trends1_%s.csv' % topic
+  outputname = 'trends2_%s.csv' % query
   #outputname = 'trends_locations_%s.csv' % topic
   with open(input, 'r') as inp, open(outputname, 'w') as out:
     writer = csv.writer(out)
