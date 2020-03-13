@@ -224,6 +224,8 @@ function addPoints(event, color, filtered, world) {
 */
 }
 
+
+
 var color1;
 var event1;
 
