@@ -163,6 +163,8 @@ function updateData(event, color, dateStart, dateEnd) {
       event = "march madness";
     } else if (event === "Boeing 737 crashes") {
       event = "Boeing 737 crash";
+    } else if (event === "Lori Loughlin college scandal") {
+      event = "Lori Loughlin scandal"
     }
     if (event != undefined) {
       // replace all spaces with underscores
