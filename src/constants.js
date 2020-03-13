@@ -10,7 +10,7 @@ export const newsTopicTerms = ['Area 51 raid', 'Baby Yoda', 'Boeing 737 crashes'
     'Stanley Cup', 'Super Bowl LIII', 'The NBA Finals', 'Tiger Woods Masters',
     'Trump impeachment', 'vaping', 'World Series']
 
-export const categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous']
+export const categories = ['Politics', 'Sports', 'Environment', 'Disaster', 'Miscellaneous', 'Custom']
 // try hard-coding d3.schemeCategory10 to keep colors consistent: [blue, orange, green, red, purple]
 export const categoryColors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"];
 
@@ -36,3 +36,5 @@ export const nytTopicFiles = nytTopicFilesTemp
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December']
+
+export const articlePlaceholder = "Articles for chosen topic will appear here if available";

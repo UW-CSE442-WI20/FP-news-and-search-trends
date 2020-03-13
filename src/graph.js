@@ -36,6 +36,7 @@ var valueline = d3.line()
   .y(function (d) { return y(d.interest) })
 
 var allData = []
+var selectedTopic = "";
 
 // Adds the svg canvas
 var svg = d3.select('#graph')
@@ -48,20 +49,6 @@ var svg = d3.select('#graph')
 
 // color scale
 const catColor = d3.scaleOrdinal(d3.schemeCategory10);
-
-// legend (currently not showing up)
-window.onload = function () {
-  var text = 'Categories: '
-  constants.categories.forEach(function (cat) {
-    text += '<span style=\'color:' + catColor(cat) + '\'>'
-    text += cat + ' '
-    text += '</span>'
-  })
-  document.getElementById('graph-text').innerHTML = text
-
-  //selected = false;
-  //eventSelect = "-1";
-}
 
 var dateStart = d3.timeFormat('%Y-%m-%d')(new Date(2019, 1 - 1, 1));
 var dateEnd = d3.timeFormat('%Y-%m-%d')(new Date(2019, 12 - 1, 31));
@@ -117,7 +104,7 @@ function drawAreaGraph(d) {
   svg.append('path')
     .attr('class', 'area')
     .attr('width', '100%')
-    .style('opacity', areaOpacity)
+    .style('opacity', d.key == selectedTopic ? selectedOpacity : areaOpacity)
     .style('fill', function () {
       return d.color = catColor(d.values[0].Category)
     })
@@ -164,21 +151,24 @@ function addTooltip(svg, dataNest) {
         .style('top', (d3.event.pageY - 28) + 'px')
     })
     .on("click", function (d) {
-      window.updateData(d.key, d.color, dateStart, dateEnd);
-      window.updateArticles(d.key);
-
       // clear previous selection
       svg.selectAll('path.area').style('opacity', areaOpacity);
-      dataNest.forEach((datum) => { 
-        if (datum != d)
-          datum.selected = false; 
-      })
 
-      if (!d.selected) {  // select
+      if (d.key != selectedTopic) {  // select
         d3.select(this).style('opacity', selectedOpacity);
-        d.selected = true;
+        selectedTopic = d.key;
+
+        if (customSet.has(d.key)) {
+          window.updateData(undefined, d.color, dateStart, dateEnd);
+          window.updateArticles(undefined, dateStart, dateEnd, "Articles and map data unavailable for custom topics like \"" + d.key + "\"");
+        } else {
+          window.updateData(d.key, d.color, dateStart, dateEnd);
+          window.updateArticles(d.key, dateStart, dateEnd, "");
+        }
       } else {  // deselect
-        d.selected = false;
+        selectedTopic = "";
+        window.updateData(undefined, d.color, dateStart, dateEnd);
+        window.updateArticles(undefined, dateStart, dateEnd, constants.articlePlaceholder)
       }
     })
     .on('mouseout', () => {
@@ -188,14 +178,20 @@ function addTooltip(svg, dataNest) {
     })
 }
 
+var customSet = new Set();
+
 function search() {
   var query = document.getElementById('searchbar').value
-  var input = query.toLowerCase().replace(/ /g, '+')
-  axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then((response) => {
-    generateInterestData(response, query)
-    console.log("added data for " + query);
-    updateGraph()
-  }).catch(error => console.error(error))
+  if (customSet.has(query)) {
+    console.log("data already added for " + query);
+  } else {
+    var input = query.toLowerCase().replace(/ /g, '+')
+    axios.get('https://news-and-search-trends.zkeyes.now.sh/?k=' + input).then((response) => {
+      generateInterestData(response, query)
+      console.log("added data for " + query);
+      updateGraph()
+    }).catch(error => console.error(error))
+  }
 }
 
 function generateInterestData(response, topic) {
@@ -205,6 +201,7 @@ function generateInterestData(response, topic) {
     var interest = interestList[entry].hasData[0] ? interestList[entry].value[0] : 0
     allData.push({ topic: topic, Week: date, interest: interest, Category: 'Custom' })
   }
+  customSet.add(topic);
 }
 
 var input = document.getElementById('searchbar');
@@ -228,3 +225,20 @@ function updateTime(event) {
   updateGraph();
 }
 window.updateTime = updateTime;
+
+function createLegend() {
+  console.log("graph load")
+  var legend = document.getElementById('graph-text');
+  var text = 'Categories: '
+  constants.categories.forEach(function (cat) {
+    text += '<span style=\'color:' + catColor(cat) + '\'>'
+    text += cat + ' '
+    text += '</span>'
+  })
+  legend.innerHTML = text;
+}
+
+window.addEventListener ?
+  window.addEventListener("load", createLegend, false)
+  :
+  window.attachEvent && window.attachEvent("onload", createLegend);
