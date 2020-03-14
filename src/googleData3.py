@@ -40,12 +40,14 @@ pp = pprint.PrettyPrinter(depth=10)
 #tz is timezone offset, 360 is central time. 
 #pytrends = TrendReq(hl='en-US', tz=360)
 
-"""
+
 topics = ["California Earthquake", "Equifax data breach", "government shutdown", "El Paso shooting", "Dayton shooting","Area 51 raid", "Womens World Cup","Hurricane Dorian", "Notre Dame fire",
  "Christchurch shooting","Trump impeachment", "Lori Loughlin scandal","Boeing 737 crash","Super Bowl LIII", "California wildfires", "Katelyn Ohashi","march madness", 
- "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Greta Thunberg","Coco Gauff", "World Series", "vaping", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
-"""
-topics = ["Mueller Report"   ]
+ "NBA Finals", "Tiger Woods Masters", "Stanley Cup", "Mueller Report" ,"Greta Thunberg","Coco Gauff", "World Series", "vaping", "Baby Yoda","College Football Playoff", "MLS Cup"   ]
+
+
+
+
 
 
 us_state_abbrev = {
@@ -156,13 +158,17 @@ for topic in topics:
           print(location)
           key = dd.get(location, 'no')
           if( key == 'no'):
-            coords = geolocator.geocode(location, timeout = None)
-            # coords = geolocator.geocode(location)
-            dd[location].append(coords.latitude)
-            dd[location].append(coords.longitude)
-            row.append(coords.latitude)
-            row.append(coords.longitude)
-            row.append(city)
+            if (location == 'Cheyenne Wyoming United States of America'): 
+              dd[location].append(41.1400)
+              dd[location].append(-104.8202)
+            else:
+              coords = geolocator.geocode(location, timeout = None)
+              # coords = geolocator.geocode(location)
+              dd[location].append(coords.latitude)
+              dd[location].append(coords.longitude)
+              row.append(coords.latitude)
+              row.append(coords.longitude)
+              row.append(city)
           else:
             row.append(dd[location][0])
             row.append(dd[location][1])

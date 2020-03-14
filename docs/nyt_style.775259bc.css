@@ -1,0 +1,32 @@
+#nyt_articles {
+    flex-direction: unset;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 49%;
+    height: 504px;
+    padding: 0px;
+    border: solid 2px #34a853;
+    border-radius: 1%;
+    margin-bottom: 0;
+}
+
+#scroll-svg {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+#headline {
+    fill: black;
+    font-size: 18px;
+    font-family: Georgia;
+}
+
+#date {
+    fill: grey;
+    font-family: Georgia;
+}
+
+
+/*# sourceMappingURL=/nyt_style.775259bc.css.map */

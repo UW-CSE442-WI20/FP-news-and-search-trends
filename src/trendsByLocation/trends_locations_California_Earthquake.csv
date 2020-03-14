@@ -505,7 +505,7 @@ Birmingham Alabama United States of America,8,2019-03-04,33.5206824,-86.8024326,
 Boston Massachusetts United States of America,2,2019-03-04,42.3602534,-71.0582912,Boston 
 Champaign Illinois United States of America,15,2019-03-04,40.1164205,-88.2433829,Champaign 
 Charlottesville Virginia United States of America,48,2019-03-04,38.029306,-78.4766781,Charlottesville 
-Cheyenne Wyoming United States of America,100,2019-03-04,38.040803,-121.336657,Cheyenne 
+Cheyenne Wyoming United States of America,100,2019-03-04
 Chicago Illinois United States of America,1,2019-03-04,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,30,2019-03-04,39.7284945,-121.8374777,Chico 
 Dallas Texas United States of America,2,2019-03-04,32.7762719,-96.7968559,Dallas 
@@ -1114,7 +1114,7 @@ Bakersfield California United States of America,40,2019-05-27,35.3738712,-119.01
 Baltimore Maryland United States of America,4,2019-05-27,39.2908816,-76.610759,Baltimore 
 Boston Massachusetts United States of America,1,2019-05-27,42.3602534,-71.0582912,Boston 
 Charlotte North Carolina United States of America,5,2019-05-27,35.2270869,-80.8431268,Charlotte 
-Cheyenne Wyoming United States of America,100,2019-05-27,38.040803,-121.336657,Cheyenne 
+Cheyenne Wyoming United States of America,100,2019-05-27,41.14,-104.8202,Cheyenne 
 Chicago Illinois United States of America,1,2019-05-27,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,45,2019-05-27,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,5,2019-05-27,39.1014537,-84.5124602,Cincinnati 
@@ -1438,7 +1438,7 @@ Charleston West Virginia United States of America,3,2019-07-01,38.3505995,-81.63
 Charlotte North Carolina United States of America,2,2019-07-01,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,2,2019-07-01,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,3,2019-07-01,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,4,2019-07-01,38.040803,-121.336657,Cheyenne 
+Cheyenne Wyoming United States of America,4,2019-07-01,41.14,-104.8202,Cheyenne 
 Chicago Illinois United States of America,4,2019-07-01,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,12,2019-07-01,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,3,2019-07-01,39.1014537,-84.5124602,Cincinnati 
@@ -1646,7 +1646,7 @@ Charleston West Virginia United States of America,2,2019-07-08,38.3505995,-81.63
 Charlotte North Carolina United States of America,2,2019-07-08,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,3,2019-07-08,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,2,2019-07-08,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,7,2019-07-08,38.040803,-121.336657,Cheyenne 
+Cheyenne Wyoming United States of America,7,2019-07-08,41.14,-104.8202,Cheyenne 
 Chicago Illinois United States of America,3,2019-07-08,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,10,2019-07-08,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,3,2019-07-08,39.1014537,-84.5124602,Cincinnati 
@@ -1831,7 +1831,7 @@ Butte Montana United States of America,12,2019-07-15,46.0131505,-112.5365089,But
 Casper Wyoming United States of America,30,2019-07-15,42.866632,-106.313081,Casper 
 Cedar Rapids Iowa United States of America,3,2019-07-15,41.9758872,-91.6704053,Cedar Rapids 
 Charlotte North Carolina United States of America,1,2019-07-15,35.2270869,-80.8431268,Charlotte 
-Cheyenne Wyoming United States of America,18,2019-07-15,38.040803,-121.336657,Cheyenne 
+Cheyenne Wyoming United States of America,18,2019-07-15,41.14,-104.8202,Cheyenne 
 Chicago Illinois United States of America,2,2019-07-15,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,11,2019-07-15,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,1,2019-07-15,39.1014537,-84.5124602,Cincinnati 

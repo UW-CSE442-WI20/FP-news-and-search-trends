@@ -1,0 +1,196 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+text {
+  font-family: arial;
+  font-size: 12px;
+}
+
+path.area {
+  width: 100%;
+}
+
+path.line {
+  fill: none;
+  stroke-width: 0.75px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: slategray;
+  shape-rendering: crispEdges;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 4px;
+  font: 12px sans-serif;
+  pointer-events: none;
+}
+
+/* Header & Footer */
+#googleLogo {
+  border-radius: 50%;
+  height: 80%;
+  text-align: center;
+}
+
+#UWLogo {
+  height: 75%;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.header__search {
+  margin-left: 42px;
+}
+
+.header, .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: #394263;
+  color: white;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+/* Tutorial Button */
+#tutorial {
+  height: 60px;
+  width: 60px;
+  bottom: 32px;
+  right: 10px;
+  position: fixed;
+  z-index: 1;
+  background-color: #ea4335;
+  border-radius: 50%;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Help Tooltip */
+
+/* Tooltip text */
+#tutorial .tooltiptext {
+  visibility: hidden;
+  width: 400px;
+  height: 480px;
+  background-color: #34a853;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 72px;
+  right: 0px;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+#tutorial .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 91%;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #34a853 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#tutorial:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Grid Layout, Main Area, and Cards Within Main */
+.grid-container {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-template-rows: 50px 1fr 50px;
+  height: 100vh;
+  width: 100%;
+}
+
+.main {
+  background-color: #4285f4;/* #8fd4d9;*/
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  margin-bottom: 20px;
+  -webkit-column-break-inside: avoid;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/*Graph*/
+#graph {
+  height: 540px;
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding-left: 0px;
+}
+  
+/* Slider */
+#slider {
+  height: 90px;
+  width:100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding-left: 10px;
+}
+
+/* Map and Article Pic Section */
+#row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width:100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+#map1 {
+  background-color: white;
+  border: solid 2px #34a853;
+  border-radius: 1%;
+  width: 1000px;
+  height: 500px;
+}
+
+.block {
+  display: inline-block;
+}
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */
