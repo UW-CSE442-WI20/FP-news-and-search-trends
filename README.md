@@ -1,4 +1,4 @@
-[demo](https://uw-cse442-wi20.github.io/FP-news-and-search-trends/)
+GitHub Page: https://uw-cse442-wi20.github.io/FP-news-and-search-trends/
 
 # Final Project Starter template
 
