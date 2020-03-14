@@ -73,7 +73,7 @@ div.tooltip {
   right: 10px;
   position: fixed;
   z-index: 1;
-  background-color: #ea4335;
+  background-color: purple;
   border-radius: 50%;
   text-align: center;
   display: inline-block;
@@ -85,10 +85,10 @@ div.tooltip {
 /* Tooltip text */
 #tutorial .tooltiptext {
   visibility: hidden;
-  width: 400px;
-  height: 480px;
-  background-color: #34a853;
-  color: #fff;
+  width: 200px;
+  /*height: 400px;*/
+  background-color: #fbbc05;
+  color: black;
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
@@ -111,10 +111,10 @@ div.tooltip {
   position: absolute;
   top: 100%;
   left: 91%;
-  margin-left: -5px;
+  margin-left: -20px;
   border-width: 10px;
   border-style: solid;
-  border-color: #34a853 transparent transparent transparent;
+  border-color: #fbbc05 transparent transparent transparent;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -193,4 +193,4 @@ div.tooltip {
   display: inline-block;
 }
 
-/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.8b768a5e.css.map */
+/*# sourceMappingURL=https://uw-cse442-wi20.github.io/FP-news-and-search-trends/styles.7c526ce2.css.map */

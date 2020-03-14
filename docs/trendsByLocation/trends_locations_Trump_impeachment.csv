@@ -25,7 +25,7 @@ Charleston West Virginia United States of America,7,2019-01-01,38.3505995,-81.63
 Charlotte North Carolina United States of America,4,2019-01-01,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,25,2019-01-01,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,7,2019-01-01,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,46,2019-01-01,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,46,2019-01-01,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,6,2019-01-01,41.8755616,-87.6244212,Chicago 
 Cincinnati Ohio United States of America,10,2019-01-01,39.1014537,-84.5124602,Cincinnati 
 Clarksburg West Virginia United States of America,63,2019-01-01,39.2806451,-80.3445341,Clarksburg 
@@ -1287,7 +1287,7 @@ Charleston West Virginia United States of America,11,2019-04-22,38.3505995,-81.6
 Charlotte North Carolina United States of America,5,2019-04-22,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,29,2019-04-22,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,20,2019-04-22,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,66,2019-04-22,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,66,2019-04-22,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,4,2019-04-22,41.8755616,-87.6244212,Chicago 
 Cincinnati Ohio United States of America,3,2019-04-22,39.1014537,-84.5124602,Cincinnati 
 Cleveland Ohio United States of America,4,2019-04-22,41.5051613,-81.6934446,Cleveland 
@@ -2544,7 +2544,7 @@ Bowling Green Kentucky United States of America,69,2019-08-05,36.9903199,-86.443
 Butte Montana United States of America,61,2019-08-05,46.0131505,-112.5365089,Butte 
 Cedar Rapids Iowa United States of America,16,2019-08-05,41.9758872,-91.6704053,Cedar Rapids 
 Chattanooga Tennessee United States of America,14,2019-08-05,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,100,2019-08-05,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,100,2019-08-05,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,2,2019-08-05,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,30,2019-08-05,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,7,2019-08-05,39.1014537,-84.5124602,Cincinnati 
@@ -3131,7 +3131,7 @@ Charleston West Virginia United States of America,34,2019-09-23,38.3505995,-81.6
 Charlotte North Carolina United States of America,30,2019-09-23,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,28,2019-09-23,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,28,2019-09-23,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,48,2019-09-23,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,48,2019-09-23,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,32,2019-09-23,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,44,2019-09-23,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,32,2019-09-23,39.1014537,-84.5124602,Cincinnati 
@@ -3336,7 +3336,7 @@ Charleston West Virginia United States of America,12,2019-09-30,38.3505995,-81.6
 Charlotte North Carolina United States of America,16,2019-09-30,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,21,2019-09-30,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,10,2019-09-30,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,23,2019-09-30,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,23,2019-09-30,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,15,2019-09-30,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,16,2019-09-30,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,15,2019-09-30,39.1014537,-84.5124602,Cincinnati 
@@ -3732,7 +3732,7 @@ Charleston West Virginia United States of America,8,2019-10-14,38.3505995,-81.63
 Charlotte North Carolina United States of America,6,2019-10-14,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,10,2019-10-14,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,7,2019-10-14,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,23,2019-10-14,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,23,2019-10-14,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,8,2019-10-14,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,7,2019-10-14,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,10,2019-10-14,39.1014537,-84.5124602,Cincinnati 
@@ -4296,7 +4296,7 @@ Charleston West Virginia United States of America,11,2019-11-04,38.3505995,-81.6
 Charlotte North Carolina United States of America,13,2019-11-04,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,39,2019-11-04,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,14,2019-11-04,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,47,2019-11-04,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,47,2019-11-04,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,15,2019-11-04,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,27,2019-11-04,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,11,2019-11-04,39.1014537,-84.5124602,Cincinnati 
@@ -4492,7 +4492,7 @@ Charleston West Virginia United States of America,20,2019-11-11,38.3505995,-81.6
 Charlotte North Carolina United States of America,12,2019-11-11,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,8,2019-11-11,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,12,2019-11-11,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,19,2019-11-11,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,19,2019-11-11,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,17,2019-11-11,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,20,2019-11-11,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,14,2019-11-11,39.1014537,-84.5124602,Cincinnati 
@@ -4695,7 +4695,7 @@ Charleston West Virginia United States of America,29,2019-11-18,38.3505995,-81.6
 Charlotte North Carolina United States of America,26,2019-11-18,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,41,2019-11-18,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,30,2019-11-18,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,46,2019-11-18,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,46,2019-11-18,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,34,2019-11-18,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,32,2019-11-18,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,36,2019-11-18,39.1014537,-84.5124602,Cincinnati 
@@ -5079,7 +5079,7 @@ Charleston South Carolina United States of America,10,2019-12-02,32.7876012,-79.
 Charleston West Virginia United States of America,12,2019-12-02,38.3505995,-81.6332812,Charleston 
 Charlotte North Carolina United States of America,10,2019-12-02,35.2270869,-80.8431268,Charlotte 
 Chattanooga Tennessee United States of America,10,2019-12-02,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,54,2019-12-02,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,54,2019-12-02,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,15,2019-12-02,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,11,2019-12-02,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,14,2019-12-02,39.1014537,-84.5124602,Cincinnati 
@@ -5283,7 +5283,7 @@ Charleston West Virginia United States of America,5,2019-12-09,38.3505995,-81.63
 Charlotte North Carolina United States of America,4,2019-12-09,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,5,2019-12-09,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,3,2019-12-09,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,12,2019-12-09,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,12,2019-12-09,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,5,2019-12-09,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,3,2019-12-09,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,5,2019-12-09,39.1014537,-84.5124602,Cincinnati 
@@ -5491,7 +5491,7 @@ Charleston West Virginia United States of America,50,2019-12-16,38.3505995,-81.6
 Charlotte North Carolina United States of America,59,2019-12-16,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,41,2019-12-16,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,48,2019-12-16,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,52,2019-12-16,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,52,2019-12-16,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,51,2019-12-16,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,57,2019-12-16,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,46,2019-12-16,39.1014537,-84.5124602,Cincinnati 
@@ -5699,7 +5699,7 @@ Charleston West Virginia United States of America,5,2019-12-23,38.3505995,-81.63
 Charlotte North Carolina United States of America,6,2019-12-23,35.2270869,-80.8431268,Charlotte 
 Charlottesville Virginia United States of America,37,2019-12-23,38.029306,-78.4766781,Charlottesville 
 Chattanooga Tennessee United States of America,11,2019-12-23,35.0457219,-85.3094883,Chattanooga 
-Cheyenne Wyoming United States of America,22,2019-12-23,41.14,-104.8202,Cheyenne 
+Cheyenne Wyoming United States of America,22,2019-12-23,38.040803,-121.336657,Cheyenne 
 Chicago Illinois United States of America,10,2019-12-23,41.8755616,-87.6244212,Chicago 
 Chico California United States of America,25,2019-12-23,39.7284945,-121.8374777,Chico 
 Cincinnati Ohio United States of America,8,2019-12-23,39.1014537,-84.5124602,Cincinnati 

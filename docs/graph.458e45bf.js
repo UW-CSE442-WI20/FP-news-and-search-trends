@@ -30761,8 +30761,7 @@ function updateGraph() {
     var date1 = new Date(d.Week);
     var date2 = new Date(dateStart);
     var date3 = new Date(dateEnd);
-    var filtered = filteredCategory != "" ? d.Category == filteredCategory : true;
-    return d.interest >= 0 && date1 >= date2 && date1 <= date3 && filtered;
+    return d.interest >= 0 && date1 >= date2 && date1 <= date3 && filteredCategories.has(d.Category);
   }); // Scale the range of the data
 
   x.domain(d3.extent(data, function (d) {
@@ -30937,36 +30936,32 @@ function updateTime(event) {
   updateGraph();
 }
 
-window.updateTime = updateTime;
-var filteredCategory = "";
+window.updateTime = updateTime; // default all categories
+
+var filteredCategories = new Set();
+constants.categories.forEach(function (cat) {
+  filteredCategories.add(cat);
+});
 
 function createLegend() {
   console.log("graph load");
   constants.categories.forEach(function (cat) {
     var txt = '<span style=\'color:' + catColor(cat) + '\'>';
-    txt += cat + ' ';
+    txt += '<b>' + cat + '</b> ';
     txt += '</span>';
     var elt = document.getElementById(cat);
     elt.innerHTML = txt;
     elt.addEventListener("click", function () {
-      if (filteredCategory == cat) {
+      if (filteredCategories.has(cat)) {
         // deselect
-        filteredCategory = "";
+        filteredCategories.delete(cat);
         var text = '<span style=\'color:' + catColor(cat) + '\'>';
         text += cat + ' ';
         text += '</span>';
         elt.innerHTML = text;
       } else {
-        // reselect
-        filteredCategory = cat; // clear other selections
-
-        constants.categories.forEach(function (categ) {
-          var texte = '<span style=\'color:' + catColor(categ) + '\'>';
-          texte += categ + ' ';
-          texte += '</span>';
-          var leg = document.getElementById(categ);
-          leg.innerHTML = texte;
-        });
+        // select
+        filteredCategories.add(cat);
         var text = '<span style=\'color:' + catColor(cat) + '\'>';
         text += '<b>' + cat + '</b> ';
         text += '</span>';
@@ -31007,7 +31002,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61652" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62709" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
