@@ -1,4 +1,5 @@
 GitHub Page: https://uw-cse442-wi20.github.io/FP-news-and-search-trends/
+Video: https://vimeo.com/397587171 
 
 # Final Project Starter template
 
